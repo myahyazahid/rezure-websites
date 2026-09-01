@@ -27,7 +27,7 @@ Rezure targets Windows only for now. macOS and Linux builds are not available.
 Every build Rezure has shipped stays on the
 [GitHub releases page](https://github.com/myahyazahid/rezure/releases), newest first. If a
 new version misbehaves, download the previous installer from there and run it over your
-current install — your projects and settings live outside the app folder and are left
+current install: your projects and settings live outside the app folder and are left
 alone.
 
 ## Verify your download
@@ -36,9 +36,9 @@ Each release page lists a SHA-256 hash for its installer. To check the file you 
 open PowerShell in your downloads folder and run:
 
 ```powershell
-Get-FileHash .\Rezure_Setup.exe -Algorithm SHA256
+Get-FileHash .\rezureapp_1.0.0_x64-setup.exe -Algorithm SHA256
 ```
 
-Compare the `Hash` value with the one on the release page — they should match exactly,
+Compare the `Hash` value with the one on the release page; they should match exactly,
 ignoring case. If they don't, delete the file and download it again; don't run an installer
 whose hash doesn't line up.

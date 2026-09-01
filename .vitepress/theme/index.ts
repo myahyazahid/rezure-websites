@@ -1,6 +1,7 @@
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import LatestRelease from './components/LatestRelease.vue'
+import './custom.css'
 
 export default {
   extends: DefaultTheme,

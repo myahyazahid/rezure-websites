@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Rezure"
+  name: "Open source · For Windows"
   text: "Local dev environment for chill devs"
-  tagline: Nginx, PHP, and MariaDB running on Windows with one click — portable, lightweight, no manual setup.
+  tagline: Nginx, PHP, and MariaDB running on Windows with one click, portable, lightweight, no manual setup.
   actions:
     - theme: brand
       text: Download
@@ -25,7 +25,7 @@ features:
   - title: Automatic virtual hosts
     details: Drop a project into your working folder and Rezure generates the vhost config and updates the Windows hosts file for you.
   - title: PHP version switcher
-    details: Install any version straight from php.net inside the app, or drop in one you already downloaded — Laragon style — and switch per project.
+    details: Install any version straight from php.net inside the app, or drop in one you already downloaded, Laragon style, and switch per project.
   - title: Database management
     details: List, create, export, and import databases on the bundled MariaDB, then open one in TablePlus, DBeaver, HeidiSQL, or whichever client you already use.
   - title: Portable and lightweight
@@ -35,7 +35,7 @@ features:
 ## Why Rezure
 
 Laragon proved how good a one-click local stack on Windows can feel. Rezure takes that idea
-and rebuilds it on a modern foundation — Tauri and Rust instead of Delphi — with a few
+and rebuilds it on a modern foundation, Tauri and Rust instead of Delphi, with a few
 things we wanted for our own day-to-day work:
 
 - **Nothing to download before you start.** Nginx and PHP 8.3 ship inside the installer, so
@@ -43,7 +43,7 @@ things we wanted for our own day-to-day work:
   on demand, only if you ask for them.
 - **Runtime versions you can actually see.** Installed PHP versions are discovered by
   scanning your download cache and a drop-in folder, and the installable list comes live
-  from php.net's own release feed — checksums included.
+  from php.net's own release feed, checksums included.
 - **A small footprint.** A native webview instead of a bundled browser engine keeps both the
   binary and the memory use modest.
 
