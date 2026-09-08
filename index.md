@@ -25,22 +25,6 @@ hero:
       link: https://github.com/myahyazahid/rezure
       theme: ghost
 
-# Illustration in the hero, not a screenshot — it stands in for the service
-# manager screen. Replace with a real capture of the app when one exists.
-services:
-  - name: Nginx
-    version: 1.27.3
-    port: '80'
-    running: true
-  - name: PHP-FPM
-    version: 8.3.14
-    port: '9000'
-    running: true
-  - name: MariaDB
-    version: 11.6.2
-    port: '3306'
-    running: false
-
 featuresTitle: Everything the stack needs, in one window
 
 features:

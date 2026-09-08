@@ -13,7 +13,7 @@
  * arrangement, the markdown owns the copy, so wording changes never touch Vue.
  */
 import { computed } from 'vue'
-import { useData, withBase } from 'vitepress'
+import { useData } from 'vitepress'
 
 interface Action {
   text: string
@@ -34,13 +34,6 @@ interface Feature {
   icon?: string
 }
 
-interface Service {
-  name: string
-  version: string
-  port: string | number
-  running: boolean
-}
-
 interface Cta {
   title: string
   text?: string
@@ -51,7 +44,6 @@ interface Cta {
 const { frontmatter } = useData()
 
 const hero = computed<Hero | null>(() => frontmatter.value.hero ?? null)
-const services = computed<Service[]>(() => frontmatter.value.services ?? [])
 const features = computed<Feature[]>(() => frontmatter.value.features ?? [])
 const reasons = computed<Feature[]>(() => frontmatter.value.reasons ?? [])
 const cta = computed<Cta | null>(() => frontmatter.value.cta ?? null)
@@ -85,38 +77,6 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
           >
             {{ action.text }}
           </a>
-        </div>
-
-        <!--
-          Stylised stand-in for the service manager screen so the fold isn't all
-          type — not a screenshot. Swap in a real capture when there is one; the
-          frame styling does not depend on this markup.
-        -->
-        <div v-if="services.length" class="app-frame" aria-hidden="true">
-          <div class="app-titlebar">
-            <span class="dots"><i /><i /><i /></span>
-            <span class="app-name">
-              <img :src="withBase('/rezure-mark.png')" alt="" />
-              <span>ezure</span>
-            </span>
-          </div>
-
-          <div class="app-body">
-            <div v-for="service in services" :key="service.name" class="service-row">
-              <span class="service-id">
-                <span class="status-dot" :class="{ 'is-running': service.running }" />
-                <span class="service-name">{{ service.name }}</span>
-                <span class="service-version">{{ service.version }}</span>
-              </span>
-
-              <span class="service-meta">
-                <span class="port">:{{ service.port }}</span>
-                <span class="state" :class="{ 'is-running': service.running }">
-                  {{ service.running ? 'Running' : 'Stopped' }}
-                </span>
-              </span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -324,124 +284,6 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
   color: var(--foreground);
 }
 
-/* ---------- App illustration ---------- */
-
-.app-frame {
-  max-width: 720px;
-  margin: 64px auto 0;
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background-color: var(--surface);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-  text-align: left;
-}
-
-.app-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-color);
-  background-color: var(--surface-raised);
-}
-
-.dots {
-  display: inline-flex;
-  gap: 6px;
-}
-
-.dots i {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background-color: var(--border-color);
-}
-
-.app-name {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.03em;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--brand-text);
-}
-
-.app-name img {
-  height: 0.72em;
-  width: auto;
-}
-
-.app-body {
-  padding: 8px;
-}
-
-.service-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 16px;
-}
-
-.service-row + .service-row {
-  border-top: 1px solid var(--border-color);
-}
-
-.service-id {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background-color: var(--subtle);
-  flex-shrink: 0;
-}
-
-.status-dot.is-running {
-  background-color: var(--positive);
-}
-
-.service-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.service-version,
-.port {
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  color: var(--subtle);
-}
-
-.service-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.state {
-  padding: 2px 10px;
-  border-radius: 999px;
-  background-color: var(--surface-raised);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.state.is-running {
-  background-color: color-mix(in oklab, var(--positive) 15%, transparent);
-  color: var(--positive);
-}
-
 /* ---------- Sections ---------- */
 
 .section {
@@ -632,16 +474,6 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
   .feature-grid,
   .reason-grid {
     grid-template-columns: 1fr;
-  }
-
-  .app-frame {
-    margin-top: 44px;
-  }
-
-  .service-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
   }
 
   .cta {
