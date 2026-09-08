@@ -42,13 +42,13 @@ services:
     version: 11.6.2
     port: '3306'
     running: true
-    icon: mysql
+    icon: mariadb
 
 featuresTitle: Everything the stack needs, in one window
 
 features:
   - title: One-click service manager
-    icon: windows
+    icon: power
     details: Start and stop Nginx, PHP-FPM, and MariaDB from a single screen, with live status indicators and a per-service log viewer.
   - title: Port conflicts caught early
     icon: docker
@@ -60,7 +60,7 @@ features:
     icon: php
     details: Install any version straight from php.net inside the app, or drop in one you already downloaded, and switch per project.
   - title: Database management
-    icon: mysql
+    icon: mariadb
     details: List, create, export, and import databases on the bundled MariaDB, then open one in TablePlus, DBeaver, HeidiSQL, or whichever client you already use.
   - title: Portable and lightweight
     icon: tauri
