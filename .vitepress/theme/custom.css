@@ -1,19 +1,109 @@
 /**
- * Visual polish layered on top of VitePress default theme — tighter type scale,
- * softer surfaces, pill buttons, and a calmer sidebar. Overrides VitePress's
- * CSS custom properties rather than fighting its layout.
+ * Palette shared with the Rezure telemetry dashboard (laravel-api's
+ * resources/css/app.css) — same token names, same values, so the marketing
+ * site, the docs, and the dashboard read as one product.
+ *
+ * The tokens are plain custom properties and every VitePress `--vp-c-*`
+ * variable points at one, rather than at a literal colour. Dark mode then
+ * costs nothing: VitePress toggles `.dark` on <html>, which is the same hook
+ * the dashboard uses, so redefining the tokens under `.dark` repaints the
+ * whole site without a second mapping block.
  */
 
-:root {
-  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif;
+/* ---------- Light — warm off-white, mirrors the Rezure desktop app ---------- */
 
-  --vp-c-brand-1: #5b8def;
-  --vp-c-brand-2: #4a7bdb;
-  --vp-c-brand-3: #3a68c4;
-  --vp-c-brand-soft: rgba(91, 141, 239, 0.12);
+:root {
+  --canvas: #faf7f7;
+  --surface: #ffffff;
+  --surface-raised: #f5f1f1;
+  --border-color: #e8e2e2;
+  --muted: #5f595b;
+  --subtle: #7d7779;
+  --brand: #e0262c;
+  --positive: #12855a;
+  --negative: #c42127;
+  --foreground: #141215;
+
+  /* Flat #e0262c reaches only 4.40:1 on the canvas, so link-weight text steps
+     down to the darker red (5.48:1). #e0262c stays the solid-fill colour,
+     where white on it clears AA at 4.68:1. */
+  --brand-text: #c42127;
+  --brand-hover: #d1242a;
+  --brand-soft: rgba(224, 38, 44, 0.1);
+  --brand-glow: rgba(224, 38, 44, 0.14);
+  --shadow-card: 0 1px 2px rgba(20, 18, 21, 0.04);
+}
+
+/* ---------- Dark — red accent on near-black ---------- */
+
+.dark {
+  --canvas: #0a0a0b;
+  --surface: #111113;
+  --surface-raised: #17171a;
+  --border-color: #232326;
+  --muted: #8b8b93;
+  --subtle: #57575f;
+  --brand: #e0262c;
+  --positive: #3ecf8e;
+  --negative: #f2545b;
+  --foreground: #ffffff;
+
+  /* #e0262c falls to 4.22:1 on near-black, so the text step goes lighter
+     here rather than darker — 5.84:1. */
+  --brand-text: #f2545b;
+  --brand-hover: #e83b42;
+  --brand-soft: rgba(224, 38, 44, 0.18);
+  --brand-glow: rgba(224, 38, 44, 0.22);
+  --shadow-card: none;
+}
+
+/* ---------- Mapping VitePress onto the tokens ----------
+   Declared on bare `:root` only. VitePress's own `.dark` block has the same
+   specificity but comes earlier in the cascade, so these win in both modes,
+   and the indirection above supplies the per-mode value. */
+
+:root {
+  --vp-font-family-base: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --vp-c-bg: var(--canvas);
+  --vp-c-bg-alt: var(--surface-raised);
+  --vp-c-bg-soft: var(--surface-raised);
+  --vp-c-bg-elv: var(--surface);
+
+  --vp-c-text-1: var(--foreground);
+  --vp-c-text-2: var(--muted);
+  --vp-c-text-3: var(--subtle);
+
+  --vp-c-divider: var(--border-color);
+  --vp-c-border: var(--border-color);
+  --vp-c-gutter: var(--border-color);
+
+  --vp-c-brand-1: var(--brand-text);
+  --vp-c-brand-2: var(--brand-hover);
+  --vp-c-brand-3: var(--brand);
+  --vp-c-brand-soft: var(--brand-soft);
+
+  --vp-c-tip-1: var(--brand-text);
+  --vp-c-tip-soft: var(--brand-soft);
+
+  --vp-nav-bg-color: var(--canvas);
+  --vp-sidebar-bg-color: var(--canvas);
+  --vp-code-block-bg: var(--surface-raised);
 
   --vp-radius: 10px;
+}
+
+/* Brand buttons carry white text in both modes — the solid fill is the fixed
+   #e0262c, not the per-mode text step. */
+:root {
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: var(--brand);
+  --vp-button-brand-border: var(--brand);
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-hover-bg: var(--brand-hover);
+  --vp-button-brand-hover-border: var(--brand-hover);
+  --vp-button-brand-active-bg: var(--brand-hover);
 }
 
 /* ---------- Typography ---------- */
@@ -54,11 +144,11 @@
 }
 
 .VPSidebarItem.is-active > .item {
-  background-color: var(--vp-c-brand-soft);
+  background-color: var(--brand-soft);
 }
 
 .VPSidebarItem.is-active > .item .text {
-  color: var(--vp-c-brand-1);
+  color: var(--brand-text);
   font-weight: 600;
 }
 
@@ -73,92 +163,11 @@
   font-weight: 600;
 }
 
-.VPButton.brand {
-  box-shadow: 0 1px 2px rgba(91, 141, 239, 0.35);
-}
-
 /* ---------- Callouts / custom containers ---------- */
 
 .vp-doc .custom-block {
   border-radius: var(--vp-radius);
   border-width: 1px;
-}
-
-/* ---------- Hero — no hero image is configured, so the layout goes centered
-   (Herd/Linear/Raycast-style) instead of the default's left-aligned text
-   reserving a third of the row for an image that isn't there ---------- */
-
-.VPHero {
-  position: relative;
-  overflow: hidden;
-}
-
-.VPHero::before {
-  content: '';
-  position: absolute;
-  inset: -10% -10% auto -10%;
-  height: 520px;
-  background: radial-gradient(closest-side, var(--vp-c-brand-soft), transparent 70%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.VPHero:not(.has-image) .container {
-  align-items: center;
-  text-align: center;
-}
-
-.VPHero:not(.has-image) .main {
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-/* The "name" slot becomes a small eyebrow badge instead of a repeated brand
-   name — the nav bar already shows the logo, so repeating it read as clutter. */
-.VPHero:not(.has-image) .name {
-  display: inline-block;
-  margin: 0 auto 16px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  background-color: var(--vp-c-brand-soft);
-  background-clip: padding-box;
-  -webkit-background-clip: padding-box;
-  -webkit-text-fill-color: var(--vp-c-brand-1);
-  font-size: 13px;
-  line-height: 20px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  max-width: none;
-}
-
-.VPHero:not(.has-image) .heading {
-  align-items: center;
-}
-
-.VPHero:not(.has-image) .text {
-  max-width: 720px;
-}
-
-.VPHero:not(.has-image) .tagline {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.VPHero:not(.has-image) .actions {
-  justify-content: center;
-}
-
-/* ---------- Feature cards on the home page ---------- */
-
-.VPFeature {
-  border-radius: 14px !important;
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-.VPFeature:hover {
-  border-color: var(--vp-c-brand-1);
-  transform: translateY(-2px);
 }
 
 /* ---------- Code blocks ---------- */

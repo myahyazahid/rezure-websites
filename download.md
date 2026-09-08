@@ -36,7 +36,7 @@ Each release page lists a SHA-256 hash for its installer. To check the file you 
 open PowerShell in your downloads folder and run:
 
 ```powershell
-Get-FileHash .\rezureapp_1.0.0_x64-setup.exe -Algorithm SHA256
+Get-FileHash .\rezureapp_2.0.0_x64-setup.exe -Algorithm SHA256
 ```
 
 Compare the `Hash` value with the one on the release page; they should match exactly,

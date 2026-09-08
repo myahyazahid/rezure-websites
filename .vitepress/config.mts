@@ -15,7 +15,7 @@ export default defineConfig({
   lastUpdated: true,
 
   head: [
-    ['meta', { name: 'theme-color', content: '#5b8def' }],
+    ['meta', { name: 'theme-color', content: '#e0262c' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Rezure' }],
     ['meta', { property: 'og:description', content: description }],
@@ -25,7 +25,7 @@ export default defineConfig({
       'link',
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
+        href: 'https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap'
       }
     ]
   ],
