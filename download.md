@@ -1,6 +1,7 @@
 ---
-title: Download
-description: Download the latest Rezure release for Windows, with system requirements and checksum verification.
+title: Download Rezure for Windows
+titleTemplate: false
+description: Download the latest Rezure release for Windows. Free and open source, with system requirements, previous versions, and SHA-256 checksum verification.
 ---
 
 # Download Rezure

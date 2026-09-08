@@ -9,7 +9,7 @@ Dokumen ini merangkum struktur konten untuk `rezure-website`, situs resmi Rezure
 - **Hero section**: nama "Rezure", tagline singkat, tombol utama **Download** + tombol sekunder **View on GitHub**
 - **Screenshot/demo** aplikasi
 - **Fitur unggulan**: 4-6 poin singkat dengan icon (one-click service manager, auto virtual host, PHP version switcher, dll)
-- **Kenapa Rezure** (opsional): perbandingan singkat dengan Laragon, fokus ke perbedaan/nilai tambah tanpa terkesan menjelekkan
+- **Kenapa Rezure** (opsional): nilai tambah dan filosofi desain, berdiri sendiri tanpa membandingkan ke produk lain
 - **Social proof** (opsional): angka active users dari API, atau badge GitHub stars
 
 ---

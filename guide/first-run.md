@@ -1,6 +1,6 @@
 ---
-title: First Run
-description: Start your services, serve a first project, and connect to the database.
+title: First Run Guide
+description: Start Nginx, PHP, and MariaDB, serve your first .test project, connect to the database, and switch PHP versions.
 ---
 
 # First Run
@@ -14,8 +14,8 @@ Open the **Services** page. Nginx and PHP are already installed: hit **Start** o
 their indicators turn green.
 
 If a service refuses to start, Rezure tells you which port is taken and stops there rather
-than failing quietly. Port 80 is almost always Laragon, XAMPP, or IIS; stop whichever one is
-running and try again.
+than failing quietly. Port 80 is almost always another local server stack or IIS; stop
+whichever one is running and try again.
 
 MariaDB isn't bundled: the first time you start it, Rezure downloads it. That's a one-time
 wait of a minute or two, and only if you need a database.
@@ -85,14 +85,14 @@ per build and never goes stale.
 Two ways to add one:
 
 - **Install from the app**: pick a version and Rezure downloads and verifies it.
-- **Drop one in**: put a PHP build you downloaded yourself into `C:\rezure\custom\php`,
-  Laragon style, and Rezure picks it up on the next scan.
+- **Drop one in**: put a PHP build you downloaded yourself into `C:\rezure\custom\php` and
+  Rezure picks it up on the next scan.
 
 Switching the active version restarts PHP-FPM only. Nginx reconnects on the next request, so
 your virtual hosts stay up.
 
 ## Where to go next
 
-That's the core loop. From here, browse the project list, add more PHP versions, or open an
-issue on [GitHub](https://github.com/myahyazahid/rezure/issues) if something didn't behave
+That's the core loop. From here, browse the project list, add more PHP versions, read the
+[FAQ](/guide/faq), or open an issue on [GitHub](https://github.com/myahyazahid/rezure/issues) if something didn't behave
 the way this page describes.

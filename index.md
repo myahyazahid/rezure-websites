@@ -4,6 +4,12 @@
 # component only owns the arrangement.
 layout: Landing
 
+# `titleTemplate: false` keeps the home <title> from picking up the " | Rezure"
+# suffix that every other page gets.
+title: Rezure — Local Development Environment for Windows
+titleTemplate: false
+description: Free, open-source local development environment manager for Windows. Run Nginx, PHP, and MariaDB with one click, no manual setup.
+
 hero:
   eyebrow: Open source · For Windows
   headline: Local dev environment for chill devs
@@ -49,7 +55,7 @@ features:
     details: Drop a project into your working folder and Rezure generates the vhost config and updates the Windows hosts file for you.
   - title: PHP version switcher
     icon: layers
-    details: Install any version straight from php.net inside the app, or drop in one you already downloaded, Laragon style, and switch per project.
+    details: Install any version straight from php.net inside the app, or drop in one you already downloaded, and switch per project.
   - title: Database management
     icon: database
     details: List, create, export, and import databases on the bundled MariaDB, then open one in TablePlus, DBeaver, HeidiSQL, or whichever client you already use.
@@ -58,7 +64,7 @@ features:
     details: Bundled binaries mean nothing to install by hand, and Tauri's native webview keeps the app small and easy on memory.
 
 whyTitle: Why Rezure
-whyLede: Laragon proved how good a one-click local stack on Windows can feel. Rezure takes that idea and rebuilds it on a modern foundation — Tauri and Rust instead of Delphi — with a few things we wanted for our own day-to-day work.
+whyLede: A one-click local stack on Windows should feel effortless. Rezure builds that on a modern foundation — Tauri and Rust — with a few things we wanted for our own day-to-day work.
 
 reasons:
   - title: Nothing to download before you start

@@ -1,6 +1,7 @@
 ---
-title: Installation
-description: Install Rezure on Windows and verify the setup.
+title: How to Install Rezure on Windows
+titleTemplate: false
+description: Step-by-step install of Rezure on Windows 10 and 11 — requirements, checksum verification, what the installer sets up, and how to check it started cleanly.
 ---
 
 # Installation
@@ -11,9 +12,9 @@ Rezure needs 64-bit Windows 10 (build 1809 or newer) or Windows 11, roughly 400 
 disk space, and the WebView2 runtime, which is already present on virtually every current
 Windows install. The full list is on the [download page](/download).
 
-One thing worth checking first: **if Laragon or XAMPP is running, stop it.** Both take port
-80 and port 3306, and neither can share them with Rezure. You don't need to uninstall
-anything, just don't run two stacks at once.
+One thing worth checking first: **if another local server stack is running, stop it.** Port
+80 and port 3306 can't be shared with Rezure. You don't need to uninstall anything, just
+don't run two stacks at once.
 
 ## Install
 

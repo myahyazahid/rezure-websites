@@ -1,0 +1,14 @@
+{
+  "name": "Rezure",
+  "short_name": "Rezure",
+  "description": "Local development environment manager for Windows — Nginx, PHP, and MariaDB with one click.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#e0262c",
+  "icons": [
+    { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

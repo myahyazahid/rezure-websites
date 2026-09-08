@@ -1,6 +1,7 @@
 ---
 title: What is Rezure?
-description: An introduction to Rezure, a local development environment manager for Windows.
+titleTemplate: false
+description: An introduction to Rezure, the one-click local development environment manager for Windows that bundles Nginx, PHP, and MariaDB.
 ---
 
 # What is Rezure?
@@ -9,10 +10,9 @@ Rezure is a local development environment manager for Windows. It bundles the pi
 project needs (a web server, PHP, and a database) and puts them behind start/stop buttons
 instead of config files and service consoles.
 
-If you've used Laragon, the shape will feel familiar. Rezure is built on Tauri and Rust, and
-leans on a few ideas of its own: runtime versions are discovered rather than hard-coded,
-port conflicts are reported before a service fails to start, and the pieces you don't ask
-for are never downloaded.
+Rezure is built on Tauri and Rust, and leans on a few ideas of its own: runtime versions are
+discovered rather than hard-coded, port conflicts are reported before a service fails to
+start, and the pieces you don't ask for are never downloaded.
 
 ## What you get
 
@@ -35,3 +35,4 @@ the public internet.
 
 - [Installation](/guide/installation): download, install, and check it started cleanly
 - [First Run](/guide/first-run): start your services and serve a first project
+- [FAQ](/guide/faq): what Rezure installs, what it doesn't do, and how it handles ports
