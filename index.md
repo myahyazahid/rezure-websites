@@ -32,38 +32,38 @@ services:
     version: 1.27.3
     port: '80'
     running: true
-    icon: globe
+    icon: nginx
   - name: PHP-FPM
     version: 8.3.14
     port: '9000'
     running: true
-    icon: layers
+    icon: php
   - name: MariaDB
     version: 11.6.2
     port: '3306'
-    running: false
-    icon: database
+    running: true
+    icon: mysql
 
 featuresTitle: Everything the stack needs, in one window
 
 features:
   - title: One-click service manager
-    icon: power
+    icon: windows
     details: Start and stop Nginx, PHP-FPM, and MariaDB from a single screen, with live status indicators and a per-service log viewer.
   - title: Port conflicts caught early
-    icon: alert
+    icon: docker
     details: Rezure checks the port before starting a service, so a stray XAMPP or Docker container gets reported instead of a silent failure.
   - title: Automatic virtual hosts
-    icon: globe
+    icon: nginx
     details: Drop a project into your working folder and Rezure generates the vhost config and updates the Windows hosts file for you.
   - title: PHP version switcher
-    icon: layers
+    icon: php
     details: Install any version straight from php.net inside the app, or drop in one you already downloaded, and switch per project.
   - title: Database management
-    icon: database
+    icon: mysql
     details: List, create, export, and import databases on the bundled MariaDB, then open one in TablePlus, DBeaver, HeidiSQL, or whichever client you already use.
   - title: Portable and lightweight
-    icon: zap
+    icon: tauri
     details: Bundled binaries mean nothing to install by hand, and Tauri's native webview keeps the app small and easy on memory.
 
 whyTitle: Why Rezure
