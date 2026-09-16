@@ -49,7 +49,10 @@ const softwareApplication = {
     'Port conflict detection before a service starts',
     'Automatic Nginx virtual hosts and Windows hosts file entries',
     'PHP version switching with builds installed straight from php.net',
-    'Database create, export, and import on the bundled MariaDB'
+    'Database create, export, and import on the bundled MariaDB',
+    'One-click public project sharing via Cloudflare Quick Tunnel',
+    'Remote MySQL and MariaDB connections with optional SSH tunnel',
+    'Per-project PHP version pinning with concurrent php-cgi instances'
   ],
   author: {
     '@type': 'Person',
@@ -186,6 +189,9 @@ export default defineConfig({
             { text: 'What is Rezure?', link: '/guide/' },
             { text: 'Installation', link: '/guide/installation' },
             { text: 'First Run', link: '/guide/first-run' },
+            { text: 'Sharing a Project', link: '/guide/sharing' },
+            { text: 'Remote Databases', link: '/guide/remote-databases' },
+            { text: 'PHP Per Project', link: '/guide/project-php-version' },
             { text: 'FAQ', link: '/guide/faq' }
           ]
         }

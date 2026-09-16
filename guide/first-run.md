@@ -76,23 +76,31 @@ installed (TablePlus, DBeaver, HeidiSQL, MySQL Workbench, or Navicat) with the b
 An empty password and a root login are fine on a machine only you can reach. Don't reuse
 this setup anywhere that isn't your own laptop.
 
+Need to reach a database on a staging server or VPS instead? See
+[Remote Databases](/guide/remote-databases) — including connections that require an SSH
+tunnel because the database only listens on the server's own loopback.
+
 ## 5. Switch PHP versions (optional)
 
-The **PHP** page lists every version Rezure can see and every version it can install. The
+The **Switch** page lists every version Rezure can see and every version it can install. The
 installable list comes live from php.net's own release feed, so it carries a real SHA-256
 per build and never goes stale.
 
 Two ways to add one:
 
-- **Install from the app**: pick a version and Rezure downloads and verifies it.
-- **Drop one in**: put a PHP build you downloaded yourself into `C:\rezure\custom\php` and
-  Rezure picks it up on the next scan.
+1. **Install from the app**: pick a version and Rezure downloads and verifies it.
+2. **Drop one in**: put a PHP build you downloaded yourself into `C:\rezure\custom\php` and
+   Rezure picks it up on the next scan.
 
-Switching the active version restarts PHP-FPM only. Nginx reconnects on the next request, so
-your virtual hosts stay up.
+Switching the **global default** restarts the main **php** service only. Projects set to
+**Default** follow that version. To keep a specific project on a different version while you
+change the default for everything else, pin it on the **Projects** page. See
+[PHP Per Project](/guide/project-php-version).
 
 ## Where to go next
 
-That's the core loop. From here, browse the project list, add more PHP versions, read the
-[FAQ](/guide/faq), or open an issue on [GitHub](https://github.com/myahyazahid/rezure/issues) if something didn't behave
-the way this page describes.
+That's the core loop. From here, browse the project list, add more PHP versions, or
+[share a project publicly](/guide/sharing) when you need a temporary link for someone
+outside your network. Read the [FAQ](/guide/faq), or open an issue on
+[GitHub](https://github.com/myahyazahid/rezure/issues) if something didn't behave the way
+this page describes.
