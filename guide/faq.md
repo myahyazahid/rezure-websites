@@ -50,15 +50,34 @@ No. Rezure runs native binaries directly on your machine — there is no Docker 
 
 ## Which PHP versions can I use?
 
-PHP 8.3 ships inside the installer. From the **PHP** page you can install any other version
+PHP 8.3 ships inside the installer. From the **Switch** page you can install any other version
 straight from php.net, or drop a build you already downloaded into `C:\rezure\custom\php`
-and Rezure picks it up on the next scan. Switching the active version restarts PHP-FPM only,
-so your virtual hosts stay up.
+and Rezure picks it up on the next scan. Switching the global default restarts the main
+**php** service only; nginx keeps running.
+
+## Can different projects use different PHP versions at the same time?
+
+Yes. On the **Projects** page, pin each project to **Default** or to a specific installed
+version. Pinned versions other than the global default get their own `php-cgi` service on the
+**Services** page. You must start each PHP service that your projects need. See
+[PHP Per Project](/guide/project-php-version).
 
 ## Is MariaDB included in the installer?
 
 No, and that's on purpose. MariaDB downloads the first time you start it — a one-time wait
 of a minute or two, and only if you actually need a database.
+
+## Can Rezure connect to a remote database?
+
+Yes. From the **Databases** page you can add a saved connection to any MySQL or MariaDB
+server — staging, a VPS, shared hosting — and switch the page to that target to list, export,
+and import schemas. Connections are **read-only by default** so you don't accidentally write
+to production.
+
+If the database isn't reachable directly — it only listens on `127.0.0.1` on the server, or
+the port is firewalled — enable **Connect through an SSH tunnel** when adding the
+connection. Rezure uses Windows' built-in OpenSSH client; no extra SSH software is required.
+See [Remote Databases](/guide/remote-databases) for field-by-field setup and examples.
 
 ## Where do my projects live?
 
@@ -82,5 +101,11 @@ matches, choose **More info → Run anyway**.
 
 ## Can I serve a site to the internet with Rezure?
 
-No. Rezure is meant for local development only, never for serving anything to the public
-internet.
+For a **temporary preview**, yes — use **Share** on the **Projects** page. Rezure opens a
+Cloudflare Quick Tunnel and gives you an `https://…trycloudflare.com` link anyone can open
+while sharing is on. No Cloudflare account or router setup is required. See
+[Sharing a Project](/guide/sharing) for the full walkthrough.
+
+That is **not** production hosting. The URL changes each time you share, the tunnel stops
+when you stop sharing or quit Rezure, and the feature is meant for demos and quick checks —
+not a permanent public site. For that, deploy to a real host.
