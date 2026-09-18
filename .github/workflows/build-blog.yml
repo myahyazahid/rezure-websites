@@ -1,0 +1,79 @@
+name: Build Blog
+
+on:
+  # Triggered by the Rezure Dashboard after any blog operation
+  # (create, update, delete, publish, unpublish).
+  repository_dispatch:
+    types: [blog-updated]
+
+  # Manual trigger from GitHub Actions UI.
+  workflow_dispatch:
+
+  # Also build on pushes to main (code or content changes).
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch blog data from API
+        # Fetch published posts from the Rezure API and save as blog-data.json.
+        # If the API is unreachable, fall back to the cached blog-data.json
+        # already in the repo (last successful fetch).
+        run: |
+          echo "Fetching blog data from API..."
+          RESPONSE=$(curl -sf "${{ secrets.REZURE_API_BASE }}/blogs?per_page=100" 2>/dev/null) || true
+
+          if [ -n "$RESPONSE" ]; then
+            # Extract the "data" array from the paginated response
+            echo "$RESPONSE" | jq '.data' > blog-data-fresh.json 2>/dev/null || true
+
+            if [ -s blog-data-fresh.json ] && jq empty blog-data-fresh.json 2>/dev/null; then
+              echo "✅ Fresh blog data fetched successfully."
+              cp blog-data-fresh.json blog-data.json
+            else
+              echo "⚠️ API response was not valid JSON, using cached blog-data.json."
+            fi
+          else
+            echo "⚠️ API unreachable, using cached blog-data.json."
+          fi
+
+          echo "Blog posts count: $(jq length blog-data.json)"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build VitePress
+        run: npm run docs:build
+
+      # Commit updated blog-data.json back to main so the cache stays fresh.
+      - name: Commit blog data cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add blog-data.json
+          git diff --cached --quiet || git commit -m "chore: update blog-data.json cache"
+          git push origin main || true
+
+      # Deploy the built site. Adjust this step to match your hosting setup.
+      # Example: push to a "dist" branch that the production server auto-pulls.
+      - name: Deploy to dist branch
+        run: |
+          cd .vitepress/dist
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "deploy: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:dist

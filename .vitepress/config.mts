@@ -69,7 +69,7 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
   // Internal planning notes live in the repo but are not part of the site.
-  srcExclude: ['rezure-website-content-structure.md'],
+  srcExclude: ['rezure-website-content-structure.md', 'blog.md', 'blog_plan.md'],
   lastUpdated: true,
 
   // Emits /sitemap.xml at build time, which is what Search Console is pointed at.
@@ -128,11 +128,22 @@ export default defineConfig({
     const url = hostname + route
     const isHome = route === '/'
 
-    const pageTitle = pageData.frontmatter.title ?? pageData.title ?? siteName
+    // ---- Blog post SEO: JSON-LD Article, og:type=article, article meta ----
+    const blogPost = (pageData.params as any)?.post ?? pageData.frontmatter.blog_post
+    const isBlogPost = route.startsWith('/blog/posts/') && Boolean(blogPost)
+
+    const rawTitle = blogPost?.title ?? pageData.frontmatter.title ?? pageData.title ?? siteName
+    const pageTitle = rawTitle
+    if (isBlogPost && blogPost?.title) {
+      pageData.title = blogPost.title
+    }
     // Pages that already carry the brand in their own title opt out of the suffix.
     const suffixed = !isHome && pageData.frontmatter.titleTemplate !== false
     const fullTitle = suffixed ? `${pageTitle} | ${siteName}` : pageTitle
-    const pageDescription = pageData.frontmatter.description ?? description
+    const pageDescription = blogPost?.excerpt ?? pageData.frontmatter.description ?? description
+    if (isBlogPost && blogPost?.excerpt) {
+      pageData.description = blogPost.excerpt
+    }
 
     const head: HeadConfig[] = [
       ['link', { rel: 'canonical', href: url }],
@@ -143,7 +154,61 @@ export default defineConfig({
       ['meta', { name: 'twitter:description', content: pageDescription }]
     ]
 
-    if (isHome) {
+    if (isBlogPost && blogPost) {
+      const authorName = blogPost.author?.name ?? blogPost.author_name ?? 'Rezure Team'
+      const authorAvatar = blogPost.author?.avatar ?? blogPost.author_avatar ?? null
+
+      // Override og:type from website to article
+      head.push(['meta', { property: 'og:type', content: 'article' }])
+      head.push(['meta', { property: 'article:published_time', content: blogPost.published_at }])
+      head.push(['meta', { property: 'article:modified_time', content: blogPost.updated_at }])
+      head.push(['meta', { property: 'article:author', content: authorName }])
+      for (const tag of blogPost.tags ?? []) {
+        head.push(['meta', { property: 'article:tag', content: tag }])
+      }
+      if (blogPost.featured_image) {
+        head.push(['meta', { property: 'og:image', content: blogPost.featured_image }])
+        head.push(['meta', { name: 'twitter:image', content: blogPost.featured_image }])
+      }
+
+      // JSON-LD Article schema
+      head.push(
+        jsonLd({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: blogPost.title,
+          description: blogPost.excerpt,
+          datePublished: blogPost.published_at,
+          dateModified: blogPost.updated_at,
+          author: {
+            '@type': 'Person',
+            name: authorName,
+            ...(authorAvatar ? { image: authorAvatar } : {})
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: siteName,
+            url: hostname
+          },
+          mainEntityOfPage: url,
+          ...(blogPost.featured_image ? { image: blogPost.featured_image } : {}),
+          keywords: (blogPost.tags ?? []).join(', ')
+        })
+      )
+
+      // 3-level breadcrumb: Home → Blog → Post Title
+      head.push(
+        jsonLd({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: siteName, item: hostname },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${hostname}/blog/` },
+            { '@type': 'ListItem', position: 3, name: blogPost.title, item: url }
+          ]
+        })
+      )
+    } else if (isHome) {
       head.push(jsonLd(softwareApplication))
       head.push(
         jsonLd({
@@ -177,6 +242,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Blog', link: '/blog/', activeMatch: '/blog/' },
       { text: 'Download', link: '/download' },
       { text: 'Docs', link: '/guide/', activeMatch: '/guide/' }
     ],
