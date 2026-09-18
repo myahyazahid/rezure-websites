@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Getting Started with Rezure",
+    "slug": "getting-started-with-rezure",
+    "excerpt": "Set up your local development environment on Windows in under five minutes — Nginx, PHP, and MariaDB running with a single click.",
+    "content": "<p>Rezure turns a fresh Windows install into a working web-development machine in about two minutes. No manual downloads, no editing config files by hand, no \"which PHP version did I install?\" confusion.</p><h2>What you get out of the box</h2><p>The installer bundles <strong>Nginx 1.27</strong> and <strong>PHP 8.3</strong>, so serving a site works the moment setup finishes. MariaDB is pulled on demand the first time you need a database — one click inside the app and it is ready.</p><h2>First steps</h2><ol><li><strong>Download the installer</strong> from the <a href='/download'>download page</a> and run it.</li><li><strong>Launch Rezure</strong> — the service manager opens automatically.</li><li><strong>Start Nginx and PHP-FPM</strong> with a single click. The status indicators turn green when the services are healthy.</li><li><strong>Drop a project</strong> into your working folder. Rezure generates the Nginx vhost config and updates your Windows <code>hosts</code> file for you.</li></ol><h2>Next up</h2><p>Once the stack is running you can <a href='/guide/sharing'>share a project publicly</a> through a Cloudflare Quick Tunnel, <a href='/guide/project-php-version'>pin a PHP version per project</a>, or <a href='/guide/remote-databases'>connect to a remote database</a> through an SSH tunnel — all from the same window.</p>",
+    "tags": ["tutorial", "getting-started"],
+    "featured_image": null,
+    "status": "published",
+    "published_at": "2026-09-10T10:00:00Z",
+    "updated_at": "2026-09-12T08:30:00Z",
+    "author": {
+      "name": "Muhammad Yahya Zahid",
+      "avatar": "https://github.com/myahyazahid.png"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Switching PHP Versions Per Project",
+    "slug": "switching-php-versions-per-project",
+    "excerpt": "Run PHP 7.4 for a legacy app and PHP 8.3 for a new one at the same time — Rezure handles the routing automatically.",
+    "content": "<p>Not every project can jump to the latest PHP overnight. A client site might still need 7.4, while your new API targets 8.3. Rezure lets each project declare which PHP version it wants, and spins up a dedicated <code>php-cgi</code> process for it.</p><h2>How it works</h2><p>Rezure scans your download cache and a drop-in folder for installed PHP builds. The installable list comes live from <strong>php.net's own release feed</strong>, checksums included, so you always know you are running an official build.</p><h2>Setting a version for a project</h2><ol><li>Open the project settings in Rezure.</li><li>Pick the PHP version from the dropdown — if it is not installed yet, Rezure downloads it for you.</li><li>Restart the project's virtual host. Rezure starts a <code>php-cgi</code> instance on a dedicated port and points Nginx at it.</li></ol><h2>Running side by side</h2><p>Because each project gets its own <code>php-cgi</code> process, two projects on different PHP versions run at the same time without conflict. Switch between them in your browser and the right PHP handles each request.</p>",
+    "tags": ["tutorial", "php"],
+    "featured_image": null,
+    "status": "published",
+    "published_at": "2026-09-14T14:00:00Z",
+    "updated_at": "2026-09-14T14:00:00Z",
+    "author": {
+      "name": "Muhammad Yahya Zahid",
+      "avatar": "https://github.com/myahyazahid.png"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Why We Built Rezure with Tauri and Rust",
+    "slug": "why-we-built-rezure-with-tauri-and-rust",
+    "excerpt": "A look behind the curtain — why a desktop app for web developers is written in Rust, and how Tauri keeps it small and fast.",
+    "content": "<p>When we started Rezure the first prototype was an Electron app. It worked, but the installer was over 150 MB and idle RAM sat around 300 MB — for a tool that is supposed to stay in the background while you code. That did not feel right.</p><h2>Enter Tauri</h2><p><strong>Tauri</strong> uses the operating system's built-in WebView instead of shipping a full Chromium browser. On Windows 10 and 11 that means Microsoft Edge WebView2, which is already installed on almost every machine. The result: a ~8 MB installer and ~40 MB of RAM at idle.</p><h2>Why Rust matters</h2><p>The backend of a Tauri app is plain Rust. For Rezure that means:</p><ul><li><strong>Process management</strong> — starting, stopping, and monitoring Nginx, PHP-FPM, and MariaDB is handled by safe, compiled code with no garbage-collector pauses.</li><li><strong>Port scanning</strong> — checking whether port 80 or 3306 is already taken happens in microseconds.</li><li><strong>File I/O</strong> — generating Nginx configs and editing the Windows <code>hosts</code> file is fast and predictable.</li></ul><h2>The trade-off</h2><p>Rust has a steep learning curve and compile times are longer than TypeScript's hot reload. But for a system-level tool that users leave running all day, the performance and memory savings are worth it.</p>",
+    "tags": ["behind-the-scenes", "tauri", "rust"],
+    "featured_image": null,
+    "status": "published",
+    "published_at": "2026-09-18T09:00:00Z",
+    "updated_at": "2026-09-18T09:00:00Z",
+    "author": {
+      "name": "Muhammad Yahya Zahid",
+      "avatar": "https://github.com/myahyazahid.png"
+    }
+  }
+]
