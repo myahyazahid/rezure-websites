@@ -1,17 +1,15 @@
 [
   {
-    "id": 2,
-    "title": "Rezure",
-    "slug": "rezure",
-    "excerpt": "Rezure",
-    "content": "<h1>Halo !</h1><h2>Selamat datang di Webstie Rezure</h2><p><br></p><p>Rezure adalah Aplikasi local development server seperti halnya XAMPP atau Laragon, </p><p>Rezure mempunyai banyak fitur unggulan : </p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Php swticher</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>PHP Extension</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>PHP per project</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Virtual Host</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Database Server Connection</li></ol><p>Rezure bersifat opensource !</p><p>jadi siapa saja boleh berkontribusi dan ikut terlibat dalam pengembangan rezure</p><p><br></p><blockquote>Lets build something great!</blockquote><div class=\"ql-code-block-container\" spellcheck=\"false\"><div class=\"ql-code-block\">https://router.redscale.my.id/</div></div><p class=\"ql-align-right\"><br></p><p class=\"ql-align-right\">Sender</p><p class=\"ql-align-right\"> </p><p class=\"ql-align-right\">Muhammad Yahya Zahid</p>",
-    "tags": [
-      "Laravel"
-    ],
+    "id": 5,
+    "title": "lorem ipsum",
+    "slug": "lorem-ipsum",
+    "excerpt": "lorem ipsum",
+    "content": "<p>testing</p>",
+    "tags": [],
     "featured_image": null,
     "status": "published",
-    "published_at": "2026-09-19T05:17:00+00:00",
-    "updated_at": "2026-09-19T06:42:11+00:00",
+    "published_at": "2026-09-19T14:42:00+00:00",
+    "updated_at": "2026-09-19T14:42:51+00:00",
     "author": {
       "name": "Muhammad Yahya Zahid",
       "avatar": "https://github.com/myahyazahid.png"
