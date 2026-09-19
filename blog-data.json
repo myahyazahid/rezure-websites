@@ -1,17 +1,17 @@
 [
   {
-    "id": 3,
-    "title": "Laravel",
-    "slug": "laravel",
-    "excerpt": "Laravel",
-    "content": "Laravel",
+    "id": 4,
+    "title": "Mysql",
+    "slug": "mysql",
+    "excerpt": "mysql",
+    "content": "mysql",
     "tags": [
-      "Laravel"
+      "mysql"
     ],
     "featured_image": null,
     "status": "published",
-    "published_at": "2026-09-19T05:45:00+00:00",
-    "updated_at": "2026-09-19T05:45:39+00:00",
+    "published_at": "2026-09-19T05:54:00+00:00",
+    "updated_at": "2026-09-19T05:55:09+00:00",
     "author": {
       "name": "Muhammad Yahya Zahid",
       "avatar": "https://github.com/myahyazahid.png"
