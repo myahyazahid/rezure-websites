@@ -76,6 +76,7 @@ jobs:
           port: 22
           script: |
             cd /var/www/rezure-websites
-            git pull
+            git fetch origin main
+            git reset --hard origin/main
             npm run docs:build
 
