@@ -1,18 +1,1 @@
-[
-  {
-    "id": 5,
-    "title": "lorem ipsum",
-    "slug": "lorem-ipsum",
-    "excerpt": "lorem ipsum",
-    "content": "<p>testing</p>",
-    "tags": [],
-    "featured_image": null,
-    "status": "published",
-    "published_at": "2026-09-19T14:42:00+00:00",
-    "updated_at": "2026-09-19T14:42:51+00:00",
-    "author": {
-      "name": "Muhammad Yahya Zahid",
-      "avatar": "https://github.com/myahyazahid.png"
-    }
-  }
-]
+[]
