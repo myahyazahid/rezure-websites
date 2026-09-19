@@ -22,32 +22,14 @@
     "title": "Rezure",
     "slug": "rezure",
     "excerpt": "Rezure",
-    "content": "lorem ipsum",
+    "content": "Fira Monyet",
     "tags": [
       "Laravel"
     ],
     "featured_image": null,
     "status": "published",
     "published_at": "2026-09-19T05:17:00+00:00",
-    "updated_at": "2026-09-19T05:18:11+00:00",
-    "author": {
-      "name": "Muhammad Yahya Zahid",
-      "avatar": "https://github.com/myahyazahid.png"
-    }
-  },
-  {
-    "id": 1,
-    "title": "Test",
-    "slug": "test",
-    "excerpt": "Test",
-    "content": "Test",
-    "tags": [
-      "PHP"
-    ],
-    "featured_image": null,
-    "status": "published",
-    "published_at": "2026-09-19T05:04:00+00:00",
-    "updated_at": "2026-09-19T05:09:23+00:00",
+    "updated_at": "2026-09-19T06:08:52+00:00",
     "author": {
       "name": "Muhammad Yahya Zahid",
       "avatar": "https://github.com/myahyazahid.png"
