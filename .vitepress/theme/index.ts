@@ -5,11 +5,12 @@ import BlogPostContent from './components/BlogPostContent.vue'
 import Landing from './Landing.vue'
 import BlogList from './BlogList.vue'
 import BlogPost from './BlogPost.vue'
+import { installAnalytics } from './analytics'
 import './custom.css'
 
 export default {
   extends: DefaultTheme,
-  enhanceApp({ app }) {
+  enhanceApp({ app, router }) {
     app.component('LatestRelease', LatestRelease)
     // Registered globally so `layout: Landing` in a page's frontmatter resolves
     // to it — VitePress renders an unknown layout name as a component.
@@ -17,5 +18,8 @@ export default {
     app.component('BlogList', BlogList)
     app.component('BlogPost', BlogPost)
     app.component('BlogPostContent', BlogPostContent)
+
+    // No-op during the SSR build and on hosts outside VITE_REZURE_ANALYTICS_HOSTS.
+    installAnalytics(router)
   }
 } satisfies Theme

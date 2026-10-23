@@ -311,6 +311,20 @@ const isoDate = computed(() => post.value?.published_at ?? '')
   line-height: 1.7;
 }
 
+/* Posts written in the dashboard's visual editor (Quill 2) store every list
+   as <ol> and mark bullets with data-list, plus an empty UI span per item. */
+.article-content :deep(li[data-list='bullet']) {
+  list-style-type: disc;
+}
+
+.article-content :deep(li[data-list='ordered']) {
+  list-style-type: decimal;
+}
+
+.article-content :deep(.ql-ui) {
+  display: none;
+}
+
 .article-content :deep(code) {
   padding: 2px 6px;
   border-radius: 4px;

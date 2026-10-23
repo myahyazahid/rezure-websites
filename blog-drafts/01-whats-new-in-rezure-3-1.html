@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Draft 01 — What's New in Rezure 3.1</title>
+<style>
+  body { margin: 0; background: #f6f5f3; color: #1c1917; font: 16px/1.75 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 80px; }
+  .panel { background: #fff; border: 1px solid #e7e5e4; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; }
+  .panel h1 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: #78716c; margin: 0 0 12px; }
+  .field { display: grid; grid-template-columns: 90px 1fr auto; gap: 12px; align-items: start; padding: 8px 0; border-top: 1px solid #f0efed; }
+  .field:first-of-type { border-top: 0; }
+  .field b { font-size: 13px; color: #78716c; font-weight: 600; padding-top: 2px; }
+  .field span { font-size: 15px; }
+  button { font: 600 13px system-ui, sans-serif; border: 1px solid #e7e5e4; background: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; white-space: nowrap; }
+  button.primary { background: #dc2626; border-color: #dc2626; color: #fff; padding: 10px 18px; font-size: 14px; }
+  .steps { font-size: 14px; color: #57534e; margin: 12px 0 0; padding-left: 20px; }
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .ok { color: #15803d; font-size: 13px; font-weight: 600; }
+  article { background: #fff; border: 1px solid #e7e5e4; border-radius: 12px; padding: 32px 40px; }
+  article h2 { font-size: 24px; line-height: 1.3; margin: 40px 0 12px; }
+  article h2:first-child { margin-top: 0; }
+  article h3 { font-size: 19px; margin: 28px 0 8px; }
+  article p { margin: 0 0 18px; color: #44403c; }
+  article li { margin-bottom: 8px; color: #44403c; }
+  article code { background: #f5f5f4; border: 1px solid #e7e5e4; border-radius: 4px; padding: 1px 5px; font-size: .9em; }
+  article blockquote { margin: 24px 0; padding: 14px 18px; border-left: 3px solid #dc2626; background: #fafaf9; }
+  article blockquote p { margin: 0; }
+  article a { color: #b91c1c; }
+  @media (max-width: 600px) { article { padding: 24px 20px; } .field { grid-template-columns: 1fr auto; } .field b { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="panel">
+    <h1>Isian form dashboard</h1>
+    <div class="field"><b>Title</b><span id="f-title">Rezure 3.1: Postgres, SQL Server, a Mail Catcher, and a PHP That Doesn't Quit</span><button data-copy="f-title">Copy</button></div>
+    <div class="field"><b>Slug</b><span id="f-slug">whats-new-in-rezure-3-1</span><button data-copy="f-slug">Copy</button></div>
+    <div class="field"><b>Excerpt</b><span id="f-excerpt">Two new databases, a local mail catcher, Node.js per project, and a PHP that no longer gives up under load. Here's everything that landed in Rezure 3.1.</span><button data-copy="f-excerpt">Copy</button></div>
+    <div class="field"><b>Tags</b><span id="f-tags">release, changelog</span><button data-copy="f-tags">Copy</button></div>
+    <ol class="steps">
+      <li>Isi Title, Slug, Excerpt, Tags dari tombol Copy di atas.</li>
+      <li>Di editor konten, pastikan mode <b>Visual</b> dan editornya kosong (Ctrl+A, Delete).</li>
+      <li>Klik <b>Copy article</b> di bawah, lalu klik di editor dan tekan Ctrl+V.</li>
+      <li>Save.</li>
+    </ol>
+  </section>
+
+  <div class="bar">
+    <button class="primary" id="copy-article">Copy article</button>
+    <span class="ok" id="copy-status" hidden>Copied — paste di editor Visual</span>
+  </div>
+
+<article id="article">
+<p>It's Monday morning. The client's ERP talks to SQL Server, your side project runs on PostgreSQL, and the password-reset email you were testing just landed in a real customer's inbox. On Windows, a morning like that used to mean three installers, a hunt for driver DLLs, and an awkward apology.</p>
+<p><strong>Rezure 3.1 is built for that Monday.</strong> Since our docs last caught up, Rezure has picked up two new databases, a mail catcher, Node.js version switching, a dedicated PHP extensions page, and a set of fixes that keep PHP standing under real traffic. Here's the full tour.</p>
+<blockquote><p>Already on Rezure 3? Open <strong>Changelog</strong> in the sidebar and press <strong>Update</strong>. New to Rezure? Grab the installer from the <a href="/download">download page</a>.</p></blockquote>
+
+<h2>Two new databases, no installers to babysit</h2>
+<h3>PostgreSQL, right next to MariaDB</h3>
+<p>PostgreSQL <strong>18, 17 and 16</strong> now install from inside Rezure with a click. They're portable builds: no setup wizard, no admin prompt, nothing written into Windows. Don't need it anymore? Delete the folder and it's gone.</p>
+<p>Best of all, you no longer have to choose. PostgreSQL runs as its own service on port <code>5432</code> while MariaDB keeps running beside it, so a Postgres app and a MySQL app can be open in two browser tabs at the same time.</p>
+<ul>
+<li><strong>Laravel connects out of the box.</strong> Rezure creates a <code>root</code> role, so <code>DB_CONNECTION=pgsql</code> works with Laravel's default username and no password.</li>
+<li><strong>Your data stays safe across upgrades.</strong> Each major version gets its own data directory, so installing 18 never touches the databases you made on 16.</li>
+<li><strong>It's local only.</strong> Like every database in Rezure, PostgreSQL listens on <code>127.0.0.1</code> and nowhere else.</li>
+</ul>
+<blockquote><p><strong>One tip:</strong> PostgreSQL refuses to run from an elevated process. If you opened Rezure with "Run as administrator", open it normally instead. Rezure tells you this up front rather than leaving you with a service that silently won't start.</p></blockquote>
+
+<h3>SQL Server, without the driver scavenger hunt</h3>
+<p>If you've ever connected PHP to SQL Server on Windows, you know the ritual: find the <code>sqlsrv</code> DLL that matches your exact PHP version, install Microsoft's ODBC driver, and pray the two agree. It's common work in corporate, government, banking and ERP projects, and it has always been the worst part of the setup.</p>
+<p>Rezure now handles the whole chain:</p>
+<ol>
+<li><strong>The PHP drivers</strong> (<code>sqlsrv</code> and <code>pdo_sqlsrv</code>), matched to each PHP version you have installed. No admin rights needed.</li>
+<li><strong>Microsoft ODBC Driver 18</strong>, which those drivers depend on. Rezure downloads Microsoft's official installer and runs it once you've accepted the license yourself. Windows asks for admin rights one time.</li>
+<li><strong>SQL Server LocalDB</strong>, if you want a SQL Server on your own laptop. It runs as a regular user process, so starting and stopping it never triggers a UAC prompt.</li>
+</ol>
+<p>SQL Server connections, local or remote, also show up on the <strong>Databases</strong> page. In the spirit of honesty: the ODBC driver and LocalDB are Microsoft installers, so they appear in Windows' app list and stay put if you ever uninstall Rezure.</p>
+
+<h2>Your test emails stop escaping</h2>
+<p>Every developer has a story about the test email that reached a real person. Rezure now ships an answer: <strong>Mailpit</strong>, a local mail catcher that swallows every message your app sends and shows it in a clean web inbox.</p>
+<p>Install it from its card on the Services page, press Start, and point your project at it:</p>
+<ul>
+<li><code>MAIL_MAILER=smtp</code></li>
+<li><code>MAIL_HOST=127.0.0.1</code></li>
+<li><code>MAIL_PORT=1025</code></li>
+</ul>
+<p>That's it. Your emails now land at <code>http://127.0.0.1:8025</code>, one click away through the <strong>Open</strong> button on the Mailpit card. Messages survive a restart, and Mailpit accepts any username and password, so you don't even have to remove your real provider's credentials from <code>.env</code>.</p>
+<p>The project <strong>Requirements check</strong> keeps an eye on your mail settings too. It catches the two mistakes everyone makes at least once: Laravel's default <code>MAIL_PORT=2525</code>, and <code>MAIL_HOST=mailpit</code> copied from a Docker Sail setup, which means nothing outside Docker.</p>
+
+<h2>Node.js, pinned per project</h2>
+<p>An old frontend that only builds on an older Node, and a new one that wants the latest. Sound familiar? Node.js now has its own row on the <strong>Switch</strong> page, offering the newest release of every LTS line plus the newest Current release, with the bundled npm version shown next to each.</p>
+<p>Set a global version for everyday work, then pin a different one on any project from its project card. Open a terminal from that card and <code>node</code>, <code>npm</code> and <code>npx</code> are exactly the version you pinned. Nothing else on your machine changes.</p>
+
+<h2>One button installs everything</h2>
+<p>The <strong>Install version</strong> button on the Switch page used to be PHP-only. Now it's the front door for every runtime: PHP, Nginx, MariaDB, PostgreSQL, Mailpit, SQL Server LocalDB, Composer and Node.js. Pick the runtime, pick the version, done.</p>
+<p>Version lists come straight from each project's own release feed where one exists (php.net, MariaDB, getcomposer.org, nodejs.org), and every portable download is checked against its SHA-256 checksum before it's unpacked. The dropdown on each row now does one job only: switching between versions you already have.</p>
+
+<h2>PHP extensions with a switch, not a text editor</h2>
+<p>Hunting through <code>php.ini</code> for the right <code>extension=</code> line is over. The new <strong>PHP Extensions</strong> page, right under Switch in the sidebar, lists around forty extensions per PHP version, grouped by category and searchable: <code>bcmath</code>, <code>gmp</code>, <code>sodium</code>, <code>exif</code>, <code>sockets</code>, <code>ldap</code>, <code>opcache</code> and more. Flip a switch and you're done.</p>
+<ul>
+<li><strong>Each PHP version keeps its own choices.</strong> Turning on <code>gmp</code> for 8.3 leaves 7.4 alone.</li>
+<li><strong>No silent failures.</strong> Extensions missing from a particular PHP build are clearly marked <strong>not in this build</strong>.</li>
+<li><strong>Sensible defaults.</strong> <code>opcache</code> starts off, because a stale cache can hide the very change you're trying to test.</li>
+<li><strong>A nudge when it matters.</strong> If PHP is running when you flip a switch, Rezure reminds you to restart it.</li>
+</ul>
+<p>Need <code>redis</code>? It doesn't ship with PHP, so the project's Requirements check offers an <strong>Install</strong> button that fetches a verified build for your PHP version.</p>
+
+<h2>The 502s are gone</h2>
+<p>This one started with a user's log file. Nearly one in twenty requests ended in <strong>502 Bad Gateway</strong>, with no pattern anyone could see. We dug in, traced every cause, and fixed them all:</p>
+<ul>
+<li><strong>PHP quit after 500 requests.</strong> A built-in <code>php-cgi</code> default was quietly retiring the process mid-session. That limit is gone.</li>
+<li><strong>One slow request held up the rest.</strong> On Windows a <code>php-cgi</code> process serves one request at a time, so a single slow page made everything behind it wait. Each PHP version now runs a small pool of workers.</li>
+<li><strong>A crashed PHP stayed down.</strong> Now Rezure restarts it automatically, waiting a little longer after each crash. If PHP crashes five times in five minutes, Rezure stops retrying so you can read the log instead of watching a loop.</li>
+<li><strong>Uploads hit a wall at 1 MB.</strong> Uploads up to 64 MB and scripts up to 300 seconds now work out of the box, with no more "413 Request Entity Too Large".</li>
+</ul>
+<p>And as a bonus, <strong>HTTPS calls from PHP just work.</strong> Rezure ships an up-to-date CA certificate bundle and wires it into <code>php.ini</code>, and the Requirements check now tests a real HTTPS call from your project's PHP. No more cURL error 60 when your app calls an external API.</p>
+
+<h2>A Services page that's actually yours</h2>
+<p>More services means a longer list, and not everyone needs all of them. The new <strong>Manage services</strong> button lets you remove the cards you never use: MySQL people can hide SQL Server, SQL Server people can hide MariaDB. Removing a card only hides it. Binaries, data and connections stay exactly where they are, and you can bring the card back any time. <strong>Start all</strong> and <strong>Stop all</strong> follow your list.</p>
+
+<h2>Make it look like yours</h2>
+<p>You stare at your tools all day, so they might as well look good. The new <strong>Appearance</strong> page offers fourteen themes in three collections, Default, Girls and Mens: from the classic coral Rezure and three frosted-glass looks to Lavender Dream, Matcha, Carbon, Forest and a green-on-black Terminal. Fine-tune brightness, color intensity, glass opacity and UI size, or turn down the motion. Light and dark mode sit on a button in the title bar.</p>
+<p>And yes, if you want a pink bow on your sidebar, you can have one. <strong>Decorations</strong> lets you stick stickers anywhere in the window. Two dozen come built in, and <strong>Browse</strong> pulls new ones from our catalog.</p>
+
+<h2>Your AI assistant finally knows where PHP lives</h2>
+<p>Claude Code, Codex, Cursor and friends learned about Laragon from their training data, but they've never heard of Rezure. On a machine with both, ask an agent to run your tests and it might go looking for PHP in all the wrong places.</p>
+<p>So Rezure now writes an <code>AGENTS.md</code> into its home folder, plus a <code>CLAUDE.md</code> that points to it. It's a live snapshot of your setup: the active PHP version, your database, and every project with its URL, folder and the PHP version that actually serves it. A longer companion guide covers ports, folders, the <code>php.ini</code> layers and a few house rules, such as "don't start or kill Rezure's processes yourself". Rezure keeps these files current as your setup changes, and projects inside <code>www</code> pick them up automatically.</p>
+
+<h2>Updates in one click, and signed</h2>
+<p>When a new version is out, a small red dot appears on <strong>Changelog</strong> in the sidebar. Open it, press <strong>Update</strong>, and Rezure downloads the installer, shows you the progress, and hands over. That's the whole process.</p>
+<p>Every update is cryptographically signed, and Rezure checks that signature against a key built into the app before running anything. We tested it the hard way: an installer with a single bit changed is rejected.</p>
+
+<h2>Fixed in 3.1.1: ports that stay free</h2>
+<p>When a port Rezure needs is already taken, the service card offers to stop whatever is holding it. With Nginx or MySQL 8 that didn't always stick: the process being stopped was only a worker, and its parent immediately started a new one on the same port. Rezure now stops the parent, so a freed port stays free.</p>
+
+<h2>What's coming next</h2>
+<p>Next on the list: Xdebug as a first-class extension, supervised queue workers for your projects, a project health dashboard, and Redis as a service. Over the coming weeks we'll also give each feature in this post its own step-by-step guide.</p>
+<p>Something broken, or missing a tool you use every day? Tell us through the <strong>Feedback</strong> page in the app. We read every single report.</p>
+</article>
+
+</div>
+<script>
+  async function copyRich(html, text) {
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([text], { type: 'text/plain' }),
+      })]);
+      return;
+    } catch (e) { /* fall back to a selection copy */ }
+    const range = document.createRange();
+    range.selectNodeContents(document.getElementById('article'));
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+  }
+
+  function flash(el, label) {
+    const old = el.textContent;
+    el.textContent = label;
+    setTimeout(() => { el.textContent = old; }, 1500);
+  }
+
+  document.getElementById('copy-article').addEventListener('click', async () => {
+    const article = document.getElementById('article');
+    await copyRich(article.innerHTML, article.innerText);
+    const status = document.getElementById('copy-status');
+    status.hidden = false;
+    setTimeout(() => { status.hidden = true; }, 3000);
+  });
+
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = document.getElementById(btn.dataset.copy).textContent;
+      try { await navigator.clipboard.writeText(text); } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove();
+      }
+      flash(btn, 'Copied');
+    });
+  });
+</script>
+</body>
+</html>

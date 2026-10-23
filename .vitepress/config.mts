@@ -11,7 +11,7 @@ const hostname = 'https://rezure.redscale.my.id'
 
 const siteName = 'Rezure'
 const description =
-  'Rezure is a modern, lightweight local development environment manager for Windows — Nginx, PHP, and MariaDB running with one click.'
+  'Rezure is a modern, lightweight local development environment manager for Windows — Nginx, PHP, MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit running with one click.'
 const ogImage = `${hostname}/og-image.png`
 
 /** `guide/installation.md` -> `/guide/installation`, `index.md` -> `/`. Matches cleanUrls. */
@@ -45,14 +45,23 @@ const softwareApplication = {
     priceCurrency: 'USD'
   },
   featureList: [
-    'One-click Nginx, PHP-FPM, and MariaDB service manager',
-    'Port conflict detection before a service starts',
-    'Automatic Nginx virtual hosts and Windows hosts file entries',
+    'One-click service manager for Nginx, PHP, MariaDB or MySQL, PostgreSQL, SQL Server LocalDB, and Mailpit',
+    'Port conflict detection that names the process holding a port and can stop it',
+    'Automatic Nginx virtual hosts and Windows hosts file entries for .test domains',
     'PHP version switching with builds installed straight from php.net',
-    'Database create, export, and import on the bundled MariaDB',
+    'Per-project PHP version pinning with concurrent php-cgi pools',
+    'PHP extension toggles, plus Redis and SQL Server drivers installed from the app',
+    'New project templates for Laravel, WordPress, PHP, and static HTML',
+    'Per-project requirements check for PHP extensions, HTTPS, mail, and database settings',
+    'Database create, export, and import on MariaDB, MySQL, PostgreSQL, and SQL Server',
+    'Adopt an existing Laragon or XAMPP MySQL data directory without copying it',
+    'PostgreSQL 16, 17, and 18 as a local service',
+    'SQL Server LocalDB, ODBC Driver, and pdo_sqlsrv installed from inside the app',
+    'Remote MySQL, MariaDB, PostgreSQL, and SQL Server connections with optional SSH tunnel',
+    'Node.js and Composer version management with per-project Node pinning',
+    'Local mail catcher (Mailpit)',
     'One-click public project sharing via Cloudflare Quick Tunnel',
-    'Remote MySQL and MariaDB connections with optional SSH tunnel',
-    'Per-project PHP version pinning with concurrent php-cgi instances'
+    'Signed automatic updates'
   ],
   author: {
     '@type': 'Person',
@@ -69,7 +78,12 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
   // Internal planning notes live in the repo but are not part of the site.
-  srcExclude: ['rezure-website-content-structure.md', 'blog.md', 'blog_plan.md'],
+  srcExclude: [
+    'rezure-website-content-structure.md',
+    'blog.md',
+    'blog_plan.md',
+    'docs-screenshot-list.md'
+  ],
   lastUpdated: true,
 
   // Emits /sitemap.xml at build time, which is what Search Console is pointed at.
@@ -254,10 +268,70 @@ export default defineConfig({
           items: [
             { text: 'What is Rezure?', link: '/guide/' },
             { text: 'Installation', link: '/guide/installation' },
-            { text: 'First Run', link: '/guide/first-run' },
-            { text: 'Sharing a Project', link: '/guide/sharing' },
-            { text: 'Remote Databases', link: '/guide/remote-databases' },
+            { text: 'First Run', link: '/guide/first-run' }
+          ]
+        },
+        {
+          text: 'Services',
+          items: [
+            { text: 'Services', link: '/guide/services' },
+            { text: 'Port Conflicts', link: '/guide/port-conflicts' },
+            { text: 'Logs', link: '/guide/logs' }
+          ]
+        },
+        {
+          text: 'Projects',
+          items: [
+            { text: 'Projects', link: '/guide/projects' },
+            { text: 'New Project', link: '/guide/new-project' },
+            { text: 'Requirements Check', link: '/guide/requirements-check' },
+            { text: 'Project Terminal', link: '/guide/project-terminal' },
+            { text: 'Sharing a Project', link: '/guide/sharing' }
+          ]
+        },
+        {
+          text: 'PHP',
+          items: [
+            { text: 'PHP Versions', link: '/guide/php-versions' },
             { text: 'PHP Per Project', link: '/guide/project-php-version' },
+            { text: 'PHP Extensions', link: '/guide/php-extensions' },
+            { text: 'PHP Configuration', link: '/guide/php-configuration' }
+          ]
+        },
+        {
+          text: 'Databases',
+          items: [
+            { text: 'MariaDB & MySQL', link: '/guide/mariadb-mysql' },
+            { text: 'PostgreSQL', link: '/guide/postgresql' },
+            { text: 'SQL Server', link: '/guide/sql-server' },
+            { text: 'Remote Databases', link: '/guide/remote-databases' },
+            { text: 'Laravel .env Cheatsheet', link: '/guide/laravel-env' }
+          ]
+        },
+        {
+          text: 'Tools',
+          items: [
+            { text: 'Node.js', link: '/guide/nodejs' },
+            { text: 'Mailpit', link: '/guide/mailpit' },
+            { text: 'AI Coding Agents', link: '/guide/ai-agents' }
+          ]
+        },
+        {
+          text: 'Customize',
+          items: [
+            { text: 'Appearance & Stickers', link: '/guide/appearance' },
+            { text: 'Settings', link: '/guide/settings' }
+          ]
+        },
+        {
+          text: 'Reference',
+          items: [
+            { text: 'Files & Folders', link: '/guide/files-and-folders' },
+            { text: 'Ports', link: '/guide/ports' },
+            { text: 'Updates & Changelog', link: '/guide/updates' },
+            { text: 'Privacy & Usage Data', link: '/guide/privacy' },
+            { text: 'Uninstall', link: '/guide/uninstall' },
+            { text: 'Troubleshooting', link: '/guide/troubleshooting' },
             { text: 'FAQ', link: '/guide/faq' }
           ]
         }
