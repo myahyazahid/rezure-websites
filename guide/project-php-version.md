@@ -1,129 +1,149 @@
 ---
-title: PHP Version Per Project
-description: Pin each Rezure project to its own PHP version so several projects can run on different PHP releases at the same time on Windows.
+title: Different PHP Versions Per Project on Windows
+description: Pin each Rezure project to its own PHP version so several projects run on different PHP releases at the same time on Windows — for the browser and for the project's terminal.
 ---
 
 # PHP Version Per Project
 
 Rezure can serve different projects on different PHP versions at the same time. One legacy app
-can stay on PHP 7.4 while a new Laravel app runs on PHP 8.3, without switching a single global
+can stay on PHP 7.4 while a new Laravel app runs on PHP 8.4, without switching a single global
 version back and forth.
 
 Each project either follows the **global default** (the active version on the **Switch** page)
-or is **pinned** to a specific installed version. Pinning is stored per project and survives
-rescans of your project folders.
+or is **pinned** to a specific installed version. The pin applies to the project's site and to
+the [terminal](/guide/project-terminal) you open from its card.
 
 ## Global default vs per project pin
 
 **Global default** lives on the **Switch** page. It controls which PHP build the main
-**php** service uses on port 9000. Every project that is set to **Default** is served through
-that process.
+**PHP** service runs. Every project set to **Default** is served by that service.
 
 **Per project pin** lives on the **Projects** page. When you pin a project to a version that
-is not the current global default, Rezure gives that version its own `php-cgi` process on its
-own port (starting at 9001). Nginx routes each project's virtual host to the correct port.
+is not the current global default, Rezure gives that version its own service — **PHP 8.1.34**,
+say — and Nginx routes the project's virtual host to it.
 
-Projects on the same pinned version share one pooled process. Pinning a project to the same
-version as the global default does not start an extra process; it uses the main **php**
-service like any unpinned project.
+Projects pinned to the same version share one service. Pinning a project to the same
+version as the global default doesn't add anything; it uses the main **PHP** service like any
+unpinned project.
 
 ## Before you pin a version
 
-1. Install every PHP version you need. Open the **Switch** page, use **Install version**, or
-   drop a build into `C:\rezure\custom\php`.
-2. Start **Nginx** and the **php** service on the **Services** page (Dashboard). Unpinned
-   projects need the default **php** service running.
-3. After you pin a project to a version other than the global default, a new service row
-   appears on the **Services** page (for example **php 8.0.30**). Start that service too
-   before you open the project in a browser.
-
-Rezure registers pooled PHP services when the app starts and whenever the project list
-changes. **Start all** on the Services page starts every listed service, including pooled
-ones, once they appear.
+1. Install every PHP version you need. Open the **Switch** page and use **Install version**,
+   or drop a build into `C:\rezure\custom\php`. See [PHP Versions](/guide/php-versions).
+2. Start **Nginx** and the **PHP** service on the **Services** page. Unpinned projects need
+   the main **PHP** service running.
 
 ## Pin a project to a PHP version
 
 1. Open the **Projects** page.
-2. Find the project and click the **PHP version** button in the Actions column (the `</>`
-   icon). When a version is pinned, the button is filled red so you can see it at a glance.
-3. In the modal, choose **Default** to follow the global active version, or pick one of the
-   installed versions (for example **PHP 8.0.30**).
-4. Rezure saves the choice, refreshes the project's nginx config, and updates the PHP pool
-   if a new version was pinned.
+2. Find the project and click its **PHP version** icon ("Pin this project to its own PHP
+   version"). When a version is pinned, the icon is filled in so you can see it at a glance,
+   and its tooltip reads "Pinned to PHP X — click to change".
+3. In the **PHP version** dialog, choose **Default · follows the global active version**, or
+   one of the installed versions. The current global default is marked "· currently the
+   global default", and the option in use is tagged **Current**.
+4. Clicking an option applies it straight away and closes the dialog. Rezure saves the
+   choice, rewrites the project's Nginx config, and adds or removes PHP services as needed.
+5. **Start the new service.** A row such as **PHP 8.1.34** appears on the **Services** page.
+   It is **not started automatically** — click its **Start**, or use **Start all**. Until it
+   runs, the project answers with **502 Bad Gateway**.
 
-To clear a pin, open the modal again and choose **Default**.
+To clear a pin, open the dialog again and choose **Default**. The extra service stops and
+disappears once no project uses it.
 
 ## Run several versions at once
 
 Example setup:
 
-| Project | Pinned version | PHP process |
+| Project | Pinned version | Served by |
 | --- | --- | --- |
-| legacy-shop | PHP 7.4.33 | pooled **php 7.4.33** |
-| new-api | Default (PHP 8.3.14) | main **php** service |
-| experiment | PHP 8.5.0 | pooled **php 8.5.0** |
+| legacy-shop | PHP 7.4.33 | **PHP 7.4.33** (ports 9110–9113) |
+| new-api | Default (PHP 8.4.x) | **PHP** (ports 9100–9103) |
+| experiment | PHP 8.5.x | **PHP 8.5.x** (ports 9120–9123) |
 
-With Nginx and each required PHP service running, all three projects can answer HTTP requests
-at the same time, each on its own version.
+With Nginx and each required PHP service running, all three projects answer at the same time,
+each on its own version.
 
 Changing the global default on the **Switch** page only affects projects set to **Default**.
 Pinned projects keep their version until you change the pin.
 
 ## What Rezure does in the background
 
-Windows has no PHP-FPM bundle like Linux. Rezure runs `php-cgi` as a FastCGI listener, one
-process per PHP version that is actually in use.
+Windows has no PHP-FPM, so Rezure runs `php-cgi` as a FastCGI listener. Every PHP service is
+a small pool of **4 workers**, each on its own port, and Nginx spreads requests across them
+(`least_conn`). The Services row shows the range and the worker count, for example
+`:9100–9103 · 4/4 workers`.
 
-The main **php** service always serves the global default on port 9000. Each additional pinned
-version gets a pooled service (`php-<version>`) on the next free port from 9001 upward. When
-you pin or unpin projects, Rezure updates nginx `fastcgi_pass` for each virtual host and
-reconciles which pooled services should exist. Stopping a pooled service is manual, the same
-as Nginx or MariaDB.
+- The main **PHP** service always uses ports **9100–9103**.
+- Each pinned version gets the next free block of ten — 9110–9113, 9120–9123, and so on. A
+  running version keeps its block when you pin or unpin other projects.
+- Port 9000 is avoided on purpose, so Rezure doesn't collide with Laragon or XAMPP, and 9003
+  stays free for Xdebug.
 
-Your pin is stored in Rezure's local database (`projects.php_version`), not in the project
-folder. Moving or relinking the folder does not clear the pin.
+If a worker crashes, Rezure restarts it on its own; the worker count turns amber while that
+happens, and the other workers keep serving. See [Services](/guide/services#when-a-service-crashes).
+
+Each PHP install also gets its **own generated `php.ini`**, so versions never load each
+other's extensions. Extensions are switched per version on the
+[PHP Extensions](/guide/php-extensions) page.
+
+The pin is stored in Rezure's local database, keyed by the project, not in the project folder.
 
 ## Limitations and notes
 
-**Install the version first.** The picker only lists PHP builds Rezure already has on disk. If
-nothing is installed yet, install from the **Switch** page and open the modal again.
+**Install the version first.** The dialog only lists PHP builds Rezure already has on disk. If
+nothing is installed yet, it says "No PHP versions installed yet — install one from the Switch
+page first."
 
-**Start every PHP service you need.** A pinned project returns a gateway error if its pooled
-`php-cgi` is stopped while Nginx is still running.
+**Start every PHP service you need.** A pinned project returns a 502 if its PHP service is
+stopped while Nginx is still running.
 
-**Private keys and CLI.** Per project pinning affects HTTP requests through nginx. Commands
-you run in a terminal outside Rezure still use whatever PHP is on your system PATH unless you
-call the full path to a specific `php.exe` under `C:\rezure\bin\php`.
+**Terminals.** The terminal you open from a project's card puts the pinned version first on
+`PATH`, so `php artisan` there runs on the same version as the site. Any other terminal uses
+whatever `php` your system `PATH` provides — with
+[Use Rezure's PHP everywhere](/guide/php-configuration#use-rezure-s-php-everywhere) on, that's
+the **global** version, never a project's pin.
 
-**Removing a PHP version.** If you remove a build that a project was pinned to, Rezure treats
-the pin as invalid and the project falls back to the default **php** service until you pin it
-again to an installed version.
+**Things that use the global version.** Creating a Laravel project with **New project** and
+the project's [Requirements Check](/guide/requirements-check) both run on the global active
+PHP, even for a pinned project. To check a pinned project's extensions, run `php -m` in its
+project terminal.
 
-**Each version has its own configuration.** Extension paths and `php.ini` are resolved per
-install so mixed versions do not share the wrong extension directory.
+**Removing a PHP version.** If you delete a build that a project was pinned to, the project
+falls back to the global version until you pin it again.
+
+**Renaming a project folder in `www`** gives it a new identity, so its pin doesn't follow.
+Pin it again after renaming.
 
 ## Troubleshooting
 
 ### The project shows a 502 Bad Gateway after pinning
 
-Check the **Services** page. Start the pooled PHP service for that version (for example
-**php 8.0.30**), not only the default **php** row. Confirm Nginx is running.
+Check the **Services** page. Start the PHP service for that version (for example
+**PHP 8.1.34**), not only the main **PHP** row. Confirm Nginx is running.
 
-### The modal says no PHP versions are installed
+### The dialog says no PHP versions are installed
 
 Install at least one extra version from the **Switch** page, or use **Default** until you do.
 
 ### Pinning seems to have no effect
 
 Make sure you picked a version **different** from the current global default. Pinning the same
-version as the default is equivalent to **Default** and does not create a separate process.
+version as the default is equivalent to **Default** and does not create a separate service.
 
 ### I changed the global default and one project did not change
 
-That project is pinned. Open the PHP version modal and switch it to **Default** if you want it
-to follow the global version again.
+That project is pinned. Open its PHP version dialog and switch it to **Default** if you want
+it to follow the global version again.
+
+### An extension works in the browser but not in the terminal (or the other way round)
+
+Extension toggles on the PHP Extensions page apply to the sites and to PHP processes Rezure
+starts itself. The `php.ini` a terminal reads isn't changed by those toggles. See
+[PHP Extensions](/guide/php-extensions#browser-vs-terminal).
 
 ## Related
 
-- [First Run](/guide/first-run): install PHP versions and set the global default
-- [FAQ](/guide/faq): which PHP versions Rezure supports
+- [PHP Versions](/guide/php-versions): install PHP versions and set the global default
+- [Project Terminal](/guide/project-terminal): a shell with the project's PHP and Node first
+- [Ports](/guide/ports): every port Rezure uses

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { downloadUrlWithIdentity, siteDownloadUrl } from '../analytics'
 
 const props = withDefaults(
   defineProps<{
@@ -38,6 +39,24 @@ const fallbackPublishedAt = ref<string | null>(null)
 
 const apiBase = (import.meta.env.VITE_REZURE_API_BASE ?? '').replace(/\/+$/, '')
 const releasesUrl = `https://github.com/${props.repo}/releases/latest`
+
+/**
+ * Where the button points. With the Rezure API configured it goes through
+ * `GET /site/download`, which counts the download and redirects to the newest
+ * installer (or the releases page); without it, straight to GitHub as before.
+ */
+const downloadHref = computed(() => siteDownloadUrl ?? asset.value?.url ?? releasesUrl)
+
+/**
+ * Stamps the visitor/session/pageview ids onto the tracked link at click time —
+ * they aren't known at render, and the pageview id changes on every navigation.
+ * Also covers middle-click, which opens the link without a `click` event.
+ */
+function attachIdentity(event: MouseEvent): void {
+  if (!siteDownloadUrl) return
+  const link = event.currentTarget as HTMLAnchorElement
+  link.href = downloadUrlWithIdentity(siteDownloadUrl)
+}
 
 /** The maintainer-published version wins; GitHub's tag is the backstop. */
 const version = computed(() => release.value?.version ?? fallbackVersion.value)
@@ -142,9 +161,11 @@ onMounted(async () => {
 
       <a
         class="download-button"
-        :href="asset?.url ?? releasesUrl"
+        :href="downloadHref"
         :target="asset ? undefined : '_blank'"
         :rel="asset ? undefined : 'noreferrer'"
+        @click="attachIdentity"
+        @auxclick="attachIdentity"
       >
         Download for Windows
       </a>

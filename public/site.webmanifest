@@ -1,7 +1,7 @@
 {
   "name": "Rezure",
   "short_name": "Rezure",
-  "description": "Local development environment manager for Windows — Nginx, PHP, and MariaDB with one click.",
+  "description": "Rezure Free Web Server — Nginx, PHP, MySQL or MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit with one click.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#ffffff",

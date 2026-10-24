@@ -1,6 +1,6 @@
 # Rezure Websites
 
-Marketing site and documentation for [Rezure](https://github.com/myahyazahid/rezure) — a local development environment manager for Windows (Nginx, PHP, and MariaDB with one click) — built with [VitePress](https://vitepress.dev).
+Marketing site and documentation for [Rezure](https://github.com/myahyazahid/rezure), the free web server for local development (Nginx, PHP, MySQL, and PostgreSQL with one click), built with [VitePress](https://vitepress.dev).
 
 Live at [rezure.redscale.my.id](https://rezure.redscale.my.id).
 
@@ -43,3 +43,25 @@ Used by the download page to fetch the latest release version. If unset, the dow
 ## Deployment
 
 `deploy.bat` pulls the latest commit on the VPS and rebuilds the site. Requires SSH access to the deployment server.
+
+### Nginx on the VPS (SEO)
+
+Unknown URLs must return a real `404` status (not `200` with the not-found page — Google
+treats that as a soft 404), and the `.html` / trailing-slash variants of a page should
+redirect to the clean URL the canonical tags and sitemap use:
+
+```nginx
+root /var/www/rezure-websites/.vitepress/dist;
+
+# /guide/installation.html -> /guide/installation
+location ~ ^(.+)\.html$ { return 301 $1$is_args$args; }
+
+location / {
+    try_files $uri $uri.html $uri/index.html =404;
+}
+
+error_page 404 /404.html;
+```
+
+Check after reloading Nginx: `curl -I https://rezure.redscale.my.id/does-not-exist` should
+answer `404`, and `/guide/installation.html` should answer `301`.
