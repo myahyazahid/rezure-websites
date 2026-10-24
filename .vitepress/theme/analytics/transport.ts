@@ -87,6 +87,11 @@ export function flush(): void {
     }
 
     for (const group of bySession.values()) {
+      // The pageview hit is recorded a tick after its route change, so early
+      // vitals/errors can be queued ahead of it. Pageviews go first, sparing
+      // the server its "hit before its pageview" retry path.
+      group.sort((a, b) => Number(b.hit.type === 'pageview') - Number(a.hit.type === 'pageview'))
+
       let batch: Record<string, unknown>[] = []
       let chars = 0
 
