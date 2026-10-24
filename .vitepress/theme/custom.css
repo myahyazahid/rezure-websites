@@ -1,4 +1,4 @@
-/**
+git pull origin main/**
  * Palette shared with the Rezure telemetry dashboard (laravel-api's
  * resources/css/app.css) — same token names, same values, so the marketing
  * site, the docs, and the dashboard read as one product.
@@ -92,6 +92,11 @@
   --vp-code-block-bg: var(--surface-raised);
 
   --vp-radius: 10px;
+
+  /* VitePress caps the whole layout at 1440px and centres it, which leaves a
+     wide empty strip left of the sidebar on 1920px screens. The text column
+     keeps its own max-width, so lines don't get longer — only the gutters shrink. */
+  --vp-layout-max-width: 1680px;
 }
 
 /* Brand buttons carry white text in both modes — the solid fill is the fixed
