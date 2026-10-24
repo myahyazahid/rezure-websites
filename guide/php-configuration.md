@@ -1,5 +1,5 @@
 ---
-title: PHP Configuration
+title: Edit php.ini and Fix cURL Error 60 on Windows
 description: Put your own php.ini settings where Rezure won't overwrite them, install the CA bundle that fixes cURL error 60, and make Rezure's PHP the php command in every terminal.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Services
+title: Start and Stop Nginx, PHP, and Databases
 description: Start, stop, and restart Nginx, PHP, MariaDB, PostgreSQL, SQL Server LocalDB, and Mailpit from Rezure's Services page — bulk actions, force stop, crash recovery, and which services the page shows.
 ---
 

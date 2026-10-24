@@ -1,5 +1,5 @@
 ---
-title: PostgreSQL
+title: Run PostgreSQL 16, 17, or 18 Locally on Windows
 description: Run PostgreSQL 16, 17, or 18 locally with Rezure on Windows — install, start, switch versions, create, export, and import databases, and connect Laravel with no .env password.
 ---
 

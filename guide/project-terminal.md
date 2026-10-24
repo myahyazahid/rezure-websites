@@ -1,5 +1,5 @@
 ---
-title: Project Terminal
+title: Project Terminal for artisan, Composer, and npm
 description: Open a terminal in any Rezure project with that project's PHP and Node.js versions first on PATH — and how to run artisan, Composer, and npm there.
 ---
 

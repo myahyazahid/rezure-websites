@@ -1,5 +1,5 @@
 ---
-title: Mailpit (Local Mail Catcher)
+title: Mailpit on Windows — Catch Local Laravel and PHP Email
 description: Catch every email your local PHP or Laravel project sends with Mailpit in Rezure — install, the .env settings, and the inbox at 127.0.0.1:8025.
 ---
 

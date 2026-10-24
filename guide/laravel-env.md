@@ -1,5 +1,5 @@
 ---
-title: Laravel .env Cheatsheet
+title: Laravel .env for MySQL, PostgreSQL, SQL Server, and Mailpit
 description: The .env values for a Laravel project on Rezure — MariaDB or MySQL, PostgreSQL, SQL Server LocalDB, another SQL Server, Mailpit, and APP_URL — in one place.
 ---
 

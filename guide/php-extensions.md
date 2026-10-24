@@ -1,5 +1,5 @@
 ---
-title: PHP Extensions
+title: Enable PHP Extensions on Windows (Redis, sqlsrv)
 description: Turn PHP extensions on and off per version in Rezure without editing php.ini, and install Redis and the SQL Server drivers that PHP doesn't ship.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: PHP Versions and the Switch Page
+title: Install and Switch PHP Versions on Windows
 description: Install PHP versions from php.net inside Rezure, add your own builds, switch the global default, and manage Composer and the other runtimes on the Switch page.
 ---
 

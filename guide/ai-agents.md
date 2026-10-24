@@ -1,5 +1,5 @@
 ---
-title: AI Coding Agents
+title: AI Coding Agents and AGENTS.md (Claude Code)
 description: Rezure keeps an AGENTS.md describing your machine's PHP, database, and projects, so AI coding agents like Claude Code know Rezure serves your projects — and how to point other agents at it.
 ---
 

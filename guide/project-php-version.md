@@ -1,5 +1,5 @@
 ---
-title: PHP Version Per Project
+title: Different PHP Versions Per Project on Windows
 description: Pin each Rezure project to its own PHP version so several projects run on different PHP releases at the same time on Windows — for the browser and for the project's terminal.
 ---
 

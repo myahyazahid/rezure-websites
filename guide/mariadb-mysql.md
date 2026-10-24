@@ -1,5 +1,5 @@
 ---
-title: MariaDB and MySQL
+title: Local MariaDB and MySQL on Windows
 description: Rezure's local MariaDB or MySQL server — create, export, and import databases, open them in your SQL client, and switch between data directories, including an existing Laragon or XAMPP one.
 ---
 

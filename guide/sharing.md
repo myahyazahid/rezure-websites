@@ -1,5 +1,5 @@
 ---
-title: Sharing a Project Publicly
+title: Share a Local Site Publicly with Cloudflare Tunnel
 description: Share a local Rezure project on the internet temporarily with one click, using a Cloudflare Quick Tunnel — no account, no manual setup.
 ---
 

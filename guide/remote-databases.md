@@ -1,5 +1,5 @@
 ---
-title: Remote Database Connections
+title: Connect to a Remote Database over an SSH Tunnel
 description: Connect Rezure to a staging server, VPS, or shared MySQL, MariaDB, PostgreSQL, or SQL Server instance — including databases reachable only through an SSH tunnel.
 ---
 

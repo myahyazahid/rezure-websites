@@ -6,14 +6,14 @@ layout: Landing
 
 # `titleTemplate: false` keeps the home <title> from picking up the " | Rezure"
 # suffix that every other page gets.
-title: Rezure — Local Development Environment for Windows
+title: Rezure Free Web Server
 titleTemplate: false
-description: Free, open-source local development environment manager for Windows. Run Nginx, PHP, MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit with one click, no manual setup.
+description: Rezure is a free, open-source web server for local development and a lightweight Laragon and XAMPP alternative. Run Nginx, PHP, MySQL or MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit with one click. Available now for Windows.
 
 hero:
-  eyebrow: Open source · For Windows
+  eyebrow: Rezure · Free web server · Open source
   headline: Local dev environment for chill devs
-  tagline: Nginx, PHP, and your database running on Windows with one click. Portable, lightweight, no manual setup.
+  tagline: Rezure runs Nginx, PHP, and your database on Windows with one click — a lightweight local server for Laravel, WordPress, and PHP projects. No manual setup.
   actions:
     - text: Download
       link: /download
@@ -54,35 +54,44 @@ featuresTitle: Everything the stack needs, in one window
 
 features:
   - title: One-click service manager
+    link: /guide/services
     icon: power
     details: Start, stop, and restart Nginx, PHP, your databases, and Mailpit from one screen — one at a time or all at once — with a log for every service and automatic PHP restarts after a crash.
   - title: Port conflicts caught early
+    link: /guide/port-conflicts
     icon: docker
     details: Rezure checks every port before a service starts, names whatever is holding it — Laragon, XAMPP, Docker, IIS — and can stop it for you with one click.
   - title: Automatic virtual hosts
+    link: /guide/projects
     icon: nginx
     details: Every folder in your www directory becomes its own .test site, and folders elsewhere can be linked in place. Rezure writes the Nginx config and keeps the Windows hosts file in sync.
   - title: PHP per project
+    link: /guide/project-php-version
     icon: php
     details: Install any PHP version straight from php.net, toggle its extensions without editing an .ini, and pin each project to its own version — several versions serve at the same time.
   - title: MariaDB and MySQL
+    link: /guide/mariadb-mysql
     icon: mariadb
     details: Create, export, and import databases, open them in the SQL client you already use, and point Rezure at an existing Laragon or XAMPP data directory without copying a byte.
   - title: PostgreSQL and SQL Server
+    link: /guide/postgresql
     icon: postgresql
     details: PostgreSQL 16, 17, and 18 and SQL Server LocalDB run beside MariaDB, with the PHP drivers for both installed from inside the app.
   - title: Node.js, Composer, and a project terminal
+    link: /guide/nodejs
     icon: nodedotjs
     details: Install Node.js and Composer versions, pin Node per project, and open a terminal in any project with the right PHP and Node already first on PATH.
   - title: Share and test without deploying
+    link: /guide/sharing
     icon: share
     details: Send a project to anyone with a temporary Cloudflare link, and catch every email your app sends in a local Mailpit inbox instead of someone's real mailbox.
   - title: Portable and lightweight
+    link: /guide/installation
     icon: tauri
     details: Every download is checked against a published checksum, everything lives in one folder, and Tauri's native webview keeps the app small and easy on memory.
 
 whyTitle: Why Rezure
-whyLede: A one-click local stack on Windows should feel effortless. Rezure builds that on a modern foundation — Tauri and Rust — with a few things we wanted for our own day-to-day work.
+whyLede: A one-click local stack on Windows should feel effortless. Rezure builds that on a modern foundation — Tauri and Rust — with a few things we wanted for our own day-to-day work, and it reads your existing Laragon or XAMPP databases if you're coming from one of them.
 
 reasons:
   - title: Nothing to download before you start

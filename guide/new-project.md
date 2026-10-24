@@ -1,5 +1,5 @@
 ---
-title: New Project
+title: Create a Laravel or WordPress Project Locally
 description: Create a new Laravel, WordPress, blank PHP, or static HTML project in Rezure with one dialog — what each template does, how long it takes, and what to do next.
 ---
 

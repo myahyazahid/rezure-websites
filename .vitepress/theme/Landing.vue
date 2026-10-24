@@ -32,6 +32,8 @@ interface Feature {
   title: string
   details: string
   icon?: string
+  /** Docs page the card's title links to — gives crawlers a path from the home page into the guide. */
+  link?: string
 }
 
 interface Service {
@@ -183,7 +185,10 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
               </svg>
             </span>
 
-            <h3>{{ feature.title }}</h3>
+            <h3>
+              <a v-if="feature.link" :href="feature.link" :data-track="`feature:${feature.link}`">{{ feature.title }}</a>
+              <template v-else>{{ feature.title }}</template>
+            </h3>
             <p>{{ feature.details }}</p>
           </article>
         </div>
@@ -601,6 +606,23 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--foreground);
+}
+
+.card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Stretch the title link over the whole card so the card is the click target. */
+.card {
+  position: relative;
+}
+
+.card h3 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
 }
 
 .card p {

@@ -1,5 +1,5 @@
 ---
-title: Projects
+title: Local .test Domains and Nginx Virtual Hosts
 description: How Rezure serves projects — folders in www, linked folders elsewhere, .test domains, stack detection, document roots, the hosts file, and every action on a project's row.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Logs
+title: Service Logs for Nginx, PHP, and Databases
 description: Rezure's Logs page — a combined, filterable live tail of every service's output, plus where to find the logs that don't appear there.
 ---
 

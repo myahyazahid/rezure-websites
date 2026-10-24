@@ -1,5 +1,5 @@
 ---
-title: Troubleshooting
+title: Troubleshooting 502 Bad Gateway, .test Domains, and More
 description: Fixes for common Rezure problems on Windows — ports in use, .test domains that don't resolve, 502 Bad Gateway, blank 500 errors, cURL error 60, could not find driver, mail that never arrives, and more.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: First Run Guide
+title: First Run — Serve Your First PHP Site Locally
 description: Start Nginx, PHP, and MariaDB, serve your first .test project, connect to the database, switch PHP versions, and catch outgoing mail.
 ---
 

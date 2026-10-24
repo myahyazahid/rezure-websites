@@ -1,5 +1,5 @@
 ---
-title: Settings
+title: Settings — Startup, Tray, and .test Domains
 description: Every option on Rezure's Settings page — start with Windows, keep running in the tray, crash notifications, the .test suffix, automatic hosts entries, and where things live.
 ---
 

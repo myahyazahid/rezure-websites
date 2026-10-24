@@ -1,5 +1,5 @@
 ---
-title: Node.js
+title: Install and Switch Node.js Versions on Windows
 description: Install Node.js versions from nodejs.org inside Rezure, pick a global version, and pin a version per project for its terminal — npm included.
 ---
 

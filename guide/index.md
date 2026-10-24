@@ -60,6 +60,8 @@ feature is for short-lived demos and previews, not permanent public deployment.
 
 - [Installation](/guide/installation): download, install, and check it started cleanly
 - [First Run](/guide/first-run): start your services and serve a first project
+- [Coming from Laragon or XAMPP](/guide/switch-from-laragon-xampp): keep your projects and
+  databases, and what's different
 - [Services](/guide/services): everything the Services page does
 - [Laravel .env Cheatsheet](/guide/laravel-env): the connection values for every database and
   for Mailpit, in one place

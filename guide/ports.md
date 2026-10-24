@@ -1,5 +1,5 @@
 ---
-title: Ports
+title: Default Ports for Nginx, PHP, MariaDB, PostgreSQL, Mailpit
 description: Every port Rezure's services listen on — Nginx, PHP, MariaDB, PostgreSQL, SQL Server LocalDB, and Mailpit — and which ones are reachable from your network.
 ---
 

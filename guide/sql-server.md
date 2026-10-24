@@ -1,5 +1,5 @@
 ---
-title: SQL Server
+title: SQL Server with PHP and Laravel on Windows
 description: Use SQL Server with PHP and Laravel on Windows through Rezure — install pdo_sqlsrv, Microsoft's ODBC Driver, and SQL Server LocalDB from inside the app, and connect to other SQL Server instances.
 ---
 

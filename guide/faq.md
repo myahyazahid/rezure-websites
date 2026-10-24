@@ -206,7 +206,8 @@ of a minute or two, and only if you actually need a database.
 Yes. **Add data directory** on the Databases page finds Laragon's and XAMPP's MySQL data at
 their default locations and serves it with that tool's own server binary — nothing is copied or
 converted. Only one of the two tools can run it at a time. See
-[MariaDB & MySQL](/guide/mariadb-mysql#use-a-laragon-or-xampp-data-directory).
+[MariaDB & MySQL](/guide/mariadb-mysql#use-a-laragon-or-xampp-data-directory), and
+[Coming from Laragon or XAMPP](/guide/switch-from-laragon-xampp) for moving your projects too.
 
 ### Does Rezure support PostgreSQL?
 

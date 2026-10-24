@@ -1,5 +1,5 @@
 ---
-title: Requirements Check
+title: Requirements Check — Find Missing PHP Extensions
 description: Rezure's per-project Requirements Check finds missing PHP extensions, broken HTTPS from PHP, and mail, PostgreSQL, or SQL Server settings that won't connect — with a fix button where one exists.
 ---
 
