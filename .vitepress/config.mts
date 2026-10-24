@@ -82,7 +82,9 @@ export default defineConfig({
     'rezure-website-content-structure.md',
     'blog.md',
     'blog_plan.md',
-    'docs-screenshot-list.md'
+    'docs-screenshot-list.md',
+    // Unpublished post drafts; their README links to an .html preview, not a page.
+    'blog-drafts/**'
   ],
   lastUpdated: true,
 
