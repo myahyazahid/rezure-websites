@@ -1,4 +1,4 @@
-git pull origin main/**
+/**
  * Palette shared with the Rezure telemetry dashboard (laravel-api's
  * resources/css/app.css) — same token names, same values, so the marketing
  * site, the docs, and the dashboard read as one product.
