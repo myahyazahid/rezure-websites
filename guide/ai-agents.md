@@ -19,7 +19,7 @@ Three files in the Rezure home folder, `C:\rezure`:
 
 | File | Contents |
 | --- | --- |
-| `AGENTS.md` | This machine's current state: the active PHP version, the database (engine, version, address, and login), LocalDB and PostgreSQL if installed, the web and mail ports, and a table of every project with its URL, folder, and PHP version (marked "pinned" where it is). Plus the rules below. |
+| `AGENTS.md` | This machine's current state: the active PHP version, the database (engine, version, address, and login), LocalDB and PostgreSQL if installed, the web and mail ports, and a table of every project with its URL, folder, framework and the folder it's served from (or "dev server on :4400" for a JavaScript project), and PHP version (marked "pinned" where it is). Plus the rules below. |
 | `CLAUDE.md` | One line, `@AGENTS.md`, so Claude Code loads the file above. |
 | `docs\how-rezure-works.md` | The full guide: services and ports, folder layout, projects, Nginx, PHP, each database, Mailpit, Laravel `.env` values, Node and Composer, sharing, and coexisting with Laragon and XAMPP. |
 
@@ -45,6 +45,12 @@ Besides the facts, `AGENTS.md` tells agents how to behave on a Rezure machine, r
   (it's generated), the `hosts` file's Rezure block, or Rezure's JSON files while it runs.
 - Check `where php` and `php -v` before assuming which PHP runs a command, and run `artisan`,
   `composer`, and `npm` from the project's terminal.
+- A project's framework decides the folder Nginx serves. If it's wrong, ask you to change it
+  from the framework badge; a framework Rezure doesn't know goes in
+  `C:\rezure\etc\frameworks.json`. See [Frameworks](/guide/frameworks).
+- A project marked "dev server" is served by its own process on the port in the table. Ask you
+  to start or stop it from Rezure (**Open**, or **Projects → Dev servers**), and don't start a
+  second copy on that port. See [Dev Servers](/guide/dev-servers).
 - **Ask you** to start or stop services, switch versions, sync hosts, or toggle extensions in
   the Rezure app — rather than killing `nginx.exe` or `php-cgi.exe`, running `initdb`, or
   installing Microsoft packages itself.

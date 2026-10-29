@@ -102,6 +102,10 @@ nothing to list yet. Start it from Services, then retry."
 For TablePlus, DBeaver, or anything else, the details are host `127.0.0.1`, port `5432`, user
 `postgres` or `root`, and any password.
 
+For a [remote PostgreSQL connection](/guide/remote-databases#open-in-an-external-client) with a
+saved password, TablePlus and DBeaver are given that password, so they connect without asking,
+even through an SSH tunnel.
+
 ## Switch versions
 
 With more than one version installed, pick one in the **PostgreSQL** row of the **Switch**

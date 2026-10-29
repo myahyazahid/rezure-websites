@@ -112,6 +112,8 @@ const softwareApplication = {
     'One-click service manager for Nginx, PHP, MariaDB or MySQL, PostgreSQL, SQL Server LocalDB, and Mailpit',
     'Port conflict detection that names the process holding a port and can stop it',
     'Automatic Nginx virtual hosts and Windows hosts file entries for .test domains',
+    'Framework detection for Laravel, CodeIgniter, Symfony, WordPress, Drupal, and more, served from the right document root',
+    'Vite, Next.js, Nuxt, Astro, Angular, and Node dev servers on .test domains, with hot reload',
     'PHP version switching with builds installed straight from php.net',
     'Per-project PHP version pinning with concurrent php-cgi pools',
     'PHP extension toggles, plus Redis and SQL Server drivers installed from the app',
@@ -122,6 +124,7 @@ const softwareApplication = {
     'PostgreSQL 16, 17, and 18 as a local service',
     'SQL Server LocalDB, ODBC Driver, and pdo_sqlsrv installed from inside the app',
     'Remote MySQL, MariaDB, PostgreSQL, and SQL Server connections with optional SSH tunnel',
+    'Open databases in TablePlus, DBeaver, HeidiSQL, or MySQL Workbench, SSH tunnels included',
     'Node.js and Composer version management with per-project Node pinning',
     'Local mail catcher (Mailpit)',
     'One-click public project sharing via Cloudflare Quick Tunnel',
@@ -224,13 +227,16 @@ export default defineConfig({
     ],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:image', content: ogImage }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    // Self-hosted, declared in theme/custom.css. Preloaded so the text doesn't
+    // wait for the stylesheet to be parsed before the font request starts.
     [
       'link',
       {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap'
+        rel: 'preload',
+        href: '/fonts/instrument-sans-latin.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: ''
       }
     ]
   ],
@@ -442,6 +448,8 @@ export default defineConfig({
           text: 'Projects',
           items: [
             { text: 'Projects', link: '/guide/projects' },
+            { text: 'Frameworks', link: '/guide/frameworks' },
+            { text: 'Dev Servers', link: '/guide/dev-servers' },
             { text: 'New Project', link: '/guide/new-project' },
             { text: 'Requirements Check', link: '/guide/requirements-check' },
             { text: 'Project Terminal', link: '/guide/project-terminal' },

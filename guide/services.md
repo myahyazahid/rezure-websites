@@ -25,6 +25,10 @@ Every service except Nginx listens on `127.0.0.1` only. Nginx listens on all int
 port 80, so other devices on your network could reach your sites if Windows Firewall lets
 them. The full list is on [Ports](/guide/ports).
 
+Dev servers for Vite, Next.js, Nuxt, Astro, and Node projects aren't on this page, and **Start
+all** never starts them. Each is started from the Projects page, with **Open** or in **Dev
+servers**. See [Dev Servers](/guide/dev-servers).
+
 ## Start, stop, restart
 
 Each row has its own **Start** or **Stop** button and a **Restart** icon. Restart is a stop

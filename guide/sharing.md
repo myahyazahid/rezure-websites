@@ -25,6 +25,10 @@ Make sure the basics are already working locally:
 That's it. PHP projects need their PHP service running, and the database only matters if the
 page you're sharing needs one — same as for local browsing.
 
+JavaScript and Node projects share the same way: the tunnel goes through Nginx to the project's
+[dev server](/guide/dev-servers), so start it first (click **Open**) and keep it running while
+the link is out.
+
 ## How to share
 
 1. Open the **Projects** page.

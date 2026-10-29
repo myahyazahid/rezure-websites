@@ -20,6 +20,8 @@ data directory without copying it, and you can keep the old stack installed whil
 | `root` with an empty password | An adopted data directory keeps its own users and passwords, so your `.env` files keep working. |
 | HeidiSQL, DBeaver, or another SQL client | Rezure finds installed clients, including Laragon's bundled HeidiSQL, and opens a database in them. |
 | `.test` domains | Rezure uses `.test` too — a folder named `myapp` becomes `myapp.test`. |
+| Laravel, CodeIgniter, Symfony, WordPress projects | Each one's [framework](/guide/frameworks) is detected and served from the right folder (`public/` for Laravel, CodeIgniter 4, and Symfony), with no per-site config to write. |
+| Vite, Next.js, or Nuxt apps on `localhost:5173` | They get a `.test` domain too: Rezure runs the [dev server](/guide/dev-servers) and Nginx passes the domain to it. |
 
 ## Step by step
 
@@ -31,8 +33,10 @@ data directory without copying it, and you can keep the old stack installed whil
    it. See [Port Conflicts](/guide/port-conflicts).
 3. **Adopt your databases.** On the **Databases** page, open the target switcher, click
    **+ Add data directory**, and add the Laragon or XAMPP install Rezure finds. Switch to it.
-4. **Link your projects.** On the **Projects** page, add each existing project folder. Rezure
-   writes the Nginx virtual host; click **Sync hosts file** so the domain resolves.
+4. **Link your projects.** On the **Projects** page, add each existing project folder: the
+   project's root, not its `public` folder. Rezure shows the framework it detected and the
+   folder it will serve, writes the Nginx virtual host, and you click **Sync hosts file** so the
+   domain resolves.
 5. **Pick a PHP version.** Install the PHP versions your projects need from the **Switch**
    page, and [pin a version per project](/guide/project-php-version) if they differ.
 6. **Run the [Requirements Check](/guide/requirements-check)** on each project to catch a
@@ -68,5 +72,6 @@ against the same folder.
 
 - [What is Rezure?](/guide/)
 - [MariaDB & MySQL](/guide/mariadb-mysql)
+- [Frameworks](/guide/frameworks)
 - [Port Conflicts](/guide/port-conflicts)
 - [FAQ](/guide/faq)

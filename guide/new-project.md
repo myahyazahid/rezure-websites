@@ -70,8 +70,9 @@ itself.
 There are no Node templates (Vue, React, and so on) in this dialog. Create the project with
 your framework's own tool in a [project terminal](/guide/project-terminal) or any terminal —
 `npm create vite@latest` inside `C:\rezure\www`, for example — after installing Node.js from
-the [Switch](/guide/nodejs) page. Rezure lists the new folder as a project, but serves it as
-static files; run its dev server yourself for live reload.
+the [Switch](/guide/nodejs) page. Rezure lists the new folder as a project and detects its
+framework. Click **Open** and Rezure starts its dev server and opens it at
+`http://<name>.test`, hot reload included. See [Dev Servers](/guide/dev-servers).
 
 ## Troubleshooting
 

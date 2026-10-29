@@ -266,9 +266,34 @@ leaves the statements before it applied.
 ## Open in an external client
 
 **Open** detects SQL clients installed on your machine and lists the ones that understand the
-server type. For a tunnelled connection, Rezure hands the client the forwarded local endpoint
-— you don't configure the SSH hop yourself. Clients are never given your password; they ask
-for it themselves.
+server type, each with its own logo. For a tunnelled connection, Rezure hands the client the
+forwarded local endpoint on `127.0.0.1`, so you don't configure the SSH hop yourself. That also
+covers SSH with a `.pem` key: the key is only for the SSH layer, which Rezure handles.
+
+### Passwords and "Open with"
+
+TablePlus, DBeaver, HeidiSQL, and the MariaDB console connect the moment they open, without
+asking for a password. A password saved inside the client doesn't help either, because a
+tunnel's local port changes from one session to the next. So when the connection has a
+**saved password**, Rezure hands it over:
+
+| Client | How the password is passed |
+| --- | --- |
+| TablePlus | In the connection URL, percent-encoded, so `@`, `:`, or `/` in a password can't break it |
+| DBeaver | In the connection spec. Left out if the password contains `\|` or `=` |
+| HeidiSQL | As `--password=`. Left out if it starts with `-` or contains a space or `"` |
+| MariaDB console | In the `MYSQL_PWD` environment variable of that console only, never on a command line |
+| MySQL Workbench | Not passed: Workbench has no option for it, so it asks in its own dialog |
+
+A password on a command line can be read by other programs running as your Windows user, the
+same programs that could already read it from Credential Manager. Without it, **Open** can't
+work for a remote server at all. Everywhere else, Rezure keeps passwords off command lines.
+
+When a password is left out for one of the reasons above, type it into the client's own
+connection dialog.
+
+DBeaver and MySQL Workbench take a few seconds to show a window, so the page shows **Opening
+{client}…** until the client appears, and **Open** stays disabled meanwhile.
 
 Which client opens what is listed on [MariaDB & MySQL](/guide/mariadb-mysql#open-in-a-sql-client),
 [PostgreSQL](/guide/postgresql#open-in-a-sql-client), and
@@ -327,6 +352,23 @@ The server uses a certificate Windows doesn't trust. Remove and re-add the conne
 **Trust server certificate** ticked — only for a server you trust. An "untrusted domain"
 error with **Windows account** means your PC isn't on the server's domain; use a SQL Server
 login instead.
+
+### "Access denied … (using password: NO)" when opening in a client
+
+The connection has no saved password, or one the client can't be handed (see
+[Passwords and "Open with"](#passwords-and-open-with)). Save the password on the connection in
+Rezure, or type it into the client's connection dialog. Rezure 3.3 and newer pass a saved
+password to TablePlus, DBeaver, HeidiSQL, and the MariaDB console, including over SSH.
+
+### HeidiSQL opens a session named like `b=shop`
+
+That session was left by an older Rezure, which passed `-db=` and HeidiSQL read it as a session
+name. Delete it in HeidiSQL's session manager. Current versions don't create it.
+
+### MySQL Workbench only opens its Home screen
+
+Update Rezure: versions before 3.3 passed an option Workbench 8.0 doesn't recognise. Workbench
+then opens the connection and asks for the password itself.
 
 ### "read-only" when trying to write
 

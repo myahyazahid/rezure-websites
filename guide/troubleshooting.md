@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting 502 Bad Gateway, .test Domains, and More
-description: Fixes for common Rezure problems on Windows — ports in use, .test domains that don't resolve, 502 Bad Gateway, blank 500 errors, cURL error 60, could not find driver, mail that never arrives, and more.
+description: Fixes for common Rezure problems on Windows — ports in use, .test domains that don't resolve, 502 Bad Gateway, 404 on CodeIgniter 4 or Symfony, Vite dev servers, cURL error 60, could not find driver, and more.
 ---
 
 # Troubleshooting
@@ -79,10 +79,32 @@ Nginx is running but the PHP service the project uses isn't. Start **PHP** — o
 Its folder name has an underscore, a space, or another character that can't be in a domain.
 Rename it to letters, digits, and hyphens. See [Projects](/guide/projects#domains).
 
-### A Symfony or CodeIgniter 4 front page doesn't load
+### A Symfony or CodeIgniter 4 site answers 404
 
-Rezure only serves Laravel from `public\`; other frameworks are served from the project root.
-See the workaround on [Projects](/guide/projects#stack-detection-and-document-root).
+Since Rezure 3.3 both are detected and served from `public\`. If a site still answers 404, it's
+served from the wrong folder: hover the project's framework badge to check, then click it and
+pick the right framework, or **Custom folder…**. An old link to the project's `public\` folder
+should be removed and the project folder added instead. See
+[Frameworks](/guide/frameworks#troubleshooting).
+
+### "This project's dev server isn't running"
+
+A Vite, Next.js, Nuxt, Astro, or Node project is served by its own dev server, and nothing
+answers on its port. Click **Open**, or **Start** in **Dev servers** on the Projects page. See
+[Dev Servers](/guide/dev-servers).
+
+### A dev server won't start
+
+The **Dev servers** dialog names the reason and the fix: dependencies not installed
+(**npm install**), a Node.js version that isn't installed, a missing script, or a copy already
+running in a terminal (**Stop it and start here**). See
+[Dev Servers](/guide/dev-servers#when-a-dev-server-can-t-start-yet).
+
+### Vite says "Blocked request. This host is not allowed"
+
+Your Vite version is too old to accept the domain Rezure passes it. Add
+`server: { allowedHosts: ['.test'] }` to `vite.config`. See
+[Dev Servers](/guide/dev-servers#blocked-request-this-host-is-not-allowed-from-vite).
 
 ### A blank page or a 500 error from Laravel
 
@@ -159,6 +181,13 @@ them. See [PostgreSQL](/guide/postgresql#switch-versions).
 ### A remote connection fails
 
 See the troubleshooting section of [Remote Databases](/guide/remote-databases#troubleshooting).
+
+### "Access denied (using password: NO)" when opening a remote database in a client
+
+Save the connection's password in Rezure: since 3.3, **Open** hands a saved password to
+TablePlus, DBeaver, HeidiSQL, and the MariaDB console, SSH tunnels included. MySQL Workbench
+asks for it itself. See
+[Remote Databases](/guide/remote-databases#passwords-and-open-with).
 
 ## Mail
 

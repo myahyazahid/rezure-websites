@@ -79,6 +79,11 @@ npm run dev
 A dev server started with `npm run dev` runs in this terminal, not under Rezure. Close the
 window (or press **Ctrl + C**) to stop it.
 
+For a Vite, Next.js, Nuxt, Astro, or Node project you usually don't need to: **Open** on the
+project's row starts the dev server under Rezure on the port its `.test` domain points at. See
+[Dev Servers](/guide/dev-servers). If you've already started one here, the Dev servers dialog
+notices and offers **Stop it and start here**.
+
 ## In other terminals
 
 Outside a project terminal, `php` is whatever your system `PATH` provides. To make Rezure's

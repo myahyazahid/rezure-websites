@@ -81,6 +81,9 @@ before deleting `data\`.
 | `profiles.json` | MySQL/MariaDB [data directory profiles](/guide/mariadb-mysql#data-directory-profiles) |
 | `connections.json` | Saved [database connections](/guide/remote-databases) — never passwords |
 | `links.json` | Projects linked from outside `www` |
+| `project-frameworks.json` | Frameworks or custom folders you chose for a project. See [Frameworks](/guide/frameworks#change-a-project-s-framework) |
+| `frameworks.json` | **Your own framework definitions**, if you add any — meant for hand edits. See [Frameworks](/guide/frameworks#add-a-framework-rezure-doesn-t-know) |
+| `dev-servers.json` | Each JavaScript project's dev server port, script, and **Open starts it** setting. See [Dev Servers](/guide/dev-servers) |
 | `php\conf.d\` | **Your own PHP settings** — the one place meant for hand edits. See [PHP Configuration](/guide/php-configuration#your-php-settings) |
 | `cacert.pem` | The CA bundle PHP uses for HTTPS |
 | `device.json` | This install's random ID, used for [usage data](/guide/privacy) and Feedback tickets |

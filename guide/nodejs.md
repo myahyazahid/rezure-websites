@@ -1,6 +1,6 @@
 ---
 title: Install and Switch Node.js Versions on Windows
-description: Install Node.js versions from nodejs.org inside Rezure, pick a global version, and pin a version per project for its terminal — npm included.
+description: Install Node.js versions from nodejs.org inside Rezure, pick a global version, pin a version per project, and run Vite, Next.js, or Nuxt dev servers on .test domains — npm included.
 ---
 
 # Node.js
@@ -8,9 +8,10 @@ description: Install Node.js versions from nodejs.org inside Rezure, pick a glob
 Rezure installs and switches Node.js versions the same way it does PHP: official builds,
 checksum-verified, several side by side. Each build comes with its own `npm` and `npx`.
 
-Node in Rezure is for the **terminal** — `npm install`, `npm run dev`, Vite, build tools. Rezure
-doesn't run Node apps as a service or proxy their dev servers; see
-[JavaScript projects](#javascript-projects) below.
+Node in Rezure powers two things: the [project terminal](/guide/project-terminal) (`npm
+install`, build tools) and [dev servers](/guide/dev-servers), which serve Vite, Next.js, Nuxt,
+Astro, and Node apps at their `.test` domain. See [JavaScript projects](#javascript-projects)
+below.
 
 ## Install a version
 
@@ -47,9 +48,10 @@ Node. Terminals Rezure didn't open keep using whatever Node you installed yourse
 While a version is pinned, the icon is filled in and its tooltip reads "Pinned to Node.js X —
 click to change".
 
-A pin changes only which `node`, `npm`, and `npx` come first on `PATH` in the **next** terminal
-opened from that project's row. It doesn't restart anything or affect Nginx, and a terminal
-that's already open keeps the version it started with.
+A pin decides which `node`, `npm`, and `npx` come first on `PATH` in the **next** terminal
+opened from that project's row, and which Node.js the project's
+[dev server](/guide/dev-servers) runs on the next time it starts. It doesn't restart anything,
+and a terminal that's already open keeps the version it started with.
 
 Rezure doesn't read `.nvmrc`, `.node-version`, or the `engines` field in `package.json` — the
 pin in Rezure is what counts.
@@ -60,23 +62,30 @@ the Switch page first."
 ## JavaScript projects
 
 A folder with a `package.json` is listed on the Projects page as **Vue**, **React**,
-**Next.js**, **Nuxt**, **Svelte**, or **Node**. Nginx serves its files statically at
-`http://<name>.test`, which is useful for a built `dist\` folder but not for development.
+**Svelte**, **Angular**, **Astro**, **Next.js**, **Nuxt**, or **Node**. Since Rezure 3.3 these
+are served by their own **dev server**: click **Open** and Rezure runs `npm run dev` (or the
+project's own script) on a port of its own, waits until it answers, and opens
+`http://<name>.test`. Nginx passes the domain to that port, hot reload included. See
+[Dev Servers](/guide/dev-servers) for ports, scripts, and troubleshooting.
 
-For development, start the framework's own dev server in a project terminal:
+Dependencies come first. If `node_modules` is missing, the **Dev servers** dialog offers an
+**npm install** button (or pnpm, yarn, or bun, going by the project's lockfile). You can also
+run it from a project terminal:
 
 ```bat
 npm install
-npm run dev
 ```
 
-and open the address it prints (`http://localhost:5173` for Vite, for example).
+To serve a **built** `dist\` folder as plain files instead, click the project's framework badge
+and choose **Custom folder…**. See [Frameworks](/guide/frameworks#change-a-project-s-framework).
 
 ### Laravel with Vite
 
-A Laravel project is served by Nginx as usual, and `npm run dev` in its project terminal runs
-Vite alongside for hot reload. Laravel's Vite plugin writes the dev server's address into the
-page, so the site at `http://myapp.test` picks up your CSS and JS changes live.
+A Laravel project is served by Nginx and PHP as usual, so it isn't a dev server project. Run
+`npm run dev` in its project terminal to start Vite alongside for hot reload. Laravel's Vite
+plugin writes the dev server's address into the page, so the site at `http://myapp.test` picks
+up your CSS and JS changes live. The same goes for CodeIgniter, Symfony, and other PHP projects
+that use npm for assets: Rezure detects them as the PHP framework they are.
 
 ## Remove a version
 
@@ -85,6 +94,7 @@ There's no uninstall button. Quit Rezure and delete the folder under `C:\rezure\
 
 ## Related
 
+- [Dev Servers](/guide/dev-servers) — Vite, Next.js, Astro, and Nuxt on `.test` domains
 - [Project Terminal](/guide/project-terminal) — where Node versions apply
 - [PHP Versions](/guide/php-versions) — the Switch page in general
-- [Projects](/guide/projects) — how JavaScript projects are detected
+- [Frameworks](/guide/frameworks) — how JavaScript projects are detected

@@ -1,6 +1,6 @@
 ---
 title: Local .test Domains and Nginx Virtual Hosts
-description: How Rezure serves projects — folders in www, linked folders elsewhere, .test domains, stack detection, document roots, the hosts file, and every action on a project's row.
+description: How Rezure serves projects on .test domains — folders in www, linked folders, framework detection, the public/ document root, dev servers, the hosts file, and every action on a project.
 ---
 
 # Projects
@@ -39,40 +39,29 @@ static HTML. See [New Project](/guide/new-project).
 
 Sites are served over plain `http://` on port 80. There's no local HTTPS.
 
-## Stack detection and document root
+## Frameworks and document root
 
-Rezure looks at marker files to label each project, first match wins:
+Rezure reads each project's files to work out its framework, and the framework decides how
+Nginx serves it:
 
-| Marker | Stack |
-| --- | --- |
-| `artisan` | **Laravel** |
-| `wp-config.php` or `wp-load.php` | **WordPress** |
-| `package.json` depending on `next`, `nuxt`, `vue`, `react`, or `svelte` | **Next.js**, **Nuxt**, **Vue**, **React**, **Svelte** |
-| any other `package.json` | **Node** |
-| `composer.json` or `index.php` | **PHP** |
-| `index.html` | **Static** |
-| none of these | **Unknown** (still served as static files) |
-| a linked folder that no longer exists | **Missing** |
+- **PHP frameworks** are served from the folder that holds their front controller: `public\`
+  for Laravel, CodeIgniter 4, Symfony, Slim, and Laminas, `web\` for Drupal, Bedrock, and
+  Yii 2, `webroot\` for CakePHP, and the project folder for WordPress, CodeIgniter 3, Joomla,
+  and plain PHP.
+- **JavaScript and Node projects** (Vue, React, Svelte, Angular, Astro, Next.js, Nuxt, Node)
+  are passed through to their own **dev server**, which Rezure starts when you click **Open**.
+  See [Dev Servers](/guide/dev-servers).
+- **Static** HTML and **Unknown** projects are served from the project folder as plain files.
+  A linked folder that no longer exists is shown as **Missing**.
 
-The stack decides the **document root**, the folder Nginx serves:
+The most specific match wins, so a CodeIgniter 4 app with a `package.json` for its Sass is
+CodeIgniter 4, not Node, and a Laravel app on Inertia is Laravel, not Vue. Each project shows
+its framework as a badge. Click it to pick another framework, or a **Custom folder…** of your
+own, and the change is live at once. The full list, the detection rules, and how to add a
+framework of your own are on [Frameworks](/guide/frameworks).
 
-- **Laravel** projects with a `public\` folder are served from `public\`.
-- **Everything else** is served from the project folder itself.
-
-A few consequences worth knowing:
-
-- Frameworks that also keep their entry point in `public\` — Symfony, CodeIgniter 4, and
-  similar — are detected as **PHP** and served from the project root, so their front page
-  won't load as expected. The workaround: keep the project outside `www` and use
-  **Add folder** on its `public\` folder itself. Rezure then serves that folder as the site's
-  root.
-- **Node, Vue, React** and the other JavaScript stacks are served as static files by Nginx.
-  Rezure doesn't run or proxy their dev server; run `npm run dev` in a
-  [project terminal](/guide/project-terminal) and use the address it prints. A built `dist\`
-  folder can be opened by path.
-
-Every virtual host uses the same rules: static files first, everything else through
-`index.php` (the front-controller pattern Laravel and WordPress expect), `.ht*` files denied,
+PHP projects share the same Nginx rules: static files first, everything else through
+`index.php` (the front-controller pattern), **dotfiles such as `.env` and `.git` answer 404**,
 request bodies up to 64 MB, and PHP given up to 300 seconds per request.
 
 Rezure regenerates the configs in `C:\rezure\data\nginx\vhosts\` whenever projects change, so
@@ -111,8 +100,13 @@ anything changed.
 
 - **Search projects or domains** filters by name or domain.
 - **List** and **Grid** switch the layout.
-- Each project shows its name, folder, domain, stack, and a usage line — "Not opened yet", or
-  "Opened 3× · last today". Opening the site, its folder, or its terminal from Rezure counts.
+- Each project shows its name, folder, domain, framework badge, and a usage line — "Not opened
+  yet", or "Opened 3× · last today". Opening the site, its folder, or its terminal from Rezure
+  counts. Hover the framework badge to see the folder it's served from; click it to
+  [change the framework](/guide/frameworks#change-a-project-s-framework).
+- **Dev servers**, next to **Sync hosts file**, lists the JavaScript and Node projects served by
+  their own dev server, with a badge counting the ones running. See
+  [Dev Servers](/guide/dev-servers).
 - A linked folder that's gone shows "Folder not found — it may have moved, or be on a drive
   that isn't connected." It stays listed, without a virtual host, so it comes back when the
   drive does.
@@ -123,27 +117,35 @@ Each row has, in order:
 
 | Action | What it does |
 | --- | --- |
-| **Open** | Opens `http://<domain>` in your default browser. |
+| **Open** | Opens `http://<domain>` in your default browser. For a [dev server](/guide/dev-servers) project it starts the dev server first and opens the browser once it answers; the dot on the button is green while it runs. |
 | **Share** | Starts a public Cloudflare link for the project. See [Sharing a Project](/guide/sharing). |
 | **Folder** | Opens the project folder in Explorer. |
 | **Requirements check** | Checks the project's PHP extensions, HTTPS from PHP, mail, and database settings. See [Requirements Check](/guide/requirements-check). |
 | **PHP version** | Pins the project to its own PHP version. See [PHP Per Project](/guide/project-php-version). |
-| **Node.js version** | Pins the Node.js version its terminal uses. See [Node.js](/guide/nodejs#pin-node-per-project). |
+| **Node.js version** | Pins the Node.js version its terminal and its dev server use. See [Node.js](/guide/nodejs#pin-node-per-project). |
 | **Terminal** | Opens a terminal in the folder with the project's PHP and Node first on `PATH`. See [Project Terminal](/guide/project-terminal). |
 | **×** (linked projects only) | Removes the project from Rezure. |
 
-The PHP and Node icons are filled in while a version is pinned, and the Share icon while a
-share is live.
+The PHP and Node.js buttons show each runtime's logo: grey while the project follows the
+global version, in colour on a filled button once a version is pinned. The Share icon is
+filled while a share is live.
 
 There's no rename action. To rename a project in `www`, rename its folder — but note that the
-project then counts as a new one, so its usage history and PHP/Node pins don't follow.
+project then counts as a new one, so its usage history, PHP/Node pins, framework choice, and
+dev server settings don't follow.
 
 ## Add an existing folder
 
 1. Click **Add folder** ("Serve a project from a folder outside your www directory").
 2. Click **Choose a folder** and pick it.
-3. Rezure shows what it found: "Detected as **Laravel** · served from public/", for example.
-   With no markers: "No framework markers found here — it'll still be served as static files."
+3. Rezure shows the **framework** it detected and the folder it will be **served from**, such
+   as Laravel served from `public/`, with **Change** next to the framework if detection got it
+   wrong. A JavaScript project reads "Served through its dev server". With no markers: "No
+   framework markers found here — it'll be served from the folder itself. Pick the framework
+   below if you know it."
+   If you picked a project's `public/` folder rather than the project itself, the dialog says
+   so and offers to add the project folder instead. See
+   [Frameworks](/guide/frameworks#linked-the-public-folder-by-mistake).
 4. Check the **Name** and **Domain**. The domain is suggested from the folder name; if that's
    taken, a number is added (`myapp-2.test`). You can type any valid domain — it doesn't have
    to end in `.test`, though `.test` is the safe choice.
@@ -189,8 +191,21 @@ The administrator prompt was declined. Click **Sync hosts file** again and choos
 
 Its folder name can't be a domain. Rename the folder to letters, digits, and hyphens.
 
+### The site answers 404 although the code works elsewhere
+
+The project is served from the wrong folder: a front-controller framework served from its
+project folder instead of `public/` answers every URL with 404. Hover the framework badge to
+check, then click it and pick the right framework. See [Frameworks](/guide/frameworks).
+
+### "This project's dev server isn't running"
+
+The project is a JavaScript or Node app and nothing answers on its port. Click **Open**, or
+**Start** in **Dev servers**. See [Dev Servers](/guide/dev-servers#troubleshooting).
+
 ## Related
 
+- [Frameworks](/guide/frameworks) — detection, document roots, and adding your own
+- [Dev Servers](/guide/dev-servers) — Vite, Next.js, Astro, and Nuxt on `.test` domains
 - [New Project](/guide/new-project) — start from a template
 - [Requirements Check](/guide/requirements-check) — find what a project is missing
 - [Project Terminal](/guide/project-terminal) — run `artisan`, `composer`, and `npm`

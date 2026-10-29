@@ -83,7 +83,16 @@ opens directly; with several you get "Open {db} with" and a choice.
 | **MariaDB console (bundled)** | Always listed — a `mariadb` command-line session |
 
 Clients are found in their usual install locations, including Laragon's bundled HeidiSQL and
-DBeaver. Your password is never handed to a client; it asks for one itself if needed.
+DBeaver. Each one is listed with its own logo, taken from the client you have installed.
+
+DBeaver and MySQL Workbench take a few seconds to show a window, so the page shows **Opening
+{client}…** in the meantime and **Open** is disabled, which keeps a second click from starting a
+second copy.
+
+For a **remote** connection with a saved password, TablePlus, DBeaver, HeidiSQL, and the
+MariaDB console are given that password so they connect straight away; MySQL Workbench asks for
+it itself. See
+[Remote Databases](/guide/remote-databases#open-in-an-external-client).
 
 ## Data directory profiles
 

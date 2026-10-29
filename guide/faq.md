@@ -135,6 +135,40 @@ Not yet. Sites are served over plain `http://` on `.test` domains.
 No. Rezure's web server is Nginx. Laravel, WordPress, and most PHP apps run on it without
 changes; `.htaccess` files are ignored (and denied to visitors).
 
+### Which frameworks does Rezure support?
+
+Laravel, CodeIgniter 3 and 4, WordPress, Bedrock, Drupal, Joomla, Symfony, Yii 2, CakePHP,
+Slim, and Laminas on the PHP side, and Next.js, Nuxt, Astro, Vue, React, Svelte, Angular, and
+plain Node on the JavaScript side. Rezure detects the framework from the project's files and
+serves it from the right folder, such as `public/` for Laravel, CodeIgniter 4, and Symfony. If
+detection gets a project wrong, click its framework badge to change it. A framework Rezure
+doesn't know can be added in `C:\rezure\etc\frameworks.json`. See
+[Frameworks](/guide/frameworks).
+
+### Why does my CodeIgniter 4 or Symfony site show 404?
+
+On Rezure 3.3 and newer it shouldn't: both are detected and served from `public/`. If a project
+still answers 404, it's probably served from the wrong folder. Hover its framework badge to see
+where it's served from, then click the badge to pick the right framework. If you once linked the
+project's `public/` folder directly as a workaround, remove that link and add the project folder
+instead. See [Frameworks](/guide/frameworks#troubleshooting).
+
+### Can I open a Vite, Next.js, or Nuxt app on a `.test` domain?
+
+Yes, since Rezure 3.3. JavaScript and Node projects are served by their own dev server: click
+**Open** and Rezure starts `npm run dev` on a port of its own, waits until it answers, and opens
+`http://myapp.test`. Nginx passes the domain to that port, with hot reload working. Rezure also
+takes care of Vite's allowed-hosts check and Next.js 16's dev-origin check. Every dev server
+stops when Rezure closes. See [Dev Servers](/guide/dev-servers).
+
+### Can visitors download my project's `.env` file?
+
+No. PHP sites answer **404** for every dotfile (`.env`, `.git`, `.htaccess`, and so on) except
+`.well-known`. This closes a gap in versions before 3.3, where a project served from its own
+folder, such as WordPress or plain PHP, could expose its `.env`. JavaScript projects never serve
+their folder directly: requests go to the dev server. See
+[Frameworks](/guide/frameworks#how-nginx-serves-each-kind).
+
 ### Can I serve a site to the internet with Rezure?
 
 For a **temporary preview**, yes — use **Share** on the **Projects** page. Rezure opens a
@@ -187,8 +221,10 @@ projects, but doesn't put a `composer` command on `PATH`. See
 
 ### Does Rezure support Node.js?
 
-Yes, for the terminal: install versions from the Switch page and pin one per project. Rezure
-doesn't run Node apps as a service or proxy their dev servers. See [Node.js](/guide/nodejs).
+Yes. Install versions from the Switch page and pin one per project; the pin applies to the
+project's terminal and to its dev server. Vite, Next.js, Nuxt, Astro, Angular, and Node apps
+open at their `.test` domain through a dev server Rezure starts for you. See
+[Node.js](/guide/nodejs) and [Dev Servers](/guide/dev-servers).
 
 ### What about Python, Ruby, or Go?
 
@@ -236,6 +272,14 @@ If the database isn't reachable directly — it only listens on `127.0.0.1` on t
 the port is firewalled — enable **Connect through an SSH tunnel** when adding the
 connection. Rezure uses Windows' built-in OpenSSH client; no extra SSH software is required.
 See [Remote Databases](/guide/remote-databases) for field-by-field setup and examples.
+
+### Can I open a remote database over SSH in TablePlus, DBeaver, or HeidiSQL?
+
+Yes. **Open** on a remote connection hands the client the tunnel's local address, so the client
+never deals with SSH. When the connection has a saved password, TablePlus, DBeaver, HeidiSQL,
+and the MariaDB console get it too and connect straight away. MySQL Workbench asks for the
+password in its own dialog. See
+[Remote Databases](/guide/remote-databases#open-in-an-external-client).
 
 ### Where are database passwords stored?
 

@@ -29,6 +29,17 @@ Deleting `device.json` (with Rezure closed) makes the install look new.
 | A service stops | `service.stop` | The service's name |
 | Starting, stopping, or restarting fails | `error.report` | The **kind** of error only (e.g. `PortInUse`), plus the action and service. Never the error message. |
 | A service crashes on its own | `error.report` | `ServiceCrashed` and the service |
+| You add a folder with **Add folder** | `project.linked` | The [framework](/guide/frameworks) id detection found and the one you chose, if different, such as `node` and `codeigniter4` |
+| You change a project's framework, or set it back to Auto | `project.framework_changed` | The same two framework ids |
+
+The framework events show where detection gets projects wrong and which frameworks people use
+that Rezure doesn't recognise yet. Only built-in ids such as `laravel` are sent as they are. A
+framework from your own `frameworks.json` is sent as `user-defined`, since its id could name
+your company or client, a custom folder as `custom`, and no match as `unknown`. The project's
+name, path, domain, and files are never included.
+
+[Dev servers](/guide/dev-servers) send nothing at all: starting, stopping, or a crash of one
+records no event, because their ids are project names.
 
 Every event also carries the device ID, a random event ID, the Rezure version, and the time it
 happened.
@@ -114,6 +125,10 @@ None of these carry the device ID or any usage data:
 Saved database and SSH passwords go to **Windows Credential Manager**, under **Rezure Database
 Connections** — never into Rezure's own files, and never off your PC. See
 [Remote Databases](/guide/remote-databases#where-connections-are-stored).
+
+The only place a saved database password leaves Rezure is when you click **Open** on a remote
+connection: it's handed to the SQL client you picked on your own PC, so the client can connect.
+See [Passwords and "Open with"](/guide/remote-databases#passwords-and-open-with).
 
 ## Related
 

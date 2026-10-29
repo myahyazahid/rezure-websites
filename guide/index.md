@@ -1,7 +1,7 @@
 ---
 title: What is Rezure?
 titleTemplate: false
-description: An introduction to Rezure, the one-click local development environment manager for Windows — Nginx, PHP, MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit in one app.
+description: An introduction to Rezure, the one-click local development environment for Windows — Nginx, PHP, MariaDB, PostgreSQL, SQL Server, Node.js dev servers, and Mailpit in one app.
 ---
 
 # What is Rezure?
@@ -25,6 +25,12 @@ are never downloaded.
   Folders that live elsewhere can be linked in place. New projects can start from a Laravel,
   WordPress, PHP, or HTML template. See [Projects](/guide/projects) and
   [New Project](/guide/new-project).
+- **Frameworks**: Laravel, CodeIgniter, Symfony, WordPress, Drupal, and 15 more are detected
+  from their files and served from the right folder, such as `public/`. One click corrects a
+  wrong guess, and you can add frameworks of your own. See [Frameworks](/guide/frameworks).
+- **Dev servers**: Vite, Next.js, Nuxt, Astro, Angular, and Node apps open at their `.test`
+  domain too. Rezure starts the dev server on **Open**, keeps hot reload working, and stops it
+  when it closes. See [Dev Servers](/guide/dev-servers).
 - **PHP**: install versions from php.net inside the app or drop in your own, switch the global
   default, and **pin** any project to its own version so several run at once. Extensions are
   toggles, not `.ini` edits. See [PHP Versions](/guide/php-versions),

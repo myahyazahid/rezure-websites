@@ -29,15 +29,17 @@ There are three ways to get a project listed:
 as `myapp.test`. Nothing to configure.
 
 **Link a folder you already have.** Use **Add folder** on the Projects page and pick the
-folder wherever it lives. Rezure shows you the name, the detected stack, the document root
-it will serve, and the domain, all editable, before saving anything. Nothing is copied or
+folder wherever it lives. Rezure shows you the name, the detected framework, the folder it
+will serve, and the domain, all editable, before saving anything. Nothing is copied or
 moved; only the path is recorded.
 
 **Start a new one.** **New project** creates a Laravel, WordPress, blank PHP, or static HTML
 project in `www` for you. See [New Project](/guide/new-project).
 
-Either way Rezure works out the document root for you. For a Laravel project that's
-`public/`, not the folder itself. Folder names should stick to letters, digits, and hyphens:
+Either way Rezure works out the document root for you from the project's
+[framework](/guide/frameworks). For Laravel, CodeIgniter 4, and Symfony that's `public/`, not
+the folder itself, and a Vite or Next.js project is served by its
+[dev server](/guide/dev-servers). Folder names should stick to letters, digits, and hyphens:
 an underscore or a space makes an invalid domain, and the project is listed as **Not served**.
 
 ## 3. Make the domain resolve

@@ -27,7 +27,7 @@ hero:
 
 # Illustration in the hero, not a screenshot — it stands in for the service
 # manager screen. Replace with a real capture of the app when one exists.
-# Versions and ports mirror what Rezure 3.1 actually ships and listens on.
+# Versions and ports mirror what Rezure 3.x actually ships and listens on.
 services:
   - name: Nginx
     version: 1.25.3
@@ -61,10 +61,10 @@ features:
     link: /guide/port-conflicts
     icon: docker
     details: Rezure checks every port before a service starts, names whatever is holding it — Laragon, XAMPP, Docker, IIS — and can stop it for you with one click.
-  - title: Automatic virtual hosts
-    link: /guide/projects
+  - title: Virtual hosts that know your framework
+    link: /guide/frameworks
     icon: nginx
-    details: Every folder in your www directory becomes its own .test site, and folders elsewhere can be linked in place. Rezure writes the Nginx config and keeps the Windows hosts file in sync.
+    details: Every folder in your www directory becomes its own .test site, and folders elsewhere can be linked in place. Laravel, CodeIgniter, Symfony, WordPress, and Drupal are detected and served from the right folder, with the Windows hosts file kept in sync.
   - title: PHP per project
     link: /guide/project-php-version
     icon: php
@@ -77,10 +77,10 @@ features:
     link: /guide/postgresql
     icon: postgresql
     details: PostgreSQL 16, 17, and 18 and SQL Server LocalDB run beside MariaDB, with the PHP drivers for both installed from inside the app.
-  - title: Node.js, Composer, and a project terminal
-    link: /guide/nodejs
+  - title: Vite, Next.js, and Node on .test
+    link: /guide/dev-servers
     icon: nodedotjs
-    details: Install Node.js and Composer versions, pin Node per project, and open a terminal in any project with the right PHP and Node already first on PATH.
+    details: Open Vite, Next.js, Nuxt, and Astro apps at their own .test domain. Rezure starts the dev server, keeps hot reload working, and runs it on the project's pinned Node.js. Composer and a project terminal come too.
   - title: Share and test without deploying
     link: /guide/sharing
     icon: share
