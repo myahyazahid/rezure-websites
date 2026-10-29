@@ -25,31 +25,6 @@ hero:
       link: https://github.com/myahyazahid/rezure
       theme: ghost
 
-# Illustration in the hero, not a screenshot; it stands in for the service
-# manager screen. Replace with a real capture of the app when one exists.
-# Versions and ports mirror what Rezure 3.x actually ships and listens on.
-services:
-  - name: Nginx
-    version: 1.25.3
-    port: '80'
-    running: true
-    icon: nginx
-  - name: PHP
-    version: 8.3.33
-    port: '9100'
-    running: true
-    icon: php
-  - name: MariaDB
-    version: 11.2.2
-    port: '3306'
-    running: true
-    icon: mariadb
-  - name: PostgreSQL
-    version: '18.6'
-    port: '5432'
-    running: false
-    icon: postgresql
-
 featuresTitle: Everything a developer needs, in one window
 
 features:

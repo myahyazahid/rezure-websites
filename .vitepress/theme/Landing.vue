@@ -36,14 +36,6 @@ interface Feature {
   link?: string
 }
 
-interface Service {
-  name: string
-  version: string
-  port: string | number
-  running: boolean
-  icon?: string
-}
-
 interface Cta {
   title: string
   text?: string
@@ -91,8 +83,6 @@ const BRAND_COLORS: Record<string, string> = {
 const { frontmatter } = useData()
 
 const hero = computed<Hero | null>(() => frontmatter.value.hero ?? null)
-const services = computed<Service[]>(() => frontmatter.value.services ?? [])
-const runningCount = computed(() => services.value.filter((s) => s.running).length)
 const features = computed<Feature[]>(() => frontmatter.value.features ?? [])
 const reasons = computed<Feature[]>(() => frontmatter.value.reasons ?? [])
 const cta = computed<Cta | null>(() => frontmatter.value.cta ?? null)
@@ -127,39 +117,6 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
           >
             {{ action.text }}
           </a>
-        </div>
-
-        <!--
-          Stylised stand-in for the service manager screen so the fold isn't all
-          type — not a screenshot. Swap in a real capture when there is one; the
-          frame styling does not depend on this markup.
-        -->
-        <div v-if="services.length" class="app-frame" aria-hidden="true">
-          <div class="app-titlebar">
-            <span class="dots"><i class="dot-red" /><i class="dot-yellow" /><i class="dot-green" /></span>
-            <span class="app-name">Rezure</span>
-            <span class="app-summary">{{ runningCount }}/{{ services.length }} running</span>
-          </div>
-
-          <div class="app-body">
-            <div v-for="service in services" :key="service.name" class="service-row">
-              <span class="service-id">
-                <span class="service-icon" :style="{ color: BRAND_COLORS[service.icon ?? ''] }">
-                  <svg viewBox="0 0 24 24" fill="currentColor" v-html="BRAND_ICONS[service.icon ?? '']" />
-                </span>
-                <span class="service-name">{{ service.name }}</span>
-                <span class="service-version">{{ service.version }}</span>
-              </span>
-
-              <span class="service-meta">
-                <span class="port">:{{ service.port }}</span>
-                <span class="state" :class="{ 'is-running': service.running }">
-                  <span class="state-dot" />
-                  {{ service.running ? 'Running' : 'Stopped' }}
-                </span>
-              </span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -344,190 +301,6 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
   color: var(--foreground);
 }
 
-/* ---------- App illustration ---------- */
-
-.app-frame {
-  max-width: 720px;
-  margin: 64px auto 0;
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  background-color: var(--surface);
-  box-shadow: var(--shadow-card), 0 30px 60px -30px rgb(0 0 0 / 0.25);
-  overflow: hidden;
-  text-align: left;
-  animation: float 7s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.app-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--border-color);
-  background: linear-gradient(to bottom, var(--surface-raised), var(--surface));
-}
-
-.dots {
-  display: inline-flex;
-  gap: 7px;
-}
-
-.dots i {
-  width: 11px;
-  height: 11px;
-  border-radius: 999px;
-}
-
-.dot-red {
-  background-color: #ff5f57;
-}
-
-.dot-yellow {
-  background-color: #febc2e;
-}
-
-.dot-green {
-  background-color: #28c840;
-}
-
-.app-name {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--brand-text);
-}
-
-.app-summary {
-  margin-left: auto;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--subtle);
-}
-
-.app-body {
-  padding: 8px;
-}
-
-.service-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 12px 12px;
-}
-
-.service-row + .service-row {
-  border-top: 1px solid var(--border-color);
-}
-
-.service-id {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-
-.service-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  /* Fixed light chip in both themes — some brand marks (MariaDB's near-navy)
-     would nearly vanish against a dark badge, and a logo is only useful if
-     its real color stays readable regardless of site theme. */
-  background-color: #f0ecec;
-  flex-shrink: 0;
-}
-
-.service-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.service-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.service-version,
-.port {
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  color: var(--subtle);
-}
-
-.service-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.state {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 10px 3px 8px;
-  border-radius: 999px;
-  background-color: var(--surface-raised);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.state-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background-color: var(--subtle);
-}
-
-.state.is-running {
-  background-color: color-mix(in oklab, var(--positive) 15%, transparent);
-  color: var(--positive);
-}
-
-.state.is-running .state-dot {
-  background-color: var(--positive);
-  box-shadow: 0 0 0 0 color-mix(in oklab, var(--positive) 60%, transparent);
-  animation: pulse-ring 2s ease-out infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--positive) 45%, transparent);
-  }
-  70% {
-    box-shadow: 0 0 0 6px color-mix(in oklab, var(--positive) 0%, transparent);
-  }
-  100% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--positive) 0%, transparent);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .app-frame {
-    animation: none;
-  }
-
-  .state.is-running .state-dot {
-    animation: none;
-  }
-}
-
 /* ---------- Sections ---------- */
 
 .section {
@@ -588,7 +361,7 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  /* Fixed light chip in both themes (see .service-icon) so a brand mark's
+  /* Fixed light chip in both themes so a brand mark's
      own hex — set inline per feature — stays legible in dark mode too; the
      one generic icon falls back to the site's red. */
   background-color: #f0ecec;
@@ -738,20 +511,6 @@ const isExternal = (link: string) => /^https?:\/\//.test(link)
   .feature-grid,
   .reason-grid {
     grid-template-columns: 1fr;
-  }
-
-  .app-frame {
-    margin-top: 44px;
-  }
-
-  .app-summary {
-    display: none;
-  }
-
-  .service-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
   }
 
   .cta {
