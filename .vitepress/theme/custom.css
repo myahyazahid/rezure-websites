@@ -165,6 +165,26 @@
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
+/* The EN / ID pill (theme/components/LangSwitch.vue) stays in the bar at every
+   width, so the default theme's other two language menus, in the "..." flyout
+   and the mobile nav screen, would only repeat it. */
+.VPNavBarExtra .translations,
+.VPNavScreenTranslations {
+  display: none !important;
+}
+
+/* Below 768px the nav links collapse into the hamburger, which leaves the
+   divider VitePress draws before the language slot with nothing to divide. */
+@media (max-width: 767px) {
+  .VPNavBar .translations::before {
+    display: none !important;
+  }
+
+  .VPNavBar .translations {
+    margin-left: 4px;
+  }
+}
+
 /* ---------- Sidebar ---------- */
 
 .VPSidebarItem.level-0 > .item > .text {

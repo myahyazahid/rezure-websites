@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { loadEnv } from 'vite'
 import { defineConfig, type HeadConfig } from 'vitepress'
 
@@ -15,6 +16,8 @@ const hostname = 'https://rezure.redscale.my.id'
 const siteName = 'Rezure'
 const description =
   'Rezure is the best free, open-source local development server for Windows and a lightweight Laragon and XAMPP alternative: Nginx, PHP, MySQL or MariaDB, PostgreSQL, SQL Server, Node.js dev servers, and Mailpit in one click.'
+const descriptionId =
+  'Rezure adalah local development server gratis dan open source terbaik untuk Windows, alternatif ringan Laragon dan XAMPP: Nginx, PHP, MySQL atau MariaDB, PostgreSQL, SQL Server, dev server Node.js, dan Mailpit dalam satu klik.'
 const ogImage = `${hostname}/og-image.png`
 const authorName = 'Muhammad Yahya Zahid'
 const authorUrl = 'https://github.com/myahyazahid'
@@ -43,6 +46,9 @@ const ids = {
 /** `guide/installation.md` -> `/guide/installation`, `index.md` -> `/`. Matches cleanUrls. */
 const routeOf = (relativePath: string) =>
   '/' + relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+
+/** `/id/guide/installation` -> `/guide/installation`. The English route is the one every check below keys on. */
+const enRouteOf = (route: string) => route.replace(/^\/id(\/|$)/, '/')
 
 const jsonLd = (data: Record<string, unknown>): HeadConfig => [
   'script',
@@ -167,13 +173,119 @@ function faqEntities(file: string) {
   for (const line of readFileSync(file, 'utf-8').split(/\r?\n/)) {
     if (line.startsWith('#')) {
       flush()
-      if (line.startsWith('### ')) question = line.slice(4)
+      // The Indonesian FAQ pins each heading to its English anchor with `{#slug}`.
+      if (line.startsWith('### ')) question = line.slice(4).replace(/\s*\{#[^}]*\}\s*$/, '')
     } else if (question && line.trim() && !line.startsWith('```')) {
       answer.push(line)
     }
   }
   flush()
   return entities
+}
+
+type Locale = 'en' | 'id'
+
+/** Nav bar links, per locale. Indonesian routes are the English ones under /id/. */
+function nav(locale: Locale) {
+  const p = locale === 'id' ? '/id' : ''
+  const t = (en: string, id: string) => (locale === 'id' ? id : en)
+  return [
+    { text: t('Home', 'Beranda'), link: `${p}/` },
+    { text: 'Blog', link: `${p}/blog/`, activeMatch: `${p}/blog/` },
+    { text: t('Download', 'Unduh'), link: `${p}/download` },
+    { text: t('Docs', 'Dokumentasi'), link: `${p}/guide/`, activeMatch: `${p}/guide/` }
+  ]
+}
+
+/**
+ * The docs sidebar, one table for both languages so the two trees can't drift
+ * apart: each entry is [page, English label, Indonesian label].
+ */
+const docsSidebar: { text: [string, string]; items: [string, string, string][] }[] = [
+  {
+    text: ['Getting Started', 'Memulai'],
+    items: [
+      ['', 'What is Rezure?', 'Apa itu Rezure?'],
+      ['installation', 'Installation', 'Instalasi'],
+      ['first-run', 'First Run', 'Pertama Kali Dijalankan'],
+      ['switch-from-laragon-xampp', 'Coming from Laragon or XAMPP', 'Pindah dari Laragon atau XAMPP']
+    ]
+  },
+  {
+    text: ['Services', 'Layanan'],
+    items: [
+      ['services', 'Services', 'Layanan'],
+      ['port-conflicts', 'Port Conflicts', 'Konflik Port'],
+      ['logs', 'Logs', 'Log']
+    ]
+  },
+  {
+    text: ['Projects', 'Proyek'],
+    items: [
+      ['projects', 'Projects', 'Proyek'],
+      ['frameworks', 'Frameworks', 'Framework'],
+      ['dev-servers', 'Dev Servers', 'Dev Server'],
+      ['new-project', 'New Project', 'Proyek Baru'],
+      ['requirements-check', 'Requirements Check', 'Cek Kebutuhan'],
+      ['project-terminal', 'Project Terminal', 'Terminal Proyek'],
+      ['sharing', 'Sharing a Project', 'Berbagi Proyek']
+    ]
+  },
+  {
+    text: ['PHP', 'PHP'],
+    items: [
+      ['php-versions', 'PHP Versions', 'Versi PHP'],
+      ['project-php-version', 'PHP Per Project', 'PHP per Proyek'],
+      ['php-extensions', 'PHP Extensions', 'Ekstensi PHP'],
+      ['php-configuration', 'PHP Configuration', 'Konfigurasi PHP']
+    ]
+  },
+  {
+    text: ['Databases', 'Database'],
+    items: [
+      ['mariadb-mysql', 'MariaDB & MySQL', 'MariaDB & MySQL'],
+      ['postgresql', 'PostgreSQL', 'PostgreSQL'],
+      ['sql-server', 'SQL Server', 'SQL Server'],
+      ['remote-databases', 'Remote Databases', 'Database Remote'],
+      ['laravel-env', 'Laravel .env Cheatsheet', 'Contekan .env Laravel']
+    ]
+  },
+  {
+    text: ['Tools', 'Alat'],
+    items: [
+      ['nodejs', 'Node.js', 'Node.js'],
+      ['mailpit', 'Mailpit', 'Mailpit'],
+      ['ai-agents', 'AI Coding Agents', 'AI Coding Agent']
+    ]
+  },
+  {
+    text: ['Customize', 'Kustomisasi'],
+    items: [
+      ['appearance', 'Appearance & Stickers', 'Tampilan & Stiker'],
+      ['settings', 'Settings', 'Pengaturan']
+    ]
+  },
+  {
+    text: ['Reference', 'Referensi'],
+    items: [
+      ['files-and-folders', 'Files & Folders', 'File & Folder'],
+      ['ports', 'Ports', 'Port'],
+      ['updates', 'Updates & Changelog', 'Pembaruan & Changelog'],
+      ['privacy', 'Privacy & Usage Data', 'Privasi & Data Penggunaan'],
+      ['uninstall', 'Uninstall', 'Uninstall'],
+      ['troubleshooting', 'Troubleshooting', 'Pemecahan Masalah'],
+      ['faq', 'FAQ', 'FAQ']
+    ]
+  }
+]
+
+function sidebar(locale: Locale) {
+  const base = locale === 'id' ? '/id/guide/' : '/guide/'
+  const i = locale === 'id' ? 1 : 0
+  return docsSidebar.map((group) => ({
+    text: group.text[i],
+    items: group.items.map(([page, en, id]) => ({ text: locale === 'id' ? id : en, link: base + page }))
+  }))
 }
 
 // https://vitepress.dev/reference/site-config
@@ -213,7 +325,6 @@ export default defineConfig({
     ...verification,
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: siteName }],
-    ['meta', { property: 'og:locale', content: 'en_US' }],
     ['meta', { property: 'og:image', content: ogImage }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
@@ -269,7 +380,13 @@ export default defineConfig({
   transformPageData(pageData, { siteConfig }) {
     const route = routeOf(pageData.relativePath)
     const url = hostname + route
-    const isHome = route === '/'
+    // Indonesian pages mirror the English tree under /id/, so every branch
+    // below matches on the English route and only the URLs and labels differ.
+    const isId = route === '/id/' || route.startsWith('/id/')
+    const enRoute = enRouteOf(route)
+    const home = isId ? `${hostname}/id/` : hostname
+    const inLanguage = isId ? 'id-ID' : 'en-US'
+    const isHome = enRoute === '/'
 
     // ---- Blog post SEO: JSON-LD Article, og:type=article, article meta ----
     const blogPost = (pageData.params as any)?.post ?? pageData.frontmatter.blog_post
@@ -283,7 +400,8 @@ export default defineConfig({
     // Pages that already carry the brand in their own title opt out of the suffix.
     const suffixed = !isHome && pageData.frontmatter.titleTemplate !== false
     const fullTitle = suffixed ? `${pageTitle} | ${siteName}` : pageTitle
-    const pageDescription = blogPost?.excerpt ?? pageData.frontmatter.description ?? description
+    const pageDescription =
+      blogPost?.excerpt ?? pageData.frontmatter.description ?? (isId ? descriptionId : description)
     if (isBlogPost && blogPost?.excerpt) {
       pageData.description = blogPost.excerpt
     }
@@ -294,8 +412,20 @@ export default defineConfig({
       ['meta', { property: 'og:title', content: fullTitle }],
       ['meta', { property: 'og:description', content: pageDescription }],
       ['meta', { name: 'twitter:title', content: fullTitle }],
-      ['meta', { name: 'twitter:description', content: pageDescription }]
+      ['meta', { name: 'twitter:description', content: pageDescription }],
+      ['meta', { property: 'og:locale', content: isId ? 'id_ID' : 'en_US' }]
     ]
+
+    // Blog posts come from the API in English only; every other page has a
+    // twin in the other language, and search engines are told about both.
+    if (!isBlogPost) {
+      head.push(
+        ['meta', { property: 'og:locale:alternate', content: isId ? 'en_US' : 'id_ID' }],
+        ['link', { rel: 'alternate', hreflang: 'en', href: hostname + enRoute }],
+        ['link', { rel: 'alternate', hreflang: 'id', href: hostname + (enRoute === '/' ? '/id/' : '/id' + enRoute) }],
+        ['link', { rel: 'alternate', hreflang: 'x-default', href: hostname + enRoute }]
+      )
+    }
 
     if (isBlogPost && blogPost) {
       const authorName = blogPost.author?.name ?? blogPost.author_name ?? 'Rezure Team'
@@ -351,10 +481,10 @@ export default defineConfig({
       head.push(jsonLd(organization))
     } else if (isHome) {
       head.push(jsonLd(organization))
-      head.push(jsonLd(website))
+      head.push(jsonLd(isId ? { ...website, url: home, description: descriptionId, inLanguage } : website))
       head.push(jsonLd(softwareApplication))
-    } else if (route.startsWith('/guide/')) {
-      const isDocsHome = route === '/guide/'
+    } else if (enRoute.startsWith('/guide/')) {
+      const isDocsHome = enRoute === '/guide/'
       const modified = pageData.lastUpdated ? new Date(pageData.lastUpdated).toISOString() : undefined
 
       // Docs pages are articles about the app: author, freshness, and what they're about.
@@ -366,7 +496,7 @@ export default defineConfig({
           description: pageDescription,
           url,
           mainEntityOfPage: url,
-          inLanguage: 'en-US',
+          inLanguage,
           ...(modified ? { dateModified: modified } : {}),
           image: ogImage,
           author,
@@ -376,7 +506,7 @@ export default defineConfig({
         })
       )
       if (isDocsHome) head.push(jsonLd(softwareApplication))
-      if (route === '/guide/faq') {
+      if (enRoute === '/guide/faq') {
         head.push(
           jsonLd({
             '@context': 'https://schema.org',
@@ -388,8 +518,8 @@ export default defineConfig({
 
       // Home → Docs → Page (the docs home itself stops at Docs).
       const crumbs = [
-        { name: siteName, item: hostname },
-        { name: 'Docs', item: `${hostname}/guide/` },
+        { name: siteName, item: home },
+        { name: isId ? 'Dokumentasi' : 'Docs', item: `${hostname}${isId ? '/id' : ''}/guide/` },
         ...(isDocsHome ? [] : [{ name: pageTitle, item: url }])
       ]
       head.push(
@@ -400,13 +530,13 @@ export default defineConfig({
         })
       )
     } else {
-      if (route === '/download') head.push(jsonLd(softwareApplication))
+      if (enRoute === '/download') head.push(jsonLd(softwareApplication))
       head.push(
         jsonLd({
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: siteName, item: hostname },
+            { '@type': 'ListItem', position: 1, name: siteName, item: home },
             { '@type': 'ListItem', position: 2, name: pageTitle, item: url }
           ]
         })
@@ -416,98 +546,89 @@ export default defineConfig({
     pageData.frontmatter.head = [...(pageData.frontmatter.head ?? []), ...head]
   },
 
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Blog', link: '/blog/', activeMatch: '/blog/' },
-      { text: 'Download', link: '/download' },
-      { text: 'Docs', link: '/guide/', activeMatch: '/guide/' }
-    ],
+  locales: {
+    root: { label: 'English', lang: 'en-US' },
+    id: {
+      label: 'Bahasa Indonesia',
+      lang: 'id-ID',
+      link: '/id/',
+      description: descriptionId,
+      themeConfig: {
+        nav: nav('id'),
+        sidebar: { '/id/guide/': sidebar('id') },
+        footer: {
+          message:
+            'Rezure · Local development server terbaik · <a href="/id/download">Unduh</a> · <a href="/id/guide/">Dokumentasi</a> · <a href="https://github.com/myahyazahid/rezure">GitHub</a>',
+          copyright: `Hak cipta © ${new Date().getFullYear()} Rezure`
+        },
+        outline: { label: 'Di halaman ini' },
+        docFooter: { prev: 'Sebelumnya', next: 'Berikutnya' },
+        lastUpdated: { text: 'Terakhir diperbarui' },
+        darkModeSwitchLabel: 'Tampilan',
+        lightModeSwitchTitle: 'Ganti ke mode terang',
+        darkModeSwitchTitle: 'Ganti ke mode gelap',
+        sidebarMenuLabel: 'Menu',
+        returnToTopLabel: 'Kembali ke atas',
+        langMenuLabel: 'Ganti bahasa',
+        skipToContentLabel: 'Langsung ke konten',
+        notFound: {
+          title: 'HALAMAN TIDAK DITEMUKAN',
+          quote: 'Halaman yang kamu cari tidak ada atau sudah dipindahkan.',
+          linkLabel: 'kembali ke beranda',
+          linkText: 'Kembali ke beranda'
+        }
+      }
+    }
+  },
 
-    sidebar: {
-      '/guide/': [
+  // The EN / ID pill takes the place of the default theme's language flyout,
+  // in the same spot in the nav bar. See theme/components/LangSwitch.vue.
+  vite: {
+    resolve: {
+      alias: [
         {
-          text: 'Getting Started',
-          items: [
-            { text: 'What is Rezure?', link: '/guide/' },
-            { text: 'Installation', link: '/guide/installation' },
-            { text: 'First Run', link: '/guide/first-run' },
-            { text: 'Coming from Laragon or XAMPP', link: '/guide/switch-from-laragon-xampp' }
-          ]
-        },
-        {
-          text: 'Services',
-          items: [
-            { text: 'Services', link: '/guide/services' },
-            { text: 'Port Conflicts', link: '/guide/port-conflicts' },
-            { text: 'Logs', link: '/guide/logs' }
-          ]
-        },
-        {
-          text: 'Projects',
-          items: [
-            { text: 'Projects', link: '/guide/projects' },
-            { text: 'Frameworks', link: '/guide/frameworks' },
-            { text: 'Dev Servers', link: '/guide/dev-servers' },
-            { text: 'New Project', link: '/guide/new-project' },
-            { text: 'Requirements Check', link: '/guide/requirements-check' },
-            { text: 'Project Terminal', link: '/guide/project-terminal' },
-            { text: 'Sharing a Project', link: '/guide/sharing' }
-          ]
-        },
-        {
-          text: 'PHP',
-          items: [
-            { text: 'PHP Versions', link: '/guide/php-versions' },
-            { text: 'PHP Per Project', link: '/guide/project-php-version' },
-            { text: 'PHP Extensions', link: '/guide/php-extensions' },
-            { text: 'PHP Configuration', link: '/guide/php-configuration' }
-          ]
-        },
-        {
-          text: 'Databases',
-          items: [
-            { text: 'MariaDB & MySQL', link: '/guide/mariadb-mysql' },
-            { text: 'PostgreSQL', link: '/guide/postgresql' },
-            { text: 'SQL Server', link: '/guide/sql-server' },
-            { text: 'Remote Databases', link: '/guide/remote-databases' },
-            { text: 'Laravel .env Cheatsheet', link: '/guide/laravel-env' }
-          ]
-        },
-        {
-          text: 'Tools',
-          items: [
-            { text: 'Node.js', link: '/guide/nodejs' },
-            { text: 'Mailpit', link: '/guide/mailpit' },
-            { text: 'AI Coding Agents', link: '/guide/ai-agents' }
-          ]
-        },
-        {
-          text: 'Customize',
-          items: [
-            { text: 'Appearance & Stickers', link: '/guide/appearance' },
-            { text: 'Settings', link: '/guide/settings' }
-          ]
-        },
-        {
-          text: 'Reference',
-          items: [
-            { text: 'Files & Folders', link: '/guide/files-and-folders' },
-            { text: 'Ports', link: '/guide/ports' },
-            { text: 'Updates & Changelog', link: '/guide/updates' },
-            { text: 'Privacy & Usage Data', link: '/guide/privacy' },
-            { text: 'Uninstall', link: '/guide/uninstall' },
-            { text: 'Troubleshooting', link: '/guide/troubleshooting' },
-            { text: 'FAQ', link: '/guide/faq' }
-          ]
+          find: /^.*\/VPNavBarTranslations\.vue$/,
+          replacement: fileURLToPath(new URL('./theme/components/LangSwitch.vue', import.meta.url))
         }
       ]
-    },
+    }
+  },
+
+  themeConfig: {
+    // https://vitepress.dev/reference/default-theme-config
+    nav: nav('en'),
+
+    sidebar: { '/guide/': sidebar('en') },
 
     socialLinks: [{ icon: 'github', link: github }],
 
-    search: { provider: 'local' },
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          id: {
+            translations: {
+              button: { buttonText: 'Cari', buttonAriaLabel: 'Cari' },
+              modal: {
+                displayDetails: 'Tampilkan detail',
+                resetButtonTitle: 'Hapus pencarian',
+                backButtonTitle: 'Tutup pencarian',
+                noResultsText: 'Tidak ada hasil untuk',
+                footer: {
+                  selectText: 'pilih',
+                  selectKeyAriaLabel: 'enter',
+                  navigateText: 'pindah',
+                  navigateUpKeyAriaLabel: 'panah atas',
+                  navigateDownKeyAriaLabel: 'panah bawah',
+                  closeText: 'tutup',
+                  closeKeyAriaLabel: 'esc'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
     footer: {
       message:

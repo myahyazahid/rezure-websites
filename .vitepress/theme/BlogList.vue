@@ -5,6 +5,7 @@
  * so this page is fully static with zero runtime API dependency.
  */
 import { ref, computed } from 'vue'
+import { useData } from 'vitepress'
 import blogData from '../../blog-data.json'
 
 interface BlogPost {
@@ -24,6 +25,32 @@ interface BlogPost {
 
 const posts: BlogPost[] = (blogData as BlogPost[]).filter(
   (p) => p.status === 'published'
+)
+
+const { lang } = useData()
+
+/**
+ * The page's own copy. Posts themselves come from the dashboard in English
+ * only, so the Indonesian index lists the same posts and links to them as-is.
+ */
+const text = computed(() =>
+  lang.value.startsWith('id')
+    ? {
+        subtitle: 'Kabar, tutorial, dan cerita di balik layar tentang Rezure.',
+        search: 'Cari artikel...',
+        searchLabel: 'Cari artikel blog',
+        empty: 'Tidak ada artikel',
+        emptyHint: 'Coba ubah kata kunci atau filter.',
+        clear: 'Hapus filter'
+      }
+    : {
+        subtitle: 'News, tutorials, and behind-the-scenes looks at Rezure.',
+        search: 'Search posts...',
+        searchLabel: 'Search blog posts',
+        empty: 'No posts found',
+        emptyHint: 'Try adjusting your search or filter.',
+        clear: 'Clear filters'
+      }
 )
 
 const activeTag = ref<string | null>(null)
@@ -67,7 +94,7 @@ function toggleTag(tag: string) {
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-US', {
+  return new Date(iso).toLocaleDateString(lang.value, {
     year: 'numeric',
     month: 'short',
     day: 'numeric'
@@ -82,9 +109,7 @@ function formatDate(iso: string) {
       <div class="glow" aria-hidden="true" />
       <div class="container">
         <h1 class="blog-title">Blog</h1>
-        <p class="blog-subtitle">
-          News, tutorials, and behind-the-scenes looks at Rezure.
-        </p>
+        <p class="blog-subtitle">{{ text.subtitle }}</p>
       </div>
     </section>
 
@@ -99,9 +124,9 @@ function formatDate(iso: string) {
         <input
           v-model="searchQuery"
           type="search"
-          placeholder="Search posts..."
+          :placeholder="text.search"
           class="search-input"
-          aria-label="Search blog posts"
+          :aria-label="text.searchLabel"
         />
       </div>
 
@@ -183,10 +208,10 @@ function formatDate(iso: string) {
           <line x1="16" y1="17" x2="8" y2="17"/>
           <polyline points="10 9 9 9 8 9"/>
         </svg>
-        <h3>No posts found</h3>
-        <p>Try adjusting your search or filter.</p>
+        <h3>{{ text.empty }}</h3>
+        <p>{{ text.emptyHint }}</p>
         <button v-if="activeTag || searchQuery" class="reset-btn" @click="activeTag = null; searchQuery = ''">
-          Clear filters
+          {{ text.clear }}
         </button>
       </div>
     </section>

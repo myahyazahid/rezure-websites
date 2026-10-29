@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useData } from 'vitepress'
 import { downloadUrlWithIdentity, siteDownloadUrl } from '../analytics'
 
 const props = withDefaults(
@@ -29,6 +30,28 @@ interface Asset {
   name: string
   size: number
 }
+
+const { lang } = useData()
+const isId = computed(() => lang.value.startsWith('id'))
+
+/** The box's own copy, in the page's language. */
+const text = computed(() =>
+  isId.value
+    ? {
+        checking: 'Mengecek rilis terbaru…',
+        released: 'dirilis',
+        none: 'Belum ada rilis yang diterbitkan. Build selalu muncul di GitHub lebih dulu.',
+        button: 'Unduh untuk Windows',
+        releasesPage: 'Membuka halaman rilis GitHub, yang selalu berisi build terbaru.'
+      }
+    : {
+        checking: 'Checking for the latest release…',
+        released: 'released',
+        none: 'No release has been published yet. Builds land on GitHub first.',
+        button: 'Download for Windows',
+        releasesPage: 'Opens the GitHub releases page, which always has the latest build.'
+      }
+)
 
 const loading = ref(true)
 const release = ref<LatestVersion | null>(null)
@@ -66,7 +89,7 @@ const publishedOn = computed(() => {
   if (!raw) return null
   const date = new Date(raw)
   if (Number.isNaN(date.getTime())) return null
-  return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(date)
+  return new Intl.DateTimeFormat(lang.value, { dateStyle: 'long' }).format(date)
 })
 
 const assetSize = computed(() => {
@@ -146,16 +169,14 @@ onMounted(async () => {
 
 <template>
   <div class="latest-release">
-    <p v-if="loading" class="status">Checking for the latest release…</p>
+    <p v-if="loading" class="status">{{ text.checking }}</p>
 
     <template v-else>
       <p v-if="version" class="version">
         Rezure <strong>{{ version }}</strong>
-        <span v-if="publishedOn" class="published"> · released {{ publishedOn }}</span>
+        <span v-if="publishedOn" class="published"> · {{ text.released }} {{ publishedOn }}</span>
       </p>
-      <p v-else class="status">
-        No release has been published yet. Builds land on GitHub first.
-      </p>
+      <p v-else class="status">{{ text.none }}</p>
 
       <p v-if="release?.notes" class="notes">{{ release.notes }}</p>
 
@@ -167,11 +188,11 @@ onMounted(async () => {
         @click="attachIdentity"
         @auxclick="attachIdentity"
       >
-        Download for Windows
+        {{ text.button }}
       </a>
 
       <p v-if="asset" class="meta">{{ asset.name }} · {{ assetSize }}</p>
-      <p v-else class="meta">Opens the GitHub releases page, which always has the latest build.</p>
+      <p v-else class="meta">{{ text.releasesPage }}</p>
     </template>
   </div>
 </template>
