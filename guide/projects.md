@@ -1,13 +1,13 @@
 ---
 title: Local .test Domains and Nginx Virtual Hosts
-description: How Rezure serves projects on .test domains — folders in www, linked folders, framework detection, the public/ document root, dev servers, the hosts file, and every action on a project.
+description: 'How Rezure serves projects on .test domains: www and linked folders, framework detection, document roots, dev servers, the hosts file, and actions.'
 ---
 
 # Projects
 
 Every project Rezure serves gets its own Nginx virtual host and a `.test` domain. The
 **Projects** page lists them all, shows whether each domain resolves yet, and puts the things
-you do with a project — open it, share it, check it, open a terminal — on its row.
+you do with a project (open it, share it, check it, open a terminal) on its row.
 
 ## Where projects come from
 
@@ -18,7 +18,7 @@ Folders whose names start with `.` are skipped.
 
 ### Linked folders
 
-A project that lives somewhere else — `D:\work\client-site`, say — can be **linked** in place.
+A project that lives somewhere else, `D:\work\client-site`, say, can be **linked** in place.
 Rezure records the path and nothing else; the folder isn't copied, moved, or written to. Linked
 projects carry a **Linked** badge. See [Add an existing folder](#add-an-existing-folder) below.
 
@@ -34,7 +34,7 @@ static HTML. See [New Project](/guide/new-project).
 - A domain may use letters, digits, and hyphens, with dots between parts (`api.myapp.test`).
   A part can't start or end with a hyphen, and is at most 63 characters.
 - A folder whose name has an underscore, a space, or other characters can't make a valid
-  domain. Its row says "Not served — rename the folder using letters, digits and hyphens
+  domain. Its row says "Not served: rename the folder using letters, digits and hyphens
   only." and it gets no virtual host until you rename it.
 
 Sites are served over plain `http://` on port 80. There's no local HTTPS.
@@ -73,7 +73,7 @@ A `.test` domain only resolves once it has a line in the Windows `hosts` file. O
 Projects page:
 
 - A domain in the **accent colour** resolves ("Resolves in the browser").
-- A **muted** domain doesn't yet ("Not in the hosts file yet — it won't resolve until you
+- A **muted** domain doesn't yet ("Not in the hosts file yet: it won't resolve until you
   sync").
 
 Click **Sync hosts file** to add every missing domain and drop stale ones. Windows asks for
@@ -100,14 +100,14 @@ anything changed.
 
 - **Search projects or domains** filters by name or domain.
 - **List** and **Grid** switch the layout.
-- Each project shows its name, folder, domain, framework badge, and a usage line — "Not opened
+- Each project shows its name, folder, domain, framework badge, and a usage line: "Not opened
   yet", or "Opened 3× · last today". Opening the site, its folder, or its terminal from Rezure
   counts. Hover the framework badge to see the folder it's served from; click it to
   [change the framework](/guide/frameworks#change-a-project-s-framework).
 - **Dev servers**, next to **Sync hosts file**, lists the JavaScript and Node projects served by
   their own dev server, with a badge counting the ones running. See
   [Dev Servers](/guide/dev-servers).
-- A linked folder that's gone shows "Folder not found — it may have moved, or be on a drive
+- A linked folder that's gone shows "Folder not found: it may have moved, or be on a drive
   that isn't connected." It stays listed, without a virtual host, so it comes back when the
   drive does.
 
@@ -130,7 +130,7 @@ The PHP and Node.js buttons show each runtime's logo: grey while the project fol
 global version, in colour on a filled button once a version is pinned. The Share icon is
 filled while a share is live.
 
-There's no rename action. To rename a project in `www`, rename its folder — but note that the
+There's no rename action. To rename a project in `www`, rename its folder, but note that the
 project then counts as a new one, so its usage history, PHP/Node pins, framework choice, and
 dev server settings don't follow.
 
@@ -141,13 +141,13 @@ dev server settings don't follow.
 3. Rezure shows the **framework** it detected and the folder it will be **served from**, such
    as Laravel served from `public/`, with **Change** next to the framework if detection got it
    wrong. A JavaScript project reads "Served through its dev server". With no markers: "No
-   framework markers found here — it'll be served from the folder itself. Pick the framework
+   framework markers found here: it'll be served from the folder itself. Pick the framework
    below if you know it."
    If you picked a project's `public/` folder rather than the project itself, the dialog says
    so and offers to add the project folder instead. See
    [Frameworks](/guide/frameworks#linked-the-public-folder-by-mistake).
 4. Check the **Name** and **Domain**. The domain is suggested from the folder name; if that's
-   taken, a number is added (`myapp-2.test`). You can type any valid domain — it doesn't have
+   taken, a number is added (`myapp-2.test`). You can type any valid domain; it doesn't have
    to end in `.test`, though `.test` is the safe choice.
 5. Click **Add project**, then **Sync hosts file**.
 
@@ -165,7 +165,7 @@ after linking; remove the project and add it again to change them.
 
 Click **×** on its row ("Remove from Rezure (the folder is left alone)") and confirm. Rezure
 stops serving it and drops its virtual host. The folder and everything in it stays exactly
-where it is, and you can add it again any time — re-adding the same path with the same name
+where it is, and you can add it again any time: re-adding the same path with the same name
 brings back its history and pins.
 
 Projects in `www` have no remove action: move the folder out of `www` instead.
@@ -180,7 +180,7 @@ PHP isn't. Then try a private browser window, in case an old failure is cached.
 
 ### The hosts prompt keeps coming back
 
-Another tool — Laragon and XAMPP both do this — is rewriting the `hosts` file and removing
+Another tool (Laragon and XAMPP both do this) is rewriting the `hosts` file and removing
 Rezure's entries. Stop the other tool, or turn off its own hosts management.
 
 ### "hosts file update was cancelled"
@@ -204,8 +204,8 @@ The project is a JavaScript or Node app and nothing answers on its port. Click *
 
 ## Related
 
-- [Frameworks](/guide/frameworks) — detection, document roots, and adding your own
-- [Dev Servers](/guide/dev-servers) — Vite, Next.js, Astro, and Nuxt on `.test` domains
-- [New Project](/guide/new-project) — start from a template
-- [Requirements Check](/guide/requirements-check) — find what a project is missing
-- [Project Terminal](/guide/project-terminal) — run `artisan`, `composer`, and `npm`
+- [Frameworks](/guide/frameworks): detection, document roots, and adding your own
+- [Dev Servers](/guide/dev-servers): Vite, Next.js, Astro, and Nuxt on `.test` domains
+- [New Project](/guide/new-project): start from a template
+- [Requirements Check](/guide/requirements-check): find what a project is missing
+- [Project Terminal](/guide/project-terminal): run `artisan`, `composer`, and `npm`

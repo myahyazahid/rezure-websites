@@ -1,6 +1,6 @@
 ---
 title: Vite, Next.js, and Nuxt Dev Servers on .test Domains
-description: Open Vite, Next.js, Nuxt, Astro, Angular, and Node apps at http://myapp.test on Windows. Rezure proxies the domain to the dev server, starts it on Open, keeps hot reload working, and stops it on exit.
+description: 'Open Vite, Next.js, Nuxt, Astro, and Node apps at myapp.test on Windows. Rezure starts the dev server, proxies the domain, and keeps hot reload working.'
 ---
 
 # Dev Servers
@@ -32,7 +32,7 @@ talks to `npm run dev` directly. See [Node.js](/guide/nodejs#laravel-with-vite).
 
 Click **Open** on the project's row. If the dev server isn't running, Rezure:
 
-1. Shows "Starting its dev server — the browser opens once it answers".
+1. Shows that it is starting the dev server.
 2. Runs the project's script (`npm run dev`, for example) on the project's port.
 3. Waits until the port answers, and **only then** opens your browser, so you land on the app
    and not on an error page.
@@ -105,7 +105,7 @@ The card tells you what's missing and offers the fix:
 | --- | --- |
 | "Its dependencies aren't installed yet." | Click **npm install** (or **pnpm install**, **yarn install**, **bun install**, depending on the project's lockfile). Its output shows in the card's log. |
 | "Node.js isn't installed." / "Set to Node.js x, which isn't installed." | **Open Switch** and install it. See [Node.js](/guide/nodejs). |
-| "package.json has no "dev" script — pick another below." | Pick the right script from **Script**. |
+| "package.json has no "dev" script" | Pick the right script from **Script**. |
 | "This project uses pnpm, which isn't installed." | Run `corepack enable` in a terminal, or install pnpm (or yarn). |
 | "It's already running outside Rezure …" | Click **Stop it and start here**. See below. |
 | The port is held by another program | Click **Free port N and start**, the same flow as [Port Conflicts](/guide/port-conflicts). |
@@ -202,7 +202,7 @@ framework is a dependency of a dependency. Click the framework badge and pick th
 
 ## Related
 
-- [Frameworks](/guide/frameworks) — how projects are detected, and changing it
-- [Node.js](/guide/nodejs) — install versions and pin one per project
-- [Projects](/guide/projects) — domains, the hosts file, and project actions
-- [Ports](/guide/ports) — every port Rezure uses
+- [Frameworks](/guide/frameworks): how projects are detected, and changing it
+- [Node.js](/guide/nodejs): install versions and pin one per project
+- [Projects](/guide/projects): domains, the hosts file, and project actions
+- [Ports](/guide/ports): every port Rezure uses

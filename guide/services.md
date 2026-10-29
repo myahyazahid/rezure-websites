@@ -1,12 +1,12 @@
 ---
 title: Start and Stop Nginx, PHP, and Databases
-description: Start, stop, and restart Nginx, PHP, MariaDB, PostgreSQL, SQL Server LocalDB, and Mailpit from Rezure's Services page — bulk actions, force stop, crash recovery, and which services the page shows.
+description: 'Start, stop, and restart Nginx, PHP, MariaDB, PostgreSQL, SQL Server LocalDB, and Mailpit from Rezure''s Services page, with crash recovery.'
 ---
 
 # Services
 
 The **Services** page is Rezure's home screen: every process your projects depend on, with a
-status, a version, its ports, and Start/Stop/Restart. Nothing on it starts by itself — not
+status, a version, its ports, and Start/Stop/Restart. Nothing on it starts by itself: not
 when Rezure opens, and not when Windows signs in. You decide what runs.
 
 ## The services
@@ -17,9 +17,9 @@ when Rezure opens, and not when Windows signs in. You decide what runs.
 | **PHP** | Runs PHP for projects on the global version, as 4 workers | 9100–9103 | Ships with the installer (PHP 8.3); more versions on the [Switch](/guide/php-versions) page |
 | **PHP x.y.z** | One row per extra version that a project is [pinned](/guide/project-php-version) to | 9110–9113, 9120–9123, … | Appears when you pin a project |
 | **MariaDB** / **MySQL** | The local MySQL-family database. The row shows whichever engine the active [data directory profile](/guide/mariadb-mysql) uses | 3306 | See [MariaDB & MySQL](/guide/mariadb-mysql) |
-| **PostgreSQL** | Local PostgreSQL server | 5432 | **Install** on its row (newest version), or the Switch page — see [PostgreSQL](/guide/postgresql) |
-| **SQL Server LocalDB** | Local SQL Server, reached as `(localdb)\Rezure` | named pipe, plus a bridge on 14330 | Microsoft installer, with a license prompt — see [SQL Server](/guide/sql-server) |
-| **Mailpit** | Catches outgoing mail | 1025 (SMTP), 8025 (inbox) | **Install** on its row — see [Mailpit](/guide/mailpit) |
+| **PostgreSQL** | Local PostgreSQL server | 5432 | **Install** on its row (newest version), or the Switch page. See [PostgreSQL](/guide/postgresql) |
+| **SQL Server LocalDB** | Local SQL Server, reached as `(localdb)\Rezure` | named pipe, plus a bridge on 14330 | Microsoft installer, with a license prompt. See [SQL Server](/guide/sql-server) |
+| **Mailpit** | Catches outgoing mail | 1025 (SMTP), 8025 (inbox) | **Install** on its row. See [Mailpit](/guide/mailpit) |
 
 Every service except Nginx listens on `127.0.0.1` only. Nginx listens on all interfaces on
 port 80, so other devices on your network could reach your sites if Windows Firewall lets
@@ -42,19 +42,19 @@ The toolbar at the top acts on the whole page at once:
 - **Stop all** stops everything that's running.
 
 They run in parallel, and the rows update as each service comes up. If one service fails
-during **Start all**, its row just stays **Stopped** without an error message — click that
+during **Start all**, its row just stays **Stopped** without an error message; click that
 row's own **Start** to see the reason.
 
 ### What a row shows
 
-- **Status** — **Running**, **Stopped**, **Starting…**, **Stopping…**, or **Not installed**.
+- **Status**: **Running**, **Stopped**, **Starting…**, **Stopping…**, or **Not installed**.
 - **Version** and **port** pills. PHP shows its port range and worker count, for example
   `:9100–9103 · 4/4 workers`; Mailpit shows both of its ports.
-- **CPU** — a small sparkline and a percentage while the service runs (in a wide enough
+- **CPU**: a small sparkline and a percentage while the service runs (in a wide enough
   window). It's a snapshot taken whenever the page refreshes its list, after an action for
   example, not a live meter.
-- **Open** — on the Mailpit row while it runs, opens the inbox at `http://127.0.0.1:8025`.
-- **Toggle logs** — the last 20 lines of that service's output, right under the row. The
+- **Open**: on the Mailpit row while it runs, opens the inbox at `http://127.0.0.1:8025`.
+- **Toggle logs**: the last 20 lines of that service's output, right under the row. The
   [Logs](/guide/logs) page has the full combined view.
 
 ### Installing from a row
@@ -102,11 +102,11 @@ you start or stop it yourself.
 **Stopped** the next time the page refreshes. Check its log, then start it again.
 
 To get a Windows notification when either happens, turn on **Notify when a service crashes**
-in [Settings](/guide/settings): "{name} stopped unexpectedly", or "{name} keeps crashing —
+in [Settings](/guide/settings): "{name} stopped unexpectedly", or "{name} keeps crashing:
 automatic restart paused" when PHP gives up.
 
 Processes left behind by an earlier crash of Rezure itself are cleaned up the next time it
-starts — but only ones Rezure can prove it started.
+starts, but only ones Rezure can prove it started.
 
 ## Manage services
 
@@ -115,8 +115,8 @@ which services this page shows") lets you keep only the rows you use.
 
 - The dialog has two groups: **On the Services page** and **Not added**. **Remove** and
   **Add** move a service between them.
-- Removing a service **doesn't uninstall it or touch its data** — add it back any time.
-- A running service is stopped first ("Running — removing it stops it first"). A removed
+- Removing a service **doesn't uninstall it or touch its data**: add it back any time.
+- A running service is stopped first ("Running: removing it stops it first"). A removed
   service is also left out of **Start all**, **Restart all**, and **Stop all**.
 - Nginx and PHP are marked "Your project sites need it". You can still remove them.
 - Pinned PHP versions follow the **PHP** row; they can't be removed on their own.
@@ -135,17 +135,17 @@ To keep things running in the background, turn on **Keep running in tray on clos
 ## The sidebar summary
 
 The card at the bottom of the sidebar shows how many services are up ("Services up … of N"),
-and **Uptime** — how long Rezure itself has been open, not how long any one service has been
+and **Uptime**: how long Rezure itself has been open, not how long any one service has been
 running. The **Services** item in the sidebar shows the same running/total count.
 
 ## Troubleshooting
 
-### "port 80 is already in use" or "can't start Nginx — port 80 is held by …"
+### "port 80 is already in use" or "can't start Nginx: port 80 is held by …"
 
-Another program has the port. See [Port Conflicts](/guide/port-conflicts) — for most programs
+Another program has the port. See [Port Conflicts](/guide/port-conflicts); for most programs
 Rezure can stop it for you.
 
-### "{name} isn't installed yet — download it from the Binaries panel first"
+### "{name} isn't installed yet: download it from the Binaries panel first"
 
 That message predates the current layout. Install the service from its row, or from
 **Install version** on the [Switch](/guide/php-versions) page.
@@ -159,11 +159,11 @@ Rezure, open it normally, and start PostgreSQL again.
 
 Open its log (the logs toggle on the row). If it's still printing recovery messages, let it
 finish. If it says "the server stopped responding: no output and no connections for 90s", the
-data directory may be damaged or held by another program — check
+data directory may be damaged or held by another program; check
 [MariaDB & MySQL](/guide/mariadb-mysql#troubleshooting).
 
 ## Related
 
-- [Port Conflicts](/guide/port-conflicts) — when a port is already taken
-- [Logs](/guide/logs) — every service's output in one place
-- [Settings](/guide/settings) — tray, notifications, and start with Windows
+- [Port Conflicts](/guide/port-conflicts): when a port is already taken
+- [Logs](/guide/logs): every service's output in one place
+- [Settings](/guide/settings): tray, notifications, and start with Windows

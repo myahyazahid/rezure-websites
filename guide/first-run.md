@@ -1,5 +1,5 @@
 ---
-title: First Run — Serve Your First PHP Site Locally
+title: "First Run: Serve Your First PHP Site Locally"
 description: Start Nginx, PHP, and MariaDB, serve your first .test project, connect to the database, switch PHP versions, and catch outgoing mail.
 ---
 
@@ -48,7 +48,7 @@ Rezure writes an Nginx virtual host for every project automatically, but the `.t
 also needs a line in the Windows `hosts` file before your browser can find it.
 
 On the **Projects** page, a domain shown in a muted colour isn't in the `hosts` file yet.
-Click **Sync hosts file** at the top of the page. Windows asks for administrator approval —
+Click **Sync hosts file** at the top of the page. Windows asks for administrator approval;
 click **Yes**, or the domain won't resolve. Once it's done the domain switches to the accent
 colour, and the button greys out with "Every domain already resolves".
 
@@ -103,7 +103,7 @@ database on a staging server or VPS? See [Remote Databases](/guide/remote-databa
 ## 6. Switch PHP versions (optional)
 
 The **Switch** page shows the active version of each runtime. Click **Install version**, pick
-**PHP**, and Rezure lists what php.net currently publishes — the newest release of each
+**PHP**, and Rezure lists what php.net currently publishes: the newest release of each
 branch, with a real SHA-256 per build, so the list never goes stale.
 
 Two ways to add one:
@@ -129,7 +129,7 @@ MAIL_HOST=127.0.0.1
 MAIL_PORT=1025
 ```
 
-Every email the project sends now lands in the inbox at `http://127.0.0.1:8025` — the
+Every email the project sends now lands in the inbox at `http://127.0.0.1:8025`; the
 **Open** button on the Mailpit row takes you there. See [Mailpit](/guide/mailpit).
 
 ## Where to go next

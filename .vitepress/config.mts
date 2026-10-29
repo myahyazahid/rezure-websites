@@ -14,7 +14,7 @@ const hostname = 'https://rezure.redscale.my.id'
 
 const siteName = 'Rezure'
 const description =
-  'Rezure is a free, open-source web server for local development and a lightweight Laragon and XAMPP alternative — Nginx, PHP, MySQL or MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit running with one click. Available now for Windows.'
+  'Rezure is the best free, open-source local development server for Windows and a lightweight Laragon and XAMPP alternative: Nginx, PHP, MySQL or MariaDB, PostgreSQL, SQL Server, Node.js dev servers, and Mailpit in one click.'
 const ogImage = `${hostname}/og-image.png`
 const authorName = 'Muhammad Yahya Zahid'
 const authorUrl = 'https://github.com/myahyazahid'
@@ -80,7 +80,7 @@ const website = {
   '@type': 'WebSite',
   '@id': ids.website,
   name: siteName,
-  alternateName: ['Rezure Free Web Server', 'Rezure App'],
+  alternateName: ['Rezure Local Dev Environment', 'Rezure Free Web Server', 'Rezure App'],
   url: hostname,
   description,
   inLanguage: 'en-US',
@@ -93,7 +93,7 @@ const softwareApplication = {
   '@type': 'SoftwareApplication',
   '@id': ids.software,
   name: 'Rezure',
-  alternateName: ['Rezure Free Web Server', 'Rezure App'],
+  alternateName: ['Rezure Local Dev Environment', 'Rezure Free Web Server', 'Rezure App'],
   description,
   applicationCategory: 'DeveloperApplication',
   applicationSubCategory: 'Local development environment',
@@ -222,7 +222,7 @@ export default defineConfig({
       'meta',
       {
         property: 'og:image:alt',
-        content: 'Rezure Free Web Server'
+        content: 'Rezure | Best Local Development Server'
       }
     ],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
@@ -511,7 +511,7 @@ export default defineConfig({
 
     footer: {
       message:
-        'Rezure Free Web Server · <a href="/download">Download</a> · <a href="/guide/">Docs</a> · <a href="https://github.com/myahyazahid/rezure">GitHub</a>',
+        'Rezure · The best local development server · <a href="/download">Download</a> · <a href="/guide/">Docs</a> · <a href="https://github.com/myahyazahid/rezure">GitHub</a>',
       copyright: `Copyright © ${new Date().getFullYear()} Rezure`
     }
   }

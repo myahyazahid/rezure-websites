@@ -1,12 +1,12 @@
 ---
 title: Troubleshooting 502 Bad Gateway, .test Domains, and More
-description: Fixes for common Rezure problems on Windows — ports in use, .test domains that don't resolve, 502 Bad Gateway, 404 on CodeIgniter 4 or Symfony, Vite dev servers, cURL error 60, could not find driver, and more.
+description: 'Fixes for common Rezure problems: ports in use, .test domains that don''t resolve, 502 Bad Gateway, 404 on CodeIgniter or Symfony, Vite, cURL error 60.'
 ---
 
 # Troubleshooting
 
 Find the symptom, try the fix. Most entries link to the page with the details. When Rezure shows
-an error message, it's usually specific — read it first.
+an error message, it's usually specific; read it first.
 
 ## Installing and starting
 
@@ -28,14 +28,14 @@ then run the installer again.
 
 ### "port 80 is already in use" / "port 80 is held by …"
 
-Another program has the port — Laragon, XAMPP, IIS, Docker. Click **Stop it and start**, or see
+Another program has the port: Laragon, XAMPP, IIS, Docker. Click **Stop it and start**, or see
 [Port Conflicts](/guide/port-conflicts) for ports Windows reserves.
 
 ### A service stays "Stopped" after Start all
 
 **Start all** doesn't show individual errors. Click that row's own **Start** to see why.
 
-### "… isn't installed yet — download it from the Binaries panel first"
+### "… isn't installed yet: download it from the Binaries panel first"
 
 An older wording. Install the service from its row on the Services page, or from **Install
 version** on the Switch page.
@@ -52,7 +52,7 @@ and prints progress as it goes. See [Services](/guide/services#how-long-a-databa
 ### PHP keeps crashing and "automatic restart paused"
 
 Check the [Logs](/guide/logs) page filtered to `php` for the reason. If you recently added a
-file to `C:\rezure\etc\php\conf.d`, an invalid setting there is worth ruling out — move the file
+file to `C:\rezure\etc\php\conf.d`, an invalid setting there is worth ruling out: move the file
 out, then start PHP again.
 
 ## Sites
@@ -66,12 +66,12 @@ out, then start PHP again.
 
 ### The hosts prompt keeps coming back
 
-Another tool — usually Laragon or XAMPP — rewrites the `hosts` file and removes Rezure's lines.
+Another tool (usually Laragon or XAMPP) rewrites the `hosts` file and removes Rezure's lines.
 Stop the other tool or turn off its hosts management.
 
 ### 502 Bad Gateway
 
-Nginx is running but the PHP service the project uses isn't. Start **PHP** — or, for a
+Nginx is running but the PHP service the project uses isn't. Start **PHP**. Or, for a
 [pinned](/guide/project-php-version) project, its **PHP x.y.z** row.
 
 ### The project says "Not served"
@@ -109,7 +109,7 @@ Your Vite version is too old to accept the domain Rezure passes it. Add
 ### A blank page or a 500 error from Laravel
 
 The reason is in `storage\logs\laravel.log` inside the project. A missing PHP extension is the
-most common cause — run the [Requirements Check](/guide/requirements-check).
+most common cause; run the [Requirements Check](/guide/requirements-check).
 
 ### "cURL error 60: SSL certificate problem"
 
@@ -143,7 +143,7 @@ on [PHP Extensions](/guide/php-extensions), then restart PHP.
 ### `php -v` in a terminal shows the wrong version
 
 Run `where php`. A terminal opened from the project's row uses that project's version. Elsewhere,
-`php` is whatever comes first on `PATH` — turn on
+`php` is whatever comes first on `PATH`; turn on
 [Use Rezure's PHP everywhere](/guide/php-configuration#use-rezure-s-php-everywhere), and remove
 any other PHP from the **system** `PATH`, which Windows reads first.
 
@@ -214,10 +214,10 @@ current one.
 ## Still stuck?
 
 Send a report from the **Feedback** page in the app. Tick **Attach latest log** so the
-maintainers can see what happened — the log can include folder paths, so read it first. Or open
+maintainers can see what happened; the log can include folder paths, so read it first. Or open
 an issue on [GitHub](https://github.com/myahyazahid/rezure/issues).
 
 ## Related
 
-- [FAQ](/guide/faq) — common questions
-- [Logs](/guide/logs) — where to look first
+- [FAQ](/guide/faq): common questions
+- [Logs](/guide/logs): where to look first

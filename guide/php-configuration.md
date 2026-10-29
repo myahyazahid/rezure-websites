@@ -1,6 +1,6 @@
 ---
 title: Edit php.ini and Fix cURL Error 60 on Windows
-description: Put your own php.ini settings where Rezure won't overwrite them, install the CA bundle that fixes cURL error 60, and make Rezure's PHP the php command in every terminal.
+description: 'Add php.ini settings Rezure won''t overwrite, fix cURL error 60 with the right CA bundle, and make Rezure''s PHP the php command in every terminal.'
 ---
 
 # PHP Configuration
@@ -57,7 +57,7 @@ Nginx accepts request bodies up to **64 MB**. Raising `upload_max_filesize` and
 
 ## CA certificates
 
-PHP checks HTTPS certificates against a list of trusted root certificates — and the PHP zip
+PHP checks HTTPS certificates against a list of trusted root certificates, and the PHP zip
 for Windows ships **none**. Without one, every outgoing HTTPS call from PHP fails with
 `cURL error 60: SSL certificate problem`: Composer, Guzzle, Laravel's `Http` client, payment
 gateways, OAuth logins.
@@ -70,12 +70,12 @@ The **CA certificates** card fixes that:
 3. Both `curl.cainfo` and `openssl.cafile` point at it for every PHP version.
 
 The card shows "Mozilla's root certificates as of YYYY-MM-DD, from curl.se." when it's in
-place, or an amber "Not installed — HTTPS calls from PHP can't be verified." when it isn't.
+place, or an amber "Not installed: HTTPS calls from PHP can't be verified." when it isn't.
 After the first install, restart PHP; after an update, running sites use it from the next
 request.
 
-New installs of Rezure include a bundle already. If you replaced `cacert.pem` with your own —
-to add a company proxy's certificate, say — the card shows "A bundle Rezure didn't put there —
+New installs of Rezure include a bundle already. If you replaced `cacert.pem` with your own,
+to add a company proxy's certificate, say, the card shows "A bundle Rezure didn't put there:
 kept as it is." App updates leave it alone, but clicking **Update** replaces it with
 Mozilla's.
 
@@ -85,7 +85,7 @@ The [Requirements Check](/guide/requirements-check) tests this for you on any pr
 
 Out of the box, Rezure's PHP is only on `PATH` in the
 [terminals it opens for a project](/guide/project-terminal). Turn on **Use Rezure's PHP
-everywhere** ("Puts the active version on your PATH, so `php` works in every terminal — not
+everywhere** ("Puts the active version on your PATH, so `php` works in every terminal, not
 only the ones Rezure opens.") to make it the `php` in VS Code's terminal, PowerShell, Git Bash,
 and everything else.
 
@@ -97,11 +97,11 @@ and everything else.
 - Appends `C:\rezure\etc\php\conf.d` to your user `PHP_INI_SCAN_DIR` variable, so
   [your PHP settings](#your-php-settings) load in every terminal too.
 
-**Open a new terminal** to pick it up — ones already open keep the `PATH` they started with.
+**Open a new terminal** to pick it up; ones already open keep the `PATH` they started with.
 After that, switching versions on the Switch page only re-points the link, so even open
 terminals follow along. The card shows "php → {version}" and where it points.
 
-If another PHP was on your `PATH` first — Laragon's, XAMPP's, WAMP's — the card tells you
+If another PHP was on your `PATH` first (Laragon's, XAMPP's, WAMP's) the card tells you
 before you turn it on ("Laragon already provides `php`. Turning this on puts Rezure ahead of
 it; turning it off hands it straight back.").
 
@@ -117,7 +117,7 @@ variable if nothing else is in it), and deletes the link folder. No PHP version 
 - A PHP on the **system** `PATH` still wins, because Windows reads the system `PATH` before
   the user `PATH`. If `where php` shows another PHP first after turning this on, remove that
   entry from the system `PATH` (System Properties → Environment Variables).
-- "The link is out of sync — switch a version to re-point it." means the link points somewhere
+- "The link is out of sync: switch a version to re-point it." means the link points somewhere
   unexpected; picking a version on the Switch page fixes it. Rezure also re-points it every
   time it starts.
 
@@ -129,6 +129,6 @@ The **Drop-in folder** card's **Open folder** opens `C:\rezure\custom\php`. See
 
 ## Related
 
-- [PHP Versions](/guide/php-versions) — install and switch versions
-- [PHP Extensions](/guide/php-extensions) — extensions per version
-- [Files & Folders](/guide/files-and-folders) — where everything lives
+- [PHP Versions](/guide/php-versions): install and switch versions
+- [PHP Extensions](/guide/php-extensions): extensions per version
+- [Files & Folders](/guide/files-and-folders): where everything lives

@@ -1,11 +1,11 @@
 ---
 title: Share a Local Site Publicly with Cloudflare Tunnel
-description: Share a local Rezure project on the internet temporarily with one click, using a Cloudflare Quick Tunnel — no account, no manual setup.
+description: Share a local Rezure project on the internet temporarily with one click, using a Cloudflare Quick Tunnel. No account, no manual setup.
 ---
 
 # Sharing a Project Publicly
 
-Rezure can expose a running local project to the internet for a short time — a demo for a
+Rezure can expose a running local project to the internet for a short time: a demo for a
 client, a quick check on your phone, or a link for a teammate who isn't on your network. One
 click on the **Projects** page starts a **Cloudflare Quick Tunnel** and gives you an
 `https://…trycloudflare.com` link you can copy and send.
@@ -18,12 +18,12 @@ Make sure the basics are already working locally:
 
 1. **Nginx is running** on the **Services** page. The tunnel forwards traffic into your
    local stack; if Nginx isn't up, the public link has nothing to reach.
-2. **The project opens locally** — click **Open** on the project row and confirm
+2. **The project opens locally**: click **Open** on the project row and confirm
    `myapp.test` (or whatever domain Rezure assigned) loads in your browser.
 3. **You have internet access.** Rezure talks to Cloudflare's edge to open the tunnel.
 
 That's it. PHP projects need their PHP service running, and the database only matters if the
-page you're sharing needs one — same as for local browsing.
+page you're sharing needs one, same as for local browsing.
 
 JavaScript and Node projects share the same way: the tunnel goes through Nginx to the project's
 [dev server](/guide/dev-servers), so start it first (click **Open**) and keep it running while
@@ -36,7 +36,7 @@ the link is out.
    Quick Tunnel)").
 3. Sharing starts straight away and a modal shows the progress: "Setting up your project…",
    "Starting the tunnel…", "Almost done…". The first time you share on a machine, Rezure also
-   downloads the `cloudflared` binary — that can take a few seconds.
+   downloads the `cloudflared` binary; that can take a few seconds.
 4. When the tunnel is ready, the modal shows a public URL like
    `https://random-words-here.trycloudflare.com`. Click **Copy** and send it to whoever
    needs access.
@@ -50,7 +50,7 @@ own link.
 ## What recipients see
 
 Anyone with the link can open your project in a normal browser while sharing stays on. They
-do **not** need Rezure, your Wi‑Fi, or a `.test` domain on their machine — the tunnel URL
+do **not** need Rezure, your Wi‑Fi, or a `.test` domain on their machine; the tunnel URL
 is the whole address.
 
 **New links can take up to a minute** before they respond from another device or network. If
@@ -67,7 +67,7 @@ The binary is stored at:
 C:\rezure\bin\cloudflared\<version>\cloudflared.exe
 ```
 
-After that, starting a share is usually just a few seconds — mostly waiting for Cloudflare
+After that, starting a share is usually just a few seconds, mostly waiting for Cloudflare
 to hand back the public URL.
 
 ## How it works (briefly)
@@ -83,9 +83,9 @@ Behind the button, Rezure:
 Frameworks often build absolute URLs from the local domain, and `myapp.test` means nothing
 on someone else's computer. So on the way back, the proxy rewrites them to the tunnel URL:
 
-- **Redirects** — a `Location: http://myapp.test/login` header sends the browser to
+- **Redirects**: a `Location: http://myapp.test/login` header sends the browser to
   `https://<tunnel>/login` instead.
-- **Page content** — in HTML, CSS, JavaScript, JSON, plain-text, and SVG responses, every
+- **Page content**: in HTML, CSS, JavaScript, JSON, plain-text, and SVG responses, every
   `http://myapp.test`, `https://myapp.test`, and bare `myapp.test` becomes the tunnel's
   `https://` address. That's what keeps Laravel's Vite asset links and similar absolute URLs
   working for visitors.
@@ -97,7 +97,7 @@ proxying after that.
 
 ## Limitations
 
-Sharing is meant for **temporary, local development use** — not for hosting a production
+Sharing is meant for **temporary, local development use**, not for hosting a production
 site.
 
 - **The URL changes** each time you start a new share. Quick Tunnels don't give you a fixed
@@ -113,7 +113,7 @@ site.
 - **This is not hardened production hosting.** Don't expose sensitive data, admin panels
   without authentication, or anything you wouldn't trust on a dev machine reachable from the
   internet.
-- Rezure does **not** open any database port publicly — only the web project you shared.
+- Rezure does **not** open any database port publicly; only the web project you shared.
 
 For a permanent public deployment, use a proper host and deploy pipeline instead.
 
@@ -140,7 +140,7 @@ keeps working once it's back.
 
 ### A share started but the link doesn't load from my phone
 
-Wait up to a minute — Quick Tunnel URLs sometimes need a short moment to propagate. Confirm
+Wait up to a minute: Quick Tunnel URLs sometimes need a short moment to propagate. Confirm
 Nginx is still running and the project still loads locally via **Open**.
 
 ### I closed the modal but sharing is still on
@@ -156,6 +156,6 @@ because the UI refreshed.
 
 ## Related
 
-- [First Run](/guide/first-run) — start services and serve a project locally first
-- [Projects](/guide/projects) — everything else the project actions do
-- [FAQ](/guide/faq) — ports, permissions, and what Rezure installs
+- [First Run](/guide/first-run): start services and serve a project locally first
+- [Projects](/guide/projects): everything else the project actions do
+- [FAQ](/guide/faq): ports, permissions, and what Rezure installs

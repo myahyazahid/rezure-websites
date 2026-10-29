@@ -1,6 +1,6 @@
 ---
-title: Requirements Check — Find Missing PHP Extensions
-description: Rezure's per-project Requirements Check finds missing PHP extensions, broken HTTPS from PHP, and mail, PostgreSQL, or SQL Server settings that won't connect — with a fix button where one exists.
+title: "Requirements Check: Find Missing PHP Extensions"
+description: 'Rezure''s Requirements Check finds missing PHP extensions, broken HTTPS from PHP, and mail or database settings that won''t connect, with a fix button.'
 ---
 
 # Requirements Check
@@ -15,8 +15,8 @@ that don't apply to the project are left out.
 
 ## PHP extensions
 
-Rezure reads the `ext-*` entries in the project's `composer.json` — both `require` and
-`require-dev` — and compares them with what PHP actually loads, using the same settings the web
+Rezure reads the `ext-*` entries in the project's `composer.json` (both `require` and
+`require-dev`), and compares them with what PHP actually loads, using the same settings the web
 server uses.
 
 | Result | Meaning |
@@ -33,7 +33,7 @@ and don't count as missing.
 
 - For most extensions the fix is a toggle: open [PHP Extensions](/guide/php-extensions), pick
   the same PHP version, turn the extension on, and restart PHP.
-- For the three extensions PHP doesn't ship — **redis**, **pdo_sqlsrv**, and **sqlsrv** — the
+- For the three extensions PHP doesn't ship (**redis**, **pdo_sqlsrv**, and **sqlsrv**), the
   dialog has an **Install** button that downloads a checksum-verified build. Restart the PHP
   service afterwards so running sites pick it up.
 
@@ -42,12 +42,12 @@ and don't count as missing.
 This check always runs. PHP makes a test request to `https://repo.packagist.org` and reports
 whether certificate verification works.
 
-- "HTTPS calls from PHP verify certificates." — all good.
-- A message about **cURL error 60** — PHP has no CA bundle to check certificates against, so
+- "HTTPS calls from PHP verify certificates.": all good.
+- A message about **cURL error 60**: PHP has no CA bundle to check certificates against, so
   every outgoing HTTPS call (Composer, payment APIs, OAuth) fails. Click **Download CA bundle**
   (or **Update CA bundle**), then restart PHP. See
   [PHP Configuration](/guide/php-configuration#ca-certificates).
-- "Couldn't reach the internet to test HTTPS…" — the test couldn't connect at all; check your
+- "Couldn't reach the internet to test HTTPS…": the test couldn't connect at all; check your
   connection and run it again.
 
 ## Mail
@@ -56,7 +56,7 @@ Shown when the project's `.env` sends mail over SMTP to a local host or to `mail
 
 - `MAIL_HOST=mailpit` is Laravel Sail's Docker hostname and doesn't exist outside Docker. Set
   `MAIL_HOST=127.0.0.1`.
-- A port other than 1025 — Laravel's default `.env` uses 2525 — gets a suggestion to set
+- A port other than 1025 (Laravel's default `.env` uses 2525) gets a suggestion to set
   `MAIL_PORT=1025`.
 - Mailpit not installed or not running gets **Install and start Mailpit** or **Start
   Mailpit**.
@@ -75,7 +75,7 @@ Shown when `.env` has `DB_CONNECTION=pgsql`.
 - `DB_PORT` isn't 5432 → set `DB_PORT=5432`.
 - The username isn't a role on the server → set `DB_USERNAME=root` (or `postgres`); any
   password works.
-- When ready: "PostgreSQL is ready — this project uses Rezure's server as root."
+- When ready: "PostgreSQL is ready: this project uses Rezure's server as root."
 
 See [PostgreSQL](/guide/postgresql).
 
@@ -92,7 +92,7 @@ Shown when `.env` has `DB_CONNECTION=sqlsrv`.
 - ODBC Driver 18 without certificate trust configured → a note to uncomment
   `'trust_server_certificate'` in `config/database.php` and set
   `DB_TRUST_SERVER_CERTIFICATE=true`.
-- When ready: "SQL Server is ready — this project uses Rezure's LocalDB." or "PHP can reach SQL
+- When ready: "SQL Server is ready: this project uses Rezure's LocalDB." or "PHP can reach SQL
   Server at {host}."
 
 See [SQL Server](/guide/sql-server).
@@ -102,14 +102,14 @@ See [SQL Server](/guide/sql-server).
 - **It runs on the global active PHP**, even for a project [pinned](/guide/project-php-version)
   to another version. For a pinned project, check its extensions with `php -m` in its
   [project terminal](/guide/project-terminal) instead.
-- **Only the default connection is checked** — whatever `DB_CONNECTION` says. Extra
+- **Only the default connection is checked**: whatever `DB_CONNECTION` says. Extra
   connections in `config/database.php` aren't.
 - A malformed `composer.json` is treated as "nothing to check".
 - The dialog's own hint about adding `extension=` lines to an `.ini` file predates the
-  [PHP Extensions](/guide/php-extensions) page — use the toggles there instead.
+  [PHP Extensions](/guide/php-extensions) page; use the toggles there instead.
 
 ## Related
 
-- [PHP Extensions](/guide/php-extensions) — turn extensions on and off per version
-- [Laravel .env Cheatsheet](/guide/laravel-env) — the right values for each engine
-- [Logs](/guide/logs) — when the check passes but the site still fails
+- [PHP Extensions](/guide/php-extensions): turn extensions on and off per version
+- [Laravel .env Cheatsheet](/guide/laravel-env): the right values for each engine
+- [Logs](/guide/logs): when the check passes but the site still fails

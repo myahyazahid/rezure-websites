@@ -1,13 +1,13 @@
 ---
 title: Connect to a Remote Database over an SSH Tunnel
-description: Connect Rezure to a staging server, VPS, or shared MySQL, MariaDB, PostgreSQL, or SQL Server instance — including databases reachable only through an SSH tunnel.
+description: 'Connect Rezure to MySQL, MariaDB, PostgreSQL, or SQL Server on a VPS or staging server over an SSH tunnel, and open it in TablePlus, DBeaver, or HeidiSQL.'
 ---
 
 # Remote Database Connections
 
 Rezure's **Databases** page isn't limited to the servers it runs locally. You can add
-**connections** to servers Rezure doesn't manage — a staging box, a VPS, a shared hosting
-instance, an office SQL Server — and use the same page to list databases, export dumps,
+**connections** to servers Rezure doesn't manage (a staging box, a VPS, a shared hosting
+instance, an office SQL Server) and use the same page to list databases, export dumps,
 import SQL, and hand a database off to the client you already use.
 
 Rezure never starts or stops a remote server. It only connects, reads, and (when you allow
@@ -21,19 +21,19 @@ Three kinds of server are supported: **MySQL / MariaDB**, **PostgreSQL**, and
 When you switch the **Databases** page to a saved connection, you get the same workflow as
 the local server, with a few deliberate differences:
 
-- **List databases** — table counts and sizes. The refresh icon re-reads them.
-- **Export** — dump a database to a file in `C:\rezure\dumps`. MySQL/MariaDB and PostgreSQL
-  write a `.sql` dump. (A remote SQL Server can't be exported from Rezure — see
+- **List databases**: table counts and sizes. The refresh icon re-reads them.
+- **Export**: dump a database to a file in `C:\rezure\dumps`. MySQL/MariaDB and PostgreSQL
+  write a `.sql` dump. (A remote SQL Server can't be exported from Rezure; see
   [below](#export-and-import-notes).)
-- **Import** — load a `.sql` file onto the remote server when the connection is not
+- **Import**: load a `.sql` file onto the remote server when the connection is not
   read-only. Rezure asks you to type the database name back before a remote import runs.
-- **Open** — launch your installed SQL client pointed at the remote server (through the
+- **Open**: launch your installed SQL client pointed at the remote server (through the
   tunnel, if one is configured).
 
 Remote targets are **read-only by default**. **New database** is disabled and **Import .sql**
 is hidden until you save a connection with **Read-only** turned off.
 
-The **Used by** column is hidden for remote servers — matching a database name to a local
+The **Used by** column is hidden for remote servers: matching a database name to a local
 project only makes sense on your machine.
 
 ## What Rezure needs locally
@@ -45,7 +45,7 @@ kind of server:
 | --- | --- | --- |
 | MySQL / MariaDB | Any installed MySQL or MariaDB build (its `mysql`/`mariadb` client and dump tool) | **Switch → Install version → MariaDB**, or a MySQL build unzipped into `C:\rezure\custom\mysql` |
 | PostgreSQL | Any installed PostgreSQL build (`psql` and `pg_dump`) | **Switch → Install version → PostgreSQL**, or **Install PostgreSQL** in the Add connection form |
-| SQL Server | Microsoft ODBC Driver 17 or 18 for SQL Server | **Install ODBC Driver** in the Add connection form or on PHP Extensions — see [SQL Server](/guide/sql-server) |
+| SQL Server | Microsoft ODBC Driver 17 or 18 for SQL Server | **Install ODBC Driver** in the Add connection form or on PHP Extensions. See [SQL Server](/guide/sql-server) |
 
 For PostgreSQL, Rezure uses the **newest** build you have installed, because `pg_dump`
 refuses to dump a server newer than itself. If a remote runs PostgreSQL 18, install 18
@@ -59,22 +59,22 @@ note saying what to install.
 1. Open the **Databases** page.
 2. Open the target switcher (top of the page) and click **+ Add connection**.
 3. Fill in the details:
-   - **Name** — a label you'll recognise (`Staging`, `Production read replica`, etc.).
-   - **Server type** — **MySQL / MariaDB**, **SQL Server**, or **PostgreSQL**. Picking one
+   - **Name**: a label you'll recognise (`Staging`, `Production read replica`, etc.).
+   - **Server type**: **MySQL / MariaDB**, **SQL Server**, or **PostgreSQL**. Picking one
      fills in its usual port and user (3306 / `root`, 1433 / `sa`, 5432 / `postgres`)
      unless you already typed your own.
-   - **Host** and **Port** — where the database listens **from the machine that connects to
+   - **Host** and **Port**: where the database listens **from the machine that connects to
      it** (see [SSH tunnel](#connect-through-an-ssh-tunnel) below if that's not your PC).
-   - **User** and **Password** — the database account, not the SSH login.
-   - **Server engine** (MySQL / MariaDB only) — **MySQL** or **MariaDB**. Rezure prefers
+   - **User** and **Password**: the database account, not the SSH login.
+   - **Server engine** (MySQL / MariaDB only): **MySQL** or **MariaDB**. Rezure prefers
      the matching client and falls back to the other one if that's all you have. A MariaDB
      client can't sign in to some MySQL 8 accounts; see
      [troubleshooting](#caching-sha2-password-or-authentication-plugin-errors).
-   - **Encryption** — **Automatic** (use TLS when the server offers it), **Required**
+   - **Encryption**: **Automatic** (use TLS when the server offers it), **Required**
      (refuse to connect without it), or **Off** (for a private network or an SSH tunnel).
-4. Click **Test connection**. On success Rezure shows "Connected — server reports" and the
+4. Click **Test connection**. On success Rezure shows "Connected: server reports" and the
    server's own version string. **Save** stays disabled until a test passes, and any change
-   to the form clears the result — so a green test means the saved connection works.
+   to the form clears the result, so a green test means the saved connection works.
 5. Click **Save**.
 
 Rezure refuses to save the same server twice: if host, port, user, and SSH host all match an
@@ -83,11 +83,11 @@ existing connection, it tells you which one.
 ### SQL Server specifics
 
 - **Host** can be a name and instance, like `db.office.local\SQLEXPRESS`. For a named
-  instance, leave **Port** empty — SQL Server Browser hands out the real port.
-- **Sign in with** — **SQL Server login** (user and password) or **Windows account**.
+  instance, leave **Port** empty; SQL Server Browser hands out the real port.
+- **Sign in with**: **SQL Server login** (user and password) or **Windows account**.
   Windows account signs in as the Windows user Rezure runs as; no password is stored
   anywhere. It works for servers on this machine and on your office domain.
-- **Trust server certificate** — off by default. Turn it on only for a server you trust that
+- **Trust server certificate**: off by default. Turn it on only for a server you trust that
   uses a self-signed certificate.
 - When you choose SQL Server, Rezure scans this PC for installed SQL Server editions and
   LocalDB instances and lists them under **Found on this computer**. Clicking one fills in the
@@ -106,9 +106,9 @@ only.
 
 Use the target switcher on the **Databases** page. It has two sections:
 
-- **Data directory** — your local MySQL/MariaDB profiles (see
+- **Data directory**: your local MySQL/MariaDB profiles (see
   [MariaDB & MySQL](/guide/mariadb-mysql)).
-- **Connections** — remote servers, plus Rezure's own PostgreSQL and SQL Server LocalDB once
+- **Connections**: remote servers, plus Rezure's own PostgreSQL and SQL Server LocalDB once
   they're installed.
 
 Pick a connection to read that server ("Now reading Staging."). Pick your local profile again
@@ -122,7 +122,7 @@ Databases page is displaying.
 
 A connection saved without a password shows an amber **Needs password** badge. Selecting it
 opens **Password for {name}**: type the password and click **Unlock**. The **Save it in
-Windows Credential Manager** checkbox there lets you change your mind either way — unticking
+Windows Credential Manager** checkbox there lets you change your mind either way: unticking
 it deletes a copy saved earlier.
 
 ## Connect through an SSH tunnel
@@ -136,8 +136,8 @@ for all three server types.
 
 With SSH enabled, there are two hops:
 
-1. **SSH** — your PC connects to the server (`SSH host`, `SSH port`, `SSH user`).
-2. **Database** — from the SSH server's point of view, the database is at **Host** and
+1. **SSH**: your PC connects to the server (`SSH host`, `SSH port`, `SSH user`).
+2. **Database**: from the SSH server's point of view, the database is at **Host** and
    **Port** in the main form.
 
 Turning the tunnel on pre-fills **Host** with `127.0.0.1`, because that's usually right:
@@ -158,7 +158,7 @@ ssh -N -L 127.0.0.1:<free port>:<db host>:<db port> user@ssh-host
 ```
 
 Because it's the standard OpenSSH client, your `~\.ssh\config` and `known_hosts` apply as
-usual. Everything after the tunnel is up — queries, exports, imports, opening in DBeaver —
+usual. Everything after the tunnel is up (queries, exports, imports, opening in DBeaver)
 goes through `127.0.0.1` on your machine, exactly as if the database were local.
 
 Each connection gets its own tunnel on its own free local port, so several tunnelled
@@ -173,7 +173,7 @@ Rezure supports two methods:
 
 **Private key (recommended)**
 
-- Point to the **private key file** itself — for example
+- Point to the **private key file** itself, for example
   `C:\Users\you\.ssh\id_ed25519`, not a folder and not your password typed into the path
   box.
 - Use **Browse** to pick the file.
@@ -188,7 +188,7 @@ Rezure supports two methods:
 **Password**
 
 - Enter the SSH login password in the **SSH password** field.
-- Rezure passes it to `ssh.exe` through OpenSSH's askpass mechanism — never on the command
+- Rezure passes it to `ssh.exe` through OpenSSH's askpass mechanism, never on the command
   line. Only one attempt is made per connection.
 - The SSH password is always kept in Windows Credential Manager, separately from the
   database password.
@@ -233,13 +233,13 @@ New connections default to **Read-only**. That blocks:
 - Importing SQL
 
 Leave read-only on for production servers you only want to inspect or export from. To write
-— staging imports, schema fixes, and the like — add the connection with **Read-only**
+(staging imports, schema fixes, and the like), add the connection with **Read-only**
 unticked.
 
 ## Change or remove a connection
 
-Saved connections can't be edited. To change anything — host, password policy, encryption,
-read-only — remove the connection and add it again.
+Saved connections can't be edited. To change anything (host, password policy, encryption,
+read-only), remove the connection and add it again.
 
 To remove one, hover its row in the switcher and click the trash icon. **There's no
 confirmation.** Removing a connection also deletes its saved passwords from Windows
@@ -250,7 +250,7 @@ LocalDB** connections can't be removed.
 
 **Exports** from remote servers land in `C:\rezure\dumps` like local exports, with the
 connection name prefixed on the filename (`staging-eu-blog-20261024-101500.sql`) so a staging
-dump doesn't get confused with a local one. Large remote dumps can take a while — the data
+dump doesn't get confused with a local one. Large remote dumps can take a while: the data
 crosses the network. MySQL/MariaDB exports show a progress bar and can be cancelled;
 PostgreSQL exports show progress but can't be cancelled.
 
@@ -303,23 +303,23 @@ Which client opens what is listed on [MariaDB & MySQL](/guide/mariadb-mysql#open
 
 ### Test connection fails with "SSH tunnel failed"
 
-Read the message — Rezure surfaces the last lines from `ssh`'s log. Common causes:
+Read the message: Rezure surfaces the last lines from `ssh`'s log. Common causes:
 
-- **Wrong SSH host, user, or key** — `Permission denied (publickey)` from the server.
-- **Key has a passphrase** — generate a deploy key without one, or use password auth.
-- **"no SSH key at …"** — the path doesn't point at a key file. Pick the file, not a folder
+- **Wrong SSH host, user, or key**: `Permission denied (publickey)` from the server.
+- **Key has a passphrase**: generate a deploy key without one, or use password auth.
+- **"no SSH key at …"**: the path doesn't point at a key file. Pick the file, not a folder
   or a password pasted into the key box.
-- **"didn't come up within 20s"** — the SSH server didn't answer in time: wrong host, a
+- **"didn't come up within 20s"**: the SSH server didn't answer in time: wrong host, a
   firewall, or a VPN you aren't connected to.
-- **Database host/port wrong on the server side** — remember Host is resolved **on the SSH
+- **Database host/port wrong on the server side**: remember Host is resolved **on the SSH
   server**, not on your PC. If MySQL listens on `127.0.0.1:3306` there, use exactly that.
-- **SQL Server named instance with no port** — a tunnel needs the instance's real TCP port.
+- **SQL Server named instance with no port**: a tunnel needs the instance's real TCP port.
   Put it in **Port**.
 
-### "can't reach host — the connection timed out"
+### "can't reach host: the connection timed out"
 
 Nothing answered. Usually a firewall is dropping the port, or the server only listens on
-`127.0.0.1` on its own machine — in which case use an SSH tunnel. "The connection was
+`127.0.0.1` on its own machine, in which case use an SSH tunnel. "The connection was
 refused" means the host answered but nothing listens on that port: check the server is
 running and the port is right.
 
@@ -343,13 +343,13 @@ the file, or import into a MySQL server.
 
 The server doesn't allow connections from your address. Add a line for your address to its
 `pg_hba.conf`, or connect through an SSH tunnel. A "server version mismatch" error means the
-remote is newer than your newest local PostgreSQL build — install that version or newer from
+remote is newer than your newest local PostgreSQL build; install that version or newer from
 the **Switch** page.
 
 ### SQL Server: certificate errors
 
 The server uses a certificate Windows doesn't trust. Remove and re-add the connection with
-**Trust server certificate** ticked — only for a server you trust. An "untrusted domain"
+**Trust server certificate** ticked, only for a server you trust. An "untrusted domain"
 error with **Windows account** means your PC isn't on the server's domain; use a SQL Server
 login instead.
 
@@ -385,17 +385,17 @@ then pick the connection again to get the **Unlock** dialog.
 
 SSH tunnels can die if the server closes idle sessions. Rezure sends keepalives, but a
 sleeping laptop or a changed server key can still break an old session. Switch away and
-back, or test the connection again — Rezure starts a fresh tunnel when the old one is dead.
+back, or test the connection again: Rezure starts a fresh tunnel when the old one is dead.
 
 ### Strict host key / first connect
 
 On first contact with an SSH server, Rezure accepts a new host key automatically
 (`StrictHostKeyChecking=accept-new`). If the server's key changes later, SSH will refuse
-the connection until you update `known_hosts` yourself — the same as any OpenSSH client.
+the connection until you update `known_hosts` yourself, the same as any OpenSSH client.
 
 ## Related
 
-- [MariaDB & MySQL](/guide/mariadb-mysql) — the local server and data directory profiles
-- [PostgreSQL](/guide/postgresql) and [SQL Server](/guide/sql-server) — the other local engines
-- [Laravel .env Cheatsheet](/guide/laravel-env) — connection values for every engine
-- [FAQ](/guide/faq) — ports, permissions, and what Rezure installs
+- [MariaDB & MySQL](/guide/mariadb-mysql): the local server and data directory profiles
+- [PostgreSQL](/guide/postgresql) and [SQL Server](/guide/sql-server): the other local engines
+- [Laravel .env Cheatsheet](/guide/laravel-env): connection values for every engine
+- [FAQ](/guide/faq): ports, permissions, and what Rezure installs

@@ -1,7 +1,7 @@
 ---
 title: How to Install Rezure on Windows
 titleTemplate: false
-description: Step-by-step install of Rezure on Windows 10 and 11 — requirements, checksum verification, what the installer sets up, where your data lives, and how to check it started cleanly.
+description: 'Install Rezure on Windows 10 or 11: requirements, checksum verification, what the installer sets up, where your data lives, and how to check it works.'
 ---
 
 # Installation
@@ -15,7 +15,7 @@ Windows install. The full list is on the [download page](/download).
 One thing worth checking first: **if another local server stack is running, stop it.** Port
 80 and port 3306 can't be shared with Rezure. You don't need to uninstall anything, just
 don't run two stacks at once. If you forget, Rezure tells you which program holds the port
-and can stop it for you — see [Port Conflicts](/guide/port-conflicts).
+and can stop it for you. See [Port Conflicts](/guide/port-conflicts).
 
 ## Install
 
@@ -71,7 +71,7 @@ Rezure asks for administrator approval in only two situations:
 - **Installing Microsoft's ODBC Driver or SQL Server LocalDB**, which are real Windows
   installs. Windows asks once per install. See [SQL Server](/guide/sql-server).
 
-Everything else — starting services, downloading runtimes, putting PHP on your `PATH` — runs
+Everything else (starting services, downloading runtimes, putting PHP on your `PATH`) runs
 as your normal user.
 
 ## Verify the install

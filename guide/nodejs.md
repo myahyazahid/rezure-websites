@@ -1,6 +1,6 @@
 ---
 title: Install and Switch Node.js Versions on Windows
-description: Install Node.js versions from nodejs.org inside Rezure, pick a global version, pin a version per project, and run Vite, Next.js, or Nuxt dev servers on .test domains — npm included.
+description: 'Install Node.js versions inside Rezure, pin one per project, and run Vite, Next.js, or Nuxt dev servers on .test domains on Windows, npm included.'
 ---
 
 # Node.js
@@ -23,7 +23,7 @@ below.
    unpacked into `C:\rezure\bin\node\<version>`.
 
 A Node build you downloaded yourself (the Windows `.zip`) can also be unzipped into
-`C:\rezure\custom\node` — Rezure picks it up on the next scan, without checksum verification.
+`C:\rezure\custom\node`; Rezure picks it up on the next scan, without checksum verification.
 
 ## The global version
 
@@ -31,7 +31,7 @@ Pick a version in the **Node.js** row of the Switch page; it shows "active X · 
 choice is remembered across restarts.
 
 The global version is what a [project terminal](/guide/project-terminal) gets, unless the
-project pins its own. Picking a version doesn't restart anything — open a new project terminal
+project pins its own. Picking a version doesn't restart anything; open a new project terminal
 to use it.
 
 There's no "Node everywhere" option like PHP has: Rezure doesn't touch your system `PATH` for
@@ -45,7 +45,7 @@ Node. Terminals Rezure didn't open keep using whatever Node you installed yourse
    ("Node.js 22.x · npm 10.x").
 3. Open a terminal from the project's row. `node -v` there shows the pinned version.
 
-While a version is pinned, the icon is filled in and its tooltip reads "Pinned to Node.js X —
+While a version is pinned, the icon is filled in and its tooltip reads "Pinned to Node.js X:
 click to change".
 
 A pin decides which `node`, `npm`, and `npx` come first on `PATH` in the **next** terminal
@@ -53,10 +53,10 @@ opened from that project's row, and which Node.js the project's
 [dev server](/guide/dev-servers) runs on the next time it starts. It doesn't restart anything,
 and a terminal that's already open keeps the version it started with.
 
-Rezure doesn't read `.nvmrc`, `.node-version`, or the `engines` field in `package.json` — the
+Rezure doesn't read `.nvmrc`, `.node-version`, or the `engines` field in `package.json`; the
 pin in Rezure is what counts.
 
-With no Node installed, the dialog says "No Node.js versions installed yet — install one from
+With no Node installed, the dialog says "No Node.js versions installed yet: install one from
 the Switch page first."
 
 ## JavaScript projects
@@ -94,7 +94,7 @@ There's no uninstall button. Quit Rezure and delete the folder under `C:\rezure\
 
 ## Related
 
-- [Dev Servers](/guide/dev-servers) — Vite, Next.js, Astro, and Nuxt on `.test` domains
-- [Project Terminal](/guide/project-terminal) — where Node versions apply
-- [PHP Versions](/guide/php-versions) — the Switch page in general
-- [Frameworks](/guide/frameworks) — how JavaScript projects are detected
+- [Dev Servers](/guide/dev-servers): Vite, Next.js, Astro, and Nuxt on `.test` domains
+- [Project Terminal](/guide/project-terminal): where Node versions apply
+- [PHP Versions](/guide/php-versions): the Switch page in general
+- [Frameworks](/guide/frameworks): how JavaScript projects are detected

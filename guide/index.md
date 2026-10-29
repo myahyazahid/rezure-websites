@@ -1,7 +1,7 @@
 ---
-title: What is Rezure?
+title: 'What is Rezure? The Best Local Development Server'
 titleTemplate: false
-description: An introduction to Rezure, the one-click local development environment for Windows — Nginx, PHP, MariaDB, PostgreSQL, SQL Server, Node.js dev servers, and Mailpit in one app.
+description: 'Rezure is a local dev environment for Windows: Nginx, PHP, MySQL, PostgreSQL, SQL Server, Node.js, and Mailpit behind one-click buttons.'
 ---
 
 # What is Rezure?
@@ -39,17 +39,17 @@ are never downloaded.
 - **Databases**: create, export, and import on the local MariaDB, adopt an existing Laragon
   or XAMPP data directory, run [PostgreSQL](/guide/postgresql) and
   [SQL Server LocalDB](/guide/sql-server) beside it, and reach
-  [remote servers](/guide/remote-databases) — including over an SSH tunnel.
+  [remote servers](/guide/remote-databases), including over an SSH tunnel.
 - **Node.js and Composer**: install versions from their official release feeds, pin Node per
   project, and open a [project terminal](/guide/project-terminal) with the right PHP and Node
   already first on `PATH`. See [Node.js](/guide/nodejs).
 - **Mail**: [Mailpit](/guide/mailpit) catches every email your app sends and shows it in a
   local inbox.
 - **Checks**: a [Requirements Check](/guide/requirements-check) per project spots missing PHP
-  extensions, broken HTTPS from PHP, and mail or database settings that won't connect — with
+  extensions, broken HTTPS from PHP, and mail or database settings that won't connect, with
   a fix button where one exists.
 - **Sharing**: expose a project temporarily on the internet with one click, via a Cloudflare
-  Quick Tunnel — no account or router setup. See [Sharing a Project](/guide/sharing).
+  Quick Tunnel, no account or router setup. See [Sharing a Project](/guide/sharing).
 - **AI coding agents**: Rezure keeps an `AGENTS.md` describing your machine's setup, so tools
   like Claude Code know how your stack runs. See [AI Coding Agents](/guide/ai-agents).
 - **Personal touches**: 14 themes, adjustable glass and brightness, and stickers you can place
@@ -58,7 +58,7 @@ are never downloaded.
 ## What it isn't
 
 Rezure runs native binaries on your machine, not containers: there's no Docker mode. It
-targets Windows only, and it's built for local development — not as a production web host.
+targets Windows only, and it's built for local development, not as a production web host.
 Sites are served over plain HTTP on `.test` domains; there's no local HTTPS yet. The Share
 feature is for short-lived demos and previews, not permanent public deployment.
 

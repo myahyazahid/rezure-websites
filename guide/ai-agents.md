@@ -1,13 +1,13 @@
 ---
 title: AI Coding Agents and AGENTS.md (Claude Code)
-description: Rezure keeps an AGENTS.md describing your machine's PHP, database, and projects, so AI coding agents like Claude Code know Rezure serves your projects — and how to point other agents at it.
+description: 'Rezure keeps an AGENTS.md of your PHP, databases, and projects, so Claude Code, Codex, and other AI coding agents know how your local stack runs.'
 ---
 
 # AI Coding Agents
 
 AI coding agents such as Claude Code, Codex, or Cursor know Laragon and XAMPP from their training
 data, but have never heard of Rezure. On a machine with both, an agent that runs `where php` or
-lists `C:\` tends to go looking for Laragon's config to explain how your project is served — and
+lists `C:\` tends to go looking for Laragon's config to explain how your project is served, and
 gets it wrong.
 
 Rezure fixes that by keeping a short, always-current description of your setup where agents
@@ -24,7 +24,7 @@ Three files in the Rezure home folder, `C:\rezure`:
 | `docs\how-rezure-works.md` | The full guide: services and ports, folder layout, projects, Nginx, PHP, each database, Mailpit, Laravel `.env` values, Node and Composer, sharing, and coexisting with Laragon and XAMPP. |
 
 Rezure writes them when it starts and checks every 60 seconds while it runs, rewriting
-`AGENTS.md` only when something actually changed — a new project, a switched PHP version, an
+`AGENTS.md` only when something actually changed: a new project, a switched PHP version, an
 installed database. There's no setting for it.
 
 **Rezure never writes into a project folder or an agent's own config.** And a file at one of
@@ -52,7 +52,7 @@ Besides the facts, `AGENTS.md` tells agents how to behave on a Rezure machine, r
   to start or stop it from Rezure (**Open**, or **Projects → Dev servers**), and don't start a
   second copy on that port. See [Dev Servers](/guide/dev-servers).
 - **Ask you** to start or stop services, switch versions, sync hosts, or toggle extensions in
-  the Rezure app — rather than killing `nginx.exe` or `php-cgi.exe`, running `initdb`, or
+  the Rezure app, rather than killing `nginx.exe` or `php-cgi.exe`, running `initdb`, or
   installing Microsoft packages itself.
 
 ## Claude Code
@@ -80,5 +80,5 @@ For a quick one-off, you can also just tell the agent: "This machine uses Rezure
 
 ## Related
 
-- [Project Terminal](/guide/project-terminal) — the shell agents should run commands in
-- [Files & Folders](/guide/files-and-folders) — what lives in `C:\rezure`
+- [Project Terminal](/guide/project-terminal): the shell agents should run commands in
+- [Files & Folders](/guide/files-and-folders): what lives in `C:\rezure`

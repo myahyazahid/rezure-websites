@@ -1,12 +1,13 @@
 ---
-title: Uninstall Rezure
-description: How to uninstall Rezure from Windows completely — the uninstaller, then the projects, databases, hosts entries, PATH changes, saved passwords, and Microsoft packages it leaves behind.
+title: 'How to Uninstall Rezure Completely from Windows'
+titleTemplate: false
+description: 'Uninstall Rezure from Windows completely: the uninstaller, then the projects, databases, hosts entries, PATH changes, and saved passwords it leaves behind.'
 ---
 
 # Uninstall Rezure
 
 Uninstalling the app removes the program, but deliberately **not** your projects, databases, or
-settings in `C:\rezure` — the same separation that makes reinstalling safe. This page covers
+settings in `C:\rezure`, the same separation that makes reinstalling safe. This page covers
 the uninstaller and then everything else, so you can remove as much or as little as you want.
 
 ## Before you uninstall
@@ -21,13 +22,13 @@ folder.
 4. On the **Switch** page, turn off **Use Rezure's PHP everywhere**. That removes Rezure's entry
    from your user `PATH` and from `PHP_INI_SCAN_DIR`.
 5. In **Settings**, turn off **Start Rezure with Windows**.
-6. On the **Databases** page, remove saved connections you no longer need — that also deletes
+6. On the **Databases** page, remove saved connections you no longer need; that also deletes
    their passwords from Windows Credential Manager.
 7. Quit Rezure from the tray icon.
 
 ## Run the uninstaller
 
-Open **Settings → Apps → Installed apps**, find **rezureapp**, and choose **Uninstall** — or run
+Open **Settings → Apps → Installed apps**, find **rezureapp**, and choose **Uninstall**, or run
 `uninstall.exe` in the folder Rezure was installed to. This removes the app and its bundled
 files.
 
@@ -36,7 +37,7 @@ files.
 ### `C:\rezure`
 
 Delete the folder to remove projects, databases, downloaded runtimes, settings, and logs in one
-go. **This deletes `www` and your databases** — make sure step 1 and 2 above are done.
+go. **This deletes `www` and your databases**; make sure step 1 and 2 above are done.
 
 Also delete these if they exist; they're from older versions of Rezure:
 
@@ -71,7 +72,7 @@ Open **Task Manager → Startup apps** and disable or remove Rezure's entry.
 
 ### SQL Server LocalDB and the ODBC Driver
 
-These are separate Microsoft installs, and uninstalling Rezure doesn't remove them — other
+These are separate Microsoft installs, and uninstalling Rezure doesn't remove them; other
 programs may use them too.
 
 If you're sure nothing else needs them, first remove Rezure's LocalDB instance in a terminal:
@@ -91,5 +92,5 @@ databases, same settings.
 
 ## Related
 
-- [Files & Folders](/guide/files-and-folders) — everything Rezure creates, and where
-- [Installation](/guide/installation) — installing again
+- [Files & Folders](/guide/files-and-folders): everything Rezure creates, and where
+- [Installation](/guide/installation): installing again

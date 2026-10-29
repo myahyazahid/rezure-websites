@@ -1,7 +1,7 @@
 ---
 title: Switching from Laragon or XAMPP to Rezure
 titleTemplate: false
-description: Moving from Laragon or XAMPP to Rezure on Windows — keep your existing MySQL databases and project folders, avoid port conflicts, and know what's different, like Nginx instead of Apache.
+description: 'Move from Laragon or XAMPP to Rezure on Windows: keep your MySQL databases and project folders, avoid port conflicts, and see what''s different.'
 ---
 
 # Switching from Laragon or XAMPP
@@ -15,11 +15,11 @@ data directory without copying it, and you can keep the old stack installed whil
 
 | You have | In Rezure |
 | --- | --- |
-| Projects in `C:\laragon\www` or `C:\xampp\htdocs` | Link each folder in place from the **Projects** page — nothing is copied or moved. See [Add an existing folder](/guide/projects#add-an-existing-folder). |
+| Projects in `C:\laragon\www` or `C:\xampp\htdocs` | Link each folder in place from the **Projects** page; nothing is copied or moved. See [Add an existing folder](/guide/projects#add-an-existing-folder). |
 | Laragon's or XAMPP's MySQL / MariaDB databases | **Add data directory** finds them at their default locations and serves them with that tool's own server binary and `my.ini`. See [Use a Laragon or XAMPP data directory](/guide/mariadb-mysql#use-a-laragon-or-xampp-data-directory). |
 | `root` with an empty password | An adopted data directory keeps its own users and passwords, so your `.env` files keep working. |
 | HeidiSQL, DBeaver, or another SQL client | Rezure finds installed clients, including Laragon's bundled HeidiSQL, and opens a database in them. |
-| `.test` domains | Rezure uses `.test` too — a folder named `myapp` becomes `myapp.test`. |
+| `.test` domains | Rezure uses `.test` too: a folder named `myapp` becomes `myapp.test`. |
 | Laravel, CodeIgniter, Symfony, WordPress projects | Each one's [framework](/guide/frameworks) is detected and served from the right folder (`public/` for Laravel, CodeIgniter 4, and Symfony), with no per-site config to write. |
 | Vite, Next.js, or Nuxt apps on `localhost:5173` | They get a `.test` domain too: Rezure runs the [dev server](/guide/dev-servers) and Nginx passes the domain to it. |
 
@@ -29,7 +29,7 @@ data directory without copying it, and you can keep the old stack installed whil
    inside the installer.
 2. **Stop Laragon or XAMPP.** Both stacks want port 80 and port 3306, and only one program can
    hold a port. You don't need to uninstall anything. If you forget, Rezure names the program
-   holding the port — "port 80 is held by Laragon (nginx.exe, pid 10244)" — and offers to stop
+   holding the port: "port 80 is held by Laragon (nginx.exe, pid 10244)", and offers to stop
    it. See [Port Conflicts](/guide/port-conflicts).
 3. **Adopt your databases.** On the **Databases** page, open the target switcher, click
    **+ Add data directory**, and add the Laragon or XAMPP install Rezure finds. Switch to it.
@@ -58,7 +58,7 @@ data directory without copying it, and you can keep the old stack installed whil
 
 ## Running both
 
-You can keep Laragon or XAMPP installed and switch back whenever you like — just don't run
+You can keep Laragon or XAMPP installed and switch back whenever you like; just don't run
 both stacks at once. One thing to watch: both Laragon and XAMPP can rewrite the Windows
 `hosts` file and remove Rezure's entries. If Rezure's domains keep dropping out of the `hosts` file,
 stop the other tool or turn off its own hosts management. See

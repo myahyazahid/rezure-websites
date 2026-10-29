@@ -1,6 +1,6 @@
 ---
 title: Service Logs for Nginx, PHP, and Databases
-description: Rezure's Logs page — a combined, filterable live tail of every service's output, plus where to find the logs that don't appear there.
+description: Rezure's Logs page, a combined, filterable live tail of every service's output, plus where to find the logs that don't appear there.
 ---
 
 # Logs
@@ -20,11 +20,11 @@ or **Paused**.
 
 ### Filtering
 
-- **Filter log text** — matches anywhere in the message.
-- **Service** — **All services**, or one of `nginx`, `php`, `mariadb`, `postgres`, `mailpit`,
+- **Filter log text**: matches anywhere in the message.
+- **Service**: **All services**, or one of `nginx`, `php`, `mariadb`, `postgres`, `mailpit`,
   plus one per pinned PHP version such as `php-8.1.34`. The `mariadb` filter also covers a
   MySQL profile.
-- **Level** — **All**, **Info**, **Warn**, or **Error**.
+- **Level**: **All**, **Info**, **Warn**, or **Error**.
 
 The level is worked out from the text itself: a line containing "error" or "fatal" counts as
 **Error**, one containing "warn" as **Warn**. That means a harmless line that merely mentions
@@ -34,7 +34,7 @@ lines.
 ### Pause and Clear
 
 **Pause** freezes the view so you can read. Lines that arrive while paused are **discarded**,
-not queued — click **Resume** to pick the tail back up. **Clear** empties the list.
+not queued; click **Resume** to pick the tail back up. **Clear** empties the list.
 
 ## What the page keeps
 
@@ -60,10 +60,10 @@ Some programs write to their own files instead of the console:
 SQL Server LocalDB produces no lines on this page, and there's no filter for it.
 
 A blank page or a **500** from a Laravel project usually has its reason only in
-`laravel.log`. A missing PHP extension is a common cause — the
+`laravel.log`. A missing PHP extension is a common cause; the
 [Requirements Check](/guide/requirements-check) finds those.
 
 ## Related
 
-- [Services](/guide/services) — the per-row log panel
-- [Troubleshooting](/guide/troubleshooting) — common errors and what they mean
+- [Services](/guide/services): the per-row log panel
+- [Troubleshooting](/guide/troubleshooting): common errors and what they mean

@@ -1,7 +1,7 @@
 ---
-title: Rezure FAQ
+title: 'Rezure FAQ: Local Dev Environment for Windows'
 titleTemplate: false
-description: Common questions about Rezure — what it installs, which PHP versions and databases it supports, how it handles ports and admin rights, what data it sends, and why it is Windows only.
+description: 'Answers about Rezure: supported PHP versions, frameworks, and databases, Node.js dev servers, ports, admin rights, privacy, and why it''s Windows only.'
 ---
 
 # Frequently asked questions
@@ -43,7 +43,7 @@ no macOS or Linux builds.
 
 ### Does Rezure use Docker?
 
-No. Rezure runs native binaries directly on your machine — there is no Docker mode.
+No. Rezure runs native binaries directly on your machine; there is no Docker mode.
 
 ### Is the app available in other languages?
 
@@ -55,7 +55,7 @@ Not yet. Rezure's interface is in English.
 
 Not at the same time, if the two want the same ports. Nginx and MariaDB listen on port 80
 and port 3306, and nothing else can share those while Rezure's services are running. You
-don't need to uninstall anything — just stop the other stack before starting Rezure's. If
+don't need to uninstall anything: just stop the other stack before starting Rezure's. If
 you forget, Rezure names the program holding the port and offers to stop it. See
 [Port Conflicts](/guide/port-conflicts).
 
@@ -66,7 +66,7 @@ and XAMPP run there.
 
 For two things only: editing the Windows `hosts` file so a project's `.test` domain resolves
 (when you click **Sync hosts file**), and installing Microsoft's ODBC Driver or SQL Server
-LocalDB if you choose to. Declining the `hosts` prompt leaves the rest of the app working —
+LocalDB if you choose to. Declining the `hosts` prompt leaves the rest of the app working;
 the domain just won't resolve until the entry is added.
 
 ### Should I run Rezure as administrator?
@@ -77,13 +77,13 @@ it normally; Windows asks for approval on its own when the `hosts` file needs to
 ### Windows SmartScreen warns about an unrecognized publisher. Is that a problem?
 
 That warning is about code signing, not a virus report. Verify the installer's SHA-256 hash
-against the one on the [release page](https://github.com/myahyazahid/rezure/releases) — the
-[verification steps](/download#verify-your-download) take about ten seconds — and if it
+against the one on the [release page](https://github.com/myahyazahid/rezure/releases) (the
+[verification steps](/download#verify-your-download) take about ten seconds), and if it
 matches, choose **More info → Run anyway**.
 
 ### Do services start when Rezure opens?
 
-No. Nothing starts until you start it — not when Rezure opens, and not with **Start Rezure with
+No. Nothing starts until you start it: not when Rezure opens, and not with **Start Rezure with
 Windows** on either. **Start all** on the Services page brings everything up at once. See
 [Services](/guide/services).
 
@@ -122,7 +122,7 @@ databases, set `REZURE_HOME`, start fresh, and import them again. See
 
 ### Can I use a domain other than `.test`?
 
-Not as the automatic suffix — it's always `.test`, because browsers force `.dev` onto HTTPS and
+Not as the automatic suffix: it's always `.test`, because browsers force `.dev` onto HTTPS and
 `.local` belongs to mDNS. A [linked project](/guide/projects#add-an-existing-folder) can be given
 any valid domain when you add it.
 
@@ -171,13 +171,13 @@ their folder directly: requests go to the dev server. See
 
 ### Can I serve a site to the internet with Rezure?
 
-For a **temporary preview**, yes — use **Share** on the **Projects** page. Rezure opens a
+For a **temporary preview**, yes: use **Share** on the **Projects** page. Rezure opens a
 Cloudflare Quick Tunnel and gives you an `https://…trycloudflare.com` link anyone can open
 while sharing is on. No Cloudflare account or router setup is required. See
 [Sharing a Project](/guide/sharing) for the full walkthrough.
 
 That is **not** production hosting. The URL changes each time you share, the tunnel stops
-when you stop sharing or quit Rezure, and the feature is meant for demos and quick checks —
+when you stop sharing or quit Rezure, and the feature is meant for demos and quick checks,
 not a permanent public site. For that, deploy to a real host.
 
 ### Does Rezure work with Claude Code and other AI coding agents?
@@ -191,8 +191,8 @@ and Claude Code picks it up automatically in projects under `www`. See
 ### Which PHP versions can I use?
 
 PHP 8.3 ships inside the installer. From the **Switch** page you can install whatever php.net
-currently publishes for Windows — the newest release of each branch, non-thread-safe x64
-builds — or drop a build you already downloaded into `C:\rezure\custom\php` and Rezure picks
+currently publishes for Windows (the newest release of each branch, non-thread-safe x64
+builds) or drop a build you already downloaded into `C:\rezure\custom\php` and Rezure picks
 it up on the next scan. Switching the global default restarts the main **PHP** service only;
 Nginx keeps running. See [PHP Versions](/guide/php-versions).
 
@@ -205,7 +205,7 @@ projects need, or use **Start all**. See [PHP Per Project](/guide/project-php-ve
 
 ### How do I change a `php.ini` setting?
 
-Put it in a `.ini` file in `C:\rezure\etc\php\conf.d` — Rezure rewrites its own `php.ini` on
+Put it in a `.ini` file in `C:\rezure\etc\php\conf.d`: Rezure rewrites its own `php.ini` on
 every start, so edits there don't stick. Extensions are toggles on the
 [PHP Extensions](/guide/php-extensions) page. See [PHP Configuration](/guide/php-configuration).
 
@@ -215,7 +215,7 @@ Not yet. It's on the roadmap.
 
 ### Does Rezure include Composer?
 
-Yes — install versions from the Switch page. Rezure uses Composer itself for new Laravel
+Yes: install versions from the Switch page. Rezure uses Composer itself for new Laravel
 projects, but doesn't put a `composer` command on `PATH`. See
 [Project Terminal](/guide/project-terminal#running-composer).
 
@@ -234,20 +234,20 @@ Not available. Python is listed on the Switch page as "not available yet".
 
 ### Is MariaDB included in the installer?
 
-No, and that's on purpose. MariaDB downloads the first time you start it — a one-time wait
+No, and that's on purpose. MariaDB downloads the first time you start it: a one-time wait
 of a minute or two, and only if you actually need a database.
 
 ### Can I keep using my Laragon or XAMPP databases?
 
 Yes. **Add data directory** on the Databases page finds Laragon's and XAMPP's MySQL data at
-their default locations and serves it with that tool's own server binary — nothing is copied or
+their default locations and serves it with that tool's own server binary; nothing is copied or
 converted. Only one of the two tools can run it at a time. See
 [MariaDB & MySQL](/guide/mariadb-mysql#use-a-laragon-or-xampp-data-directory), and
 [Coming from Laragon or XAMPP](/guide/switch-from-laragon-xampp) for moving your projects too.
 
 ### Does Rezure support PostgreSQL?
 
-Yes — versions 16, 17, and 18, installed from inside the app and running beside MariaDB. See
+Yes: versions 16, 17, and 18, installed from inside the app and running beside MariaDB. See
 [PostgreSQL](/guide/postgresql).
 
 ### Does Rezure support SQL Server?
@@ -258,18 +258,18 @@ Server 2022 Express LocalDB, and connects to other SQL Server instances. See
 
 ### Does Rezure include Redis?
 
-The `redis` PHP extension, yes — install it from PHP Extensions. A Redis server isn't part of
+The `redis` PHP extension, yes: install it from PHP Extensions. A Redis server isn't part of
 Rezure yet.
 
 ### Can Rezure connect to a remote database?
 
 Yes. From the **Databases** page you can add a saved connection to a MySQL, MariaDB,
-PostgreSQL, or SQL Server server — staging, a VPS, shared hosting, an office server — and
+PostgreSQL, or SQL Server server (staging, a VPS, shared hosting, an office server) and
 switch the page to that target to list, export, and import databases. Connections are
 **read-only by default** so you don't accidentally write to production.
 
-If the database isn't reachable directly — it only listens on `127.0.0.1` on the server, or
-the port is firewalled — enable **Connect through an SSH tunnel** when adding the
+If the database isn't reachable directly (it only listens on `127.0.0.1` on the server, or
+the port is firewalled), enable **Connect through an SSH tunnel** when adding the
 connection. Rezure uses Windows' built-in OpenSSH client; no extra SSH software is required.
 See [Remote Databases](/guide/remote-databases) for field-by-field setup and examples.
 
@@ -283,7 +283,7 @@ password in its own dialog. See
 
 ### Where are database passwords stored?
 
-In Windows Credential Manager, under **Rezure Database Connections** — or only in memory for the
+In Windows Credential Manager, under **Rezure Database Connections**, or only in memory for the
 session, if you choose. Never in Rezure's own files.
 
 ## Privacy

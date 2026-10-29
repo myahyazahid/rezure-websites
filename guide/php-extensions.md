@@ -6,7 +6,7 @@ description: Turn PHP extensions on and off per version in Rezure without editin
 # PHP Extensions
 
 The **PHP Extensions** page turns on extensions the PHP zip already ships in its `ext\` folder,
-and installs the few it doesn't — Redis and the SQL Server drivers. No hand-edited `.ini`
+and installs the few it doesn't: Redis and the SQL Server drivers. No hand-edited `.ini`
 fragment needed.
 
 ## Pick a version
@@ -16,13 +16,13 @@ Extensions are set **per PHP version**. When more than one version is installed,
 active version. A project [pinned](/guide/project-php-version) to PHP 8.1 uses PHP 8.1's
 settings, so edit that version for that project.
 
-With no PHP installed the page says "No PHP version installed yet — install one from Switch
+With no PHP installed the page says "No PHP version installed yet: install one from Switch
 first."
 
 ## Turn an extension on or off
 
-Extensions are grouped by category — Database, Debug, Filesystem, Format, Image, Math, Network,
-Performance, Security, System — and **Filter extensions** searches them. Each row has a label,
+Extensions are grouped by category (Database, Debug, Filesystem, Format, Image, Math, Network,
+Performance, Security, System) and **Filter extensions** searches them. Each row has a label,
 the extension's name, a short description, and a switch.
 
 A switch **saves your choice** for that version. It takes effect the next time that PHP version
@@ -41,18 +41,18 @@ Some you'll likely want to turn on:
 
 - **`pdo_pgsql`** for a project on [PostgreSQL](/guide/postgresql). Laravel otherwise fails with
   "could not find driver".
-- **`bcmath`**, **`sodium`**, **`exif`** — common Composer requirements. The
+- **`bcmath`**, **`sodium`**, **`exif`**: common Composer requirements. The
   [Requirements Check](/guide/requirements-check) tells you which ones a project asks for.
 - **`opcache`** is off on purpose: a stale cache can hide the code change you just made. Turn
   it on if you're measuring performance, not while you edit.
 
 ### Badges
 
-- **special** — environment-dependent or debug-only extensions (`oci8`, `pdo_oci`,
+- **special**: environment-dependent or debug-only extensions (`oci8`, `pdo_oci`,
   `zend_test`, `phpdbg_webhelper`), not something an ordinary project needs.
-- **not in this build** — the extension's DLL isn't in this version's `ext\` folder and there's
+- **not in this build**: the extension's DLL isn't in this version's `ext\` folder and there's
   no download for it.
-- **not available for PHP X yet** — a download exists for other PHP versions, but not this one.
+- **not available for PHP X yet**: a download exists for other PHP versions, but not this one.
 
 ## Install Redis or the SQL Server drivers
 
@@ -85,7 +85,7 @@ Rezure keeps two `php.ini` files per version, because PHP gets started two ways:
   `C:\rezure\bin\php\8.4.x\php.ini`. Rezure writes it once, with the extensions that were on at
   the time, and then leaves it to you.
 
-So **switches on this page don't change what `php` in a terminal loads** — with one exception:
+So **switches on this page don't change what `php` in a terminal loads**, with one exception:
 extensions you *install* here (Redis, SQL Server) are added to the terminal `php.ini` too.
 
 If an extension works in the browser but `php -m` in a terminal doesn't list it, open that
@@ -107,6 +107,6 @@ Xdebug isn't offered on this page yet. It's on the roadmap.
 
 ## Related
 
-- [Requirements Check](/guide/requirements-check) — which extensions a project needs
-- [PHP Configuration](/guide/php-configuration) — your own `php.ini` settings
-- [PHP Versions](/guide/php-versions) — install more versions
+- [Requirements Check](/guide/requirements-check): which extensions a project needs
+- [PHP Configuration](/guide/php-configuration): your own `php.ini` settings
+- [PHP Versions](/guide/php-versions): install more versions

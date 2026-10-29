@@ -27,13 +27,13 @@ restarting stops your services. Your projects, databases, and settings in `C:\re
 touched.
 
 If the download fails, the error is shown on the card; click **Update** to try again. If the
-**check** fails — you're offline, say — nothing is shown at all, so it looks the same as "no
+**check** fails, you're offline, say, nothing is shown at all, so it looks the same as "no
 update". Open Changelog again once you're back online.
 
 ## How updates are verified
 
 - Every update is **signed**. The public key is built into the app, and an update whose
-  signature doesn't match — signed with another key, or altered after signing — is downloaded
+  signature doesn't match (signed with another key, or altered after signing) is downloaded
   but **refused**.
 - An update must be a **newer version** than the one you have. Rezure never installs an older
   build through the updater.
@@ -48,7 +48,7 @@ install. See [Download](/download#previous-versions).
 
 The updater stays within your **major version**: Rezure 3.x only updates to newer 3.x releases.
 
-When a new major version is out, the Changelog page shows a banner — **Rezure v4 is out**, with
+When a new major version is out, the Changelog page shows a banner: **Rezure v4 is out**, with
 a short message and **Learn more**. **Learn more** opens the website in your browser; it never
 downloads or installs anything. Moving to a new major version is always your choice.
 
@@ -63,5 +63,5 @@ sidebar dot.
 
 ## Related
 
-- [Download](/download) — installers and checksums
-- [Privacy & Usage Data](/guide/privacy) — what Rezure sends, and what it doesn't
+- [Download](/download): installers and checksums
+- [Privacy & Usage Data](/guide/privacy): what Rezure sends, and what it doesn't

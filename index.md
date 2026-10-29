@@ -1,19 +1,19 @@
 ---
-# Rendered by .vitepress/theme/Landing.vue — VitePress resolves an unknown
+# Rendered by .vitepress/theme/Landing.vue: VitePress resolves an unknown
 # `layout` name to a globally registered component. All copy lives here; the
 # component only owns the arrangement.
 layout: Landing
 
 # `titleTemplate: false` keeps the home <title> from picking up the " | Rezure"
 # suffix that every other page gets.
-title: Rezure Free Web Server
+title: Rezure | Best Local Development Server
 titleTemplate: false
-description: Rezure is a free, open-source web server for local development and a lightweight Laragon and XAMPP alternative. Run Nginx, PHP, MySQL or MariaDB, PostgreSQL, SQL Server, Node.js, and Mailpit with one click. Available now for Windows.
+description: 'Rezure is the best local development server for Windows: Nginx, PHP, MySQL, PostgreSQL, SQL Server, Node.js, and Mailpit in one click. Free, open source.'
 
 hero:
-  eyebrow: Rezure · Free web server · Open source
-  headline: Local dev environment for chill devs
-  tagline: Rezure runs Nginx, PHP, and your database on Windows with one click — a lightweight local server for Laravel, WordPress, and PHP projects. No manual setup.
+  eyebrow: Free · Open source · For Windows
+  headline: The best local development server
+  tagline: Nginx, PHP, MySQL, PostgreSQL, SQL Server, Node.js, and Mailpit, installed, running, and wired to a .test domain for every project. No config files, no Docker.
   actions:
     - text: Download
       link: /download
@@ -25,7 +25,7 @@ hero:
       link: https://github.com/myahyazahid/rezure
       theme: ghost
 
-# Illustration in the hero, not a screenshot — it stands in for the service
+# Illustration in the hero, not a screenshot; it stands in for the service
 # manager screen. Replace with a real capture of the app when one exists.
 # Versions and ports mirror what Rezure 3.x actually ships and listens on.
 services:
@@ -50,17 +50,17 @@ services:
     running: false
     icon: postgresql
 
-featuresTitle: Everything the stack needs, in one window
+featuresTitle: Everything a developer needs, in one window
 
 features:
   - title: One-click service manager
     link: /guide/services
     icon: power
-    details: Start, stop, and restart Nginx, PHP, your databases, and Mailpit from one screen — one at a time or all at once — with a log for every service and automatic PHP restarts after a crash.
+    details: Start, stop, and restart Nginx, PHP, your databases, and Mailpit from one screen, one at a time or all at once, with a log for every service and automatic PHP restarts after a crash.
   - title: Port conflicts caught early
     link: /guide/port-conflicts
     icon: docker
-    details: Rezure checks every port before a service starts, names whatever is holding it — Laragon, XAMPP, Docker, IIS — and can stop it for you with one click.
+    details: Rezure checks every port before a service starts, names whatever is holding it (Laragon, XAMPP, Docker, IIS), and can stop it for you with one click.
   - title: Virtual hosts that know your framework
     link: /guide/frameworks
     icon: nginx
@@ -68,7 +68,7 @@ features:
   - title: PHP per project
     link: /guide/project-php-version
     icon: php
-    details: Install any PHP version straight from php.net, toggle its extensions without editing an .ini, and pin each project to its own version — several versions serve at the same time.
+    details: Install any PHP version straight from php.net, toggle its extensions without editing an .ini, and pin each project to its own version. Several versions serve at the same time.
   - title: MariaDB and MySQL
     link: /guide/mariadb-mysql
     icon: mariadb
@@ -91,7 +91,7 @@ features:
     details: Every download is checked against a published checksum, everything lives in one folder, and Tauri's native webview keeps the app small and easy on memory.
 
 whyTitle: Why Rezure
-whyLede: A one-click local stack on Windows should feel effortless. Rezure builds that on a modern foundation — Tauri and Rust — with a few things we wanted for our own day-to-day work, and it reads your existing Laragon or XAMPP databases if you're coming from one of them.
+whyLede: One app should be enough to build anything locally on Windows, from a Laravel API to a WordPress site or a Next.js front end, without juggling XAMPP, a Node install, and three database servers. Rezure builds that on Tauri and Rust, and reads your existing Laragon or XAMPP databases if you're coming from one of them.
 
 reasons:
   - title: Nothing to download before you start
@@ -102,8 +102,8 @@ reasons:
     details: A native webview instead of a bundled browser engine keeps both the binary and the memory use modest.
 
 cta:
-  title: Ready to try it?
-  text: Rezure is in active development and open source. Bug reports and pull requests are welcome on GitHub.
+  title: Your whole dev stack, one download
+  text: Rezure is free, open source, and in active development. Bug reports and pull requests are welcome on GitHub.
   action:
     text: Download for Windows
     link: /download

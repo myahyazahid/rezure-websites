@@ -1,11 +1,11 @@
 ---
 title: Run PostgreSQL 16, 17, or 18 Locally on Windows
-description: Run PostgreSQL 16, 17, or 18 locally with Rezure on Windows — install, start, switch versions, create, export, and import databases, and connect Laravel with no .env password.
+description: 'Run PostgreSQL 16, 17, or 18 locally on Windows with Rezure: install, switch versions, create, export, and import databases, and connect Laravel.'
 ---
 
 # PostgreSQL
 
-Rezure can run a local PostgreSQL server next to MariaDB — not instead of it. It uses EDB's
+Rezure can run a local PostgreSQL server next to MariaDB, not instead of it. It uses EDB's
 portable Windows builds, so nothing is installed into Windows, there's no Windows service, and
 no administrator prompt.
 
@@ -13,9 +13,9 @@ no administrator prompt.
 
 Any of these installs PostgreSQL:
 
-- **Install** on the **PostgreSQL** row of the [Services](/guide/services) page — installs the
+- **Install** on the **PostgreSQL** row of the [Services](/guide/services) page: installs the
   newest version.
-- **Switch → Install version → PostgreSQL** — pick a version.
+- **Switch → Install version → PostgreSQL**: pick a version.
 - **Install PostgreSQL** in the [Requirements Check](/guide/requirements-check) of a project
   that uses `pgsql`, or in the Add connection form.
 
@@ -44,13 +44,13 @@ rights … close it and open it normally". Open Rezure normally and start it aga
 The server has two superusers: **`postgres`**, PostgreSQL's usual one, and **`root`**, which
 Rezure adds because it's Laravel's default `pgsql` username.
 
-Local connections use **trust** authentication, so **no password is needed** — any password,
+Local connections use **trust** authentication, so **no password is needed**: any password,
 or none, is accepted. That's convenient on your own laptop and would be unsafe anywhere else;
 the server only listens on `127.0.0.1`.
 
 ## Connect Laravel
 
-Turn on **`pdo_pgsql`** for your PHP version first — it ships with PHP but is off by default.
+Turn on **`pdo_pgsql`** for your PHP version first; it ships with PHP but is off by default.
 Do it on [PHP Extensions](/guide/php-extensions), or click **Turn on pdo_pgsql** in the
 project's Requirements Check. Without it Laravel fails with "could not find driver".
 
@@ -66,8 +66,8 @@ DB_PASSWORD=
 ```
 
 Laravel's default `pgsql` settings already use `root` and port 5432, so a fresh project
-connects with only `DB_CONNECTION` and `DB_DATABASE` changed. Create the database first —
-below — and restart PHP after turning the extension on.
+connects with only `DB_CONNECTION` and `DB_DATABASE` changed. Create the database first
+(below), and restart PHP after turning the extension on.
 
 ## On the Databases page
 
@@ -82,7 +82,7 @@ server. It can't be removed.
 | **Export** | A plain `.sql` dump (`pg_dump`, without owner or privilege statements) into `C:\rezure\dumps`. It shows progress but can't be cancelled. |
 | **Import .sql** | Creates the database if it's missing, then runs the file. It stops at the first error and names the line ("line 12: …"). Not transactional. |
 
-There's no drop button — use `DROP DATABASE myapp;` in a client.
+There's no drop button; use `DROP DATABASE myapp;` in a client.
 
 Importing into a database that **already exists** stops at the first table that's already
 there, so import into a new name to be safe.
@@ -96,8 +96,8 @@ nothing to list yet. Start it from Services, then retry."
 | --- | --- |
 | TablePlus | The database |
 | DBeaver | The database |
-| pgAdmin 4 | Just opens ("server only") — add the server in pgAdmin yourself |
-| **psql console** | Always listed — a `psql` session on the database |
+| pgAdmin 4 | Just opens ("server only"); add the server in pgAdmin yourself |
+| **psql console** | Always listed: a `psql` session on the database |
 
 For TablePlus, DBeaver, or anything else, the details are host `127.0.0.1`, port `5432`, user
 `postgres` or `root`, and any password.
@@ -114,7 +114,7 @@ Rezure stops it cleanly and starts the new version ("Switching PostgreSQL…"). 
 remembered.
 
 ::: warning Each major version has its own data
-Switching from 17 to 18 starts on **18's** data folder — your databases from 17 don't come
+Switching from 17 to 18 starts on **18's** data folder; your databases from 17 don't come
 along. To move them, export each one while 17 is active, switch, and import them into 18.
 Rezure doesn't run `pg_upgrade`.
 :::
@@ -138,7 +138,7 @@ service. Stop it in `services.msc` (it's named like **postgresql-x64-17**). See
 
 ### "role … does not exist"
 
-The `DB_USERNAME` isn't `root` or `postgres`. Use one of those — any password works.
+The `DB_USERNAME` isn't `root` or `postgres`. Use one of those; any password works.
 
 ### My databases disappeared after switching versions
 
@@ -147,6 +147,6 @@ export and import to move them.
 
 ## Related
 
-- [Laravel .env Cheatsheet](/guide/laravel-env) — values for every engine
-- [Remote Databases](/guide/remote-databases) — PostgreSQL on another server
-- [PHP Extensions](/guide/php-extensions) — turning on `pdo_pgsql`
+- [Laravel .env Cheatsheet](/guide/laravel-env): values for every engine
+- [Remote Databases](/guide/remote-databases): PostgreSQL on another server
+- [PHP Extensions](/guide/php-extensions): turning on `pdo_pgsql`

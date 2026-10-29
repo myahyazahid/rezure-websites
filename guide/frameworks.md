@@ -1,6 +1,6 @@
 ---
 title: Serve Laravel, CodeIgniter 4, and Symfony from public/
-description: How Rezure detects Laravel, CodeIgniter 4, Symfony, WordPress, Drupal, Next.js, Vite, and 15 more frameworks, serves each from the right folder like public/, and lets you correct it or add your own.
+description: 'Rezure detects Laravel, CodeIgniter 4, Symfony, WordPress, Drupal, Next.js, and more, and serves each from the right folder. Change it or add your own.'
 ---
 
 # Frameworks
@@ -70,8 +70,8 @@ and a Next.js app is Next.js, not React.
 ## See what a project is served as
 
 Every project shows its framework as a badge on the [Projects](/guide/projects) page, in both
-list and grid view. Hover it to see the folder it's served from: "Detected from the project's
-files, served from public/ — click to change". For a dev-server project the badge also shows
+list and grid view. Hover it to see the folder it's served from, such as `public/`, and
+click it to change the framework. For a dev-server project the badge also shows
 its port, such as `Astro · :4400`.
 
 When you link a folder with **Add folder**, the dialog shows the framework and the folder it'll
@@ -101,8 +101,8 @@ The list also has two special entries:
   `public` or `src/web`. This is also how you serve a JavaScript project's **built** `dist/`
   folder as plain files instead of through its dev server.
 
-A badge with a dot was set by you. Its tooltip reads "Set manually (detected: Node), served
-from public/ — click to change", so you can always see what detection thought.
+A badge with a dot was set by you. Its tooltip still names what detection found (for
+example "detected: Node"), so you can always see what Rezure thought.
 
 Changing the framework works for projects in `www` and linked projects alike. Choices are kept
 in `C:\rezure\etc\project-frameworks.json`:
@@ -220,6 +220,6 @@ custom folder only as `custom`. See [Privacy & Usage Data](/guide/privacy).
 
 ## Related
 
-- [Projects](/guide/projects) — domains, the hosts file, and every action on a project
-- [Dev Servers](/guide/dev-servers) — Vite, Next.js, Astro, and Nuxt on `.test` domains
-- [Coming from Laragon or XAMPP](/guide/switch-from-laragon-xampp) — moving existing projects over
+- [Projects](/guide/projects): domains, the hosts file, and every action on a project
+- [Dev Servers](/guide/dev-servers): Vite, Next.js, Astro, and Nuxt on `.test` domains
+- [Coming from Laragon or XAMPP](/guide/switch-from-laragon-xampp): moving existing projects over

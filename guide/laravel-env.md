@@ -1,6 +1,6 @@
 ---
 title: Laravel .env for MySQL, PostgreSQL, SQL Server, and Mailpit
-description: The .env values for a Laravel project on Rezure — MariaDB or MySQL, PostgreSQL, SQL Server LocalDB, another SQL Server, Mailpit, and APP_URL — in one place.
+description: 'Every .env value a Laravel project on Rezure needs, in one place: MariaDB or MySQL, PostgreSQL, SQL Server LocalDB, Mailpit, and APP_URL.'
 ---
 
 # Laravel .env Cheatsheet
@@ -14,7 +14,7 @@ Every value a Laravel project needs to talk to Rezure's services, in one place. 
 APP_URL=http://myapp.test
 ```
 
-Use your project's domain from the Projects page, over plain `http://` — there's no local HTTPS.
+Use your project's domain from the Projects page, over plain `http://`; there's no local HTTPS.
 
 ## MariaDB or MySQL
 
@@ -43,7 +43,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-- Turn on **`pdo_pgsql`** on [PHP Extensions](/guide/php-extensions) — it's off by default.
+- Turn on **`pdo_pgsql`** on [PHP Extensions](/guide/php-extensions): it's off by default.
 - `postgres` works as the username too. Any password is accepted.
 - Create the database on the **Databases** page with the **PostgreSQL** connection selected.
 
@@ -115,10 +115,10 @@ Redis server running elsewhere.
 ## Check it
 
 The project's [Requirements Check](/guide/requirements-check) reads `.env` and flags the common
-mistakes above for the default database connection and for mail — with a fix button where
+mistakes above for the default database connection and for mail, with a fix button where
 there is one.
 
 ## Related
 
-- [First Run](/guide/first-run) — the first database connection
-- [Project Terminal](/guide/project-terminal) — `php artisan migrate` on the right PHP
+- [First Run](/guide/first-run): the first database connection
+- [Project Terminal](/guide/project-terminal): `php artisan migrate` on the right PHP
